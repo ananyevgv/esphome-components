@@ -1,5 +1,8 @@
 # ESPHome component MQ gaz sensor
 
+основан на
+https://github.com/nonameplum/esphome_devices
+
 ```yaml
 external_components:
   source: github://ananyevgv/esphome-components
