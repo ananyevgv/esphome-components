@@ -20,7 +20,11 @@ enum MQModel {
   MQ_MODEL_7,
   MQ_MODEL_8,
   MQ_MODEL_9,
+  MQ_MODEL_131,
   MQ_MODEL_135,
+  MQ_MODEL_136,
+  MQ_MODEL_303A,
+  MQ_MODEL_309A,
 };
 
 enum MQGasType {
@@ -38,6 +42,7 @@ enum MQGasType {
   MQ_GAS_TYPE_ISO_BUTANO,
   MQ_GAS_TYPE_LPG,
   MQ_GAS_TYPE_NH4,
+  MQ_GAS_TYPE_H2S,
   MQ_GAS_TYPE_NOX,
   MQ_GAS_TYPE_O3,
   MQ_GAS_TYPE_PROPANE,
@@ -81,6 +86,8 @@ struct MQGasSensor {
         return "LPG";
       case MQ_GAS_TYPE_NH4:
         return "NH4";
+      case MQ_GAS_TYPE_H2S:
+        return "H2S";        
       case MQ_GAS_TYPE_NOX:
         return "NOX";
       case MQ_GAS_TYPE_O3:
@@ -119,8 +126,16 @@ struct MQModelParameters {
         return "MQ8";
       case MQ_MODEL_9:
         return "MQ9";
+      case MQ_MODEL_131:
+        return "MQ131";        
       case MQ_MODEL_135:
         return "MQ135";
+      case MQ_MODEL_136:
+        return "MQ136";
+      case MQ_MODEL_303A:
+        return "MQ303A";
+      case MQ_MODEL_309A:
+        return "MQ309A";
       default:
         return "MQ Unknown";
     }
@@ -144,8 +159,16 @@ struct MQModelParameters {
         return 70.0;
       case MQ_MODEL_9:
         return 9.6;
+      case MQ_MODEL_131:
+        return 15;        
       case MQ_MODEL_135:
         return 3.6;
+      case MQ_MODEL_136:
+        return 3.6;
+      case MQ_MODEL_303A:
+        return 1.0;
+      case MQ_MODEL_309A:
+        return 11.0;
       default:
         return 0.0;
     }
