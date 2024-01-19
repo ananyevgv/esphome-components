@@ -20,14 +20,23 @@ sensor:
 ```
 
 model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ135
+
     "MQ2": [H2, LPG, CO, ALCOHOL, PROPANE],
+    
     "MQ3": LPG, CH4, CO, ALCOHOL, BENZENE, HEXANE],
+    
     "MQ4": [LPG, CH4,CO, ALCOHOL, SMOKE],
+    
     "MQ5": [H2, LPG,CH4, CO, ALCOHOL],
+    
     "MQ6": [H2, LPG,CH4, CO, ALCOHOL],
+    
     "MQ7": [H2, LPG,CH4, CO, ALCOHOL],
+    
     "MQ8": [H2, LPG,CH4, CO, ALCOHOL],
+    
     "MQ9": [LPG, CH4, CO],
+    
     "MQ135": [CO, ALCOHOL, CO2, TOLUENO, NH4, ACETONA],
     
 # ESPHome component PM1006k с родным контроллером
