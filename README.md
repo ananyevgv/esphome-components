@@ -1,4 +1,6 @@
 # ESPHome component MQ
+
+```yaml
 external_components:
   source: github://ananyevgv/sphome-components
   components: [mq]
@@ -15,7 +17,7 @@ sensor:
       name: Sensor CH4
     sensor_co:
       name: Sensor CO
-
+```
 # ESPHome component PM1006k с родным контроллером
 ```yaml
 
