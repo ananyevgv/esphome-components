@@ -2,7 +2,7 @@
 
 ```yaml
 external_components:
-  source: github://ananyevgv/sphome-components
+  source: github://ananyevgv/esphome-components
   components: [mq]
   refresh: 0s
 
