@@ -76,7 +76,7 @@ void MQSensor::dump_config() {
   LOG_UPDATE_INTERVAL(this);
 
   for (auto &it : this->model_parameters_.gas_sensors) {
-//    LOG_SENSOR("  ", it.gas_name().c_str(), it.sensor);
+    //LOG_SENSOR("   ", it.gas_name().c_str(), it.sensor);
   }
 }
 
@@ -168,6 +168,14 @@ std::map<MQModel, std::vector<MQGasSensor>> MQSensor::gas_parameters_definition 
          {.gas_type = MQ_GAS_TYPE_CH4, .a = 4269.6, .b = -2.648},
          {.gas_type = MQ_GAS_TYPE_CO, .a = 599.65, .b = -2.244},
      }},
+     
+    {MQ_MODEL_131,
+     {
+         {.gas_type = MQ_GAS_TYPE_NOX, .a = -462.43 , .b = -2.204},
+         {.gas_type = MQ_GAS_TYPE_CL2, .a = 47.209, .b = -1.186},
+         {.gas_type = MQ_GAS_TYPE_O3, .a = 23.943, .b = -1.11},
+     }},     
+     
     {MQ_MODEL_135,
      {
          {.gas_type = MQ_GAS_TYPE_CO, .a = 605.18, .b = -3.937},
@@ -176,6 +184,27 @@ std::map<MQModel, std::vector<MQGasSensor>> MQSensor::gas_parameters_definition 
          {.gas_type = MQ_GAS_TYPE_TOLUENO, .a = 44.947, .b = -3.445},
          {.gas_type = MQ_GAS_TYPE_NH4, .a = 102.2, .b = -2.473},
          {.gas_type = MQ_GAS_TYPE_ACETONA, .a = 34.668, .b = -3.369},
+     }},
+
+    {MQ_MODEL_136,
+     {
+         {.gas_type = MQ_GAS_TYPE_H2S, .a = 36.737, .b = -3.536},
+         {.gas_type = MQ_GAS_TYPE_NH4, .a = 98.551, .b = -2.475},
+         {.gas_type = MQ_GAS_TYPE_CO, .a = 503.34, .b = -3.774},
+     }},
+    {MQ_MODEL_303A,
+     {
+         {.gas_type = MQ_GAS_TYPE_ISO_BUTANO, .a = 6.2144, .b = -2.894},
+         {.gas_type = MQ_GAS_TYPE_HYDROGEN, .a = 4.1487, .b = -2.716},
+         {.gas_type = MQ_GAS_TYPE_ETHANOL, .a = 3.4916, .b = -2.432},
+     }}, 
+     
+    {MQ_MODEL_309A,
+     {
+         {.gas_type = MQ_GAS_TYPE_H2, .a = 1532.9, .b = -1.951},
+         {.gas_type = MQ_GAS_TYPE_CH4, .a = 980.24, .b = -1.68},
+         {.gas_type = MQ_GAS_TYPE_CO, .a = 1000000.0, .b = -4.01},
+         {.gas_type = MQ_GAS_TYPE_ALCOHOL, .a = 473622, .b = -3.647},
      }},
 };
 
