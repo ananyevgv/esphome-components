@@ -1,4 +1,4 @@
-# ESPHome component MQ Gaz sensor
+# ESPHome component MQ gaz sensor
 
 ```yaml
 external_components:
