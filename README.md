@@ -1,3 +1,21 @@
+# ESPHome component MQ
+external_components:
+  source: github://ananyevgv/sphome-components
+  components: [mq]
+  refresh: 0s
+
+sensor:
+  - platform: mq
+    model: MQ9
+    pin: A0
+    update_interval: 2s
+    sensor_lpg:
+      name: Sensor LPG
+    sensor_ch4:
+      name: Sensor CH4
+    sensor_co:
+      name: Sensor CO
+
 # ESPHome component PM1006k с родным контроллером
 ```yaml
 
@@ -6,7 +24,7 @@ uart:
   baud_rate: 9600
 
 external_components:
-  source: github://ananyevgv/esphome-vindriktning-ikea
+  source: github://ananyevgv/sphome-components
   components: [pm1006k]
   refresh: 0s
 
