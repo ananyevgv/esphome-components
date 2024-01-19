@@ -76,7 +76,7 @@ void MQSensor::dump_config() {
   LOG_UPDATE_INTERVAL(this);
 
   for (auto &it : this->model_parameters_.gas_sensors) {
-    LOG_SENSOR("  ", it.gas_name().c_str(), it.sensor);
+//    LOG_SENSOR("  ", it.gas_name().c_str(), it.sensor);
   }
 }
 
