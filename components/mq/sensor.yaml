@@ -1,0 +1,62 @@
+Sensor:
+  - platform: mq
+    model: MQ2
+    pin: A0
+    update_interval: 30s
+    sensor_lpg:
+      name: Sensor LPG
+    sensor_propane:
+      name: Sensor PROPANE
+    sensor_co:
+      name: Sensor CO
+    sensor_h2:
+      name: Sensor H2
+    sensor_alcohol:
+      name: Sensor ALCOHOL
+
+  - platform: mq
+    model: MQ4
+    pin: A0
+    update_interval: 30s
+    sensor_lpg:
+      name: Sensor LPG
+    sensor_smoke:
+      name: Sensor SMOKE
+    sensor_co:
+      name: Sensor CO
+    sensor_ch4:
+      name: Sensor CH4
+    sensor_alcohol:
+      name: Sensor ALCOHOL
+
+  - platform: mq
+    model: MQ6
+    pin: A0
+    update_interval: 30s
+    sensor_lpg:
+      name: Sensor LPG
+    sensor_h2:
+      name: Sensor H2
+    sensor_co:
+      name: Sensor CO
+    sensor_ch4:
+      name: Sensor CH4
+    sensor_alcohol:
+      name: Sensor ALCOHOL   
+
+  - platform: mq
+    model: MQ9
+    pin: A0
+    update_interval: 30s
+    sensor_lpg:
+      name: Sensor LPG
+    sensor_ch4:
+      name: Sensor CH4
+    sensor_co:
+      name: Sensor CO
+
+
+
+
+
+
