@@ -62,7 +62,7 @@ uart:
   baud_rate: 9600
 
 external_components:
-  source: github://ananyevgv/sphome-components
+  source: github://ananyevgv/esphome-components
   components: [pm1006k]
   refresh: 0s
 
@@ -100,7 +100,7 @@ uart:
   id: PM1006k
 
 external_components:
-  source: github://ananyevgv/esphome-vindriktning-ikea
+  source: github://ananyevgv/esphome-components
   components: [pm1006k]
   refresh: 0s
 
