@@ -19,7 +19,7 @@ sensor:
       name: Sensor CO
 ```
 
-model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ135
+model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309A
 
     "MQ2": [H2, LPG, CO, ALCOHOL, PROPANE],
     
@@ -37,7 +37,15 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ135
     
     "MQ9": [LPG, CH4, CO],
     
+    "MQ131": [NOX, CL2, O3],
+    
     "MQ135": [CO, ALCOHOL, CO2, TOLUENO, NH4, ACETONA],
+    
+    "MQ136": [H2S, NH4, CO],
+    
+    "MQ303A": [ISO_BUTANO, CHYDROGEN, ETHANOL],
+    
+    "MQ309A": [H2, CH4, CO, ALCOHOL],
     
 # ESPHome component PM1006k с родным контроллером
 ```yaml
