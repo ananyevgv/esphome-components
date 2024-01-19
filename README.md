@@ -51,6 +51,7 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309
     "MQ309A": [H2, CH4, CO, ALCOHOL],
     
 # ESPHome component PM1006k с родным контроллером
+основан на PM1006
 ```yaml
 
 uart:
