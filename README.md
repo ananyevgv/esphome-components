@@ -1,5 +1,6 @@
 # ESPHome component PM1006k & MQ gaz sensor & Climateguard RadSens
 
+
 # ESPHome component MQ gaz sensor
 
 основан на
