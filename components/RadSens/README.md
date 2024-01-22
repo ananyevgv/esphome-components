@@ -77,7 +77,7 @@ binary_sensor:
 
 HA service call to set device sensivity:
 ```yaml
-service: esphome.radsens_set_sensivity 
+service: esphome.name_set_sensivity 
 data:
   sensivity: "105"
 ```
@@ -85,7 +85,7 @@ data:
 Reset Max CPM Counter 
 
 ```yaml
-service: esphome.radsens_reset_cpm
+service: esphome.name_reset_cpm
 data: {}
 ```
 
