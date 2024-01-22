@@ -27,29 +27,50 @@ sensor:
     lambda: |-
       auto rad_sens = new MyRadSens();
       App.register_component(rad_sens);
-      return {rad_sens->IntensityDynamic_Sensor,rad_sens->IntensityStatic_Sensor, rad_sens->CurrentCPM_Sensor, rad_sens->MaxCPM_Sensor,rad_sens->Sensivity_Sensor};
+      return {rad_sens->IntensityDynamic_Sensor,rad_sens->IntensityStatic_Sensor, rad_sens->Firmware_Sensor, rad_sens->CurrentCPM_Sensor, rad_sens->MaxCPM_Sensor, rad_sens->Sensivity_Sensor};
     sensors:
       - name: "Dynamic intensity"
         id: dynamic_intensity
         accuracy_decimals: 1
         unit_of_measurement: μR/h
         state_class: measurement
+        icon: mdi:radioactive
+
       - name: "Static intensity"
         accuracy_decimals: 1
         unit_of_measurement: μR/h
         state_class: measurement
+        icon: mdi:radioactive
+
+      - name: "Firmware"
+        accuracy_decimals: 0
+        icon: mdi:folder-arrow-up-outline
+        
       - name: "Current CPM"
         accuracy_decimals: 1
         unit_of_measurement: CPM
         state_class: measurement
+        icon: mdi:radioactive
       - name: "Max CPM"
         accuracy_decimals: 1
         unit_of_measurement: CPM
         state_class: measurement
+        icon: mdi:radioactive
       - name: "Device Sensivity"
         id: sensivity
         state_class: measurement
         entity_category: diagnostic
+        
+
+binary_sensor:
+  - platform: custom
+    lambda: |-
+      auto rad_sens = new MyRadSens();
+      App.register_component(rad_sens);
+      return {rad_sens->HVGenerator_BinarySensor};
+    binary_sensors:
+      - name: "HVGenerator"
+        icon: mdi:flash-triangle
 ```
 
 ## Services
@@ -66,6 +87,15 @@ Reset Max CPM Counter
 ```yaml
 service: esphome.radsens_reset_cpm
 data: {}
+```
+
+HVgenerator enabled
+
+```yaml
+service: esphome.name_set_generator
+data:
+  generator: false #true
+
 ```
 
 ## Known issues
