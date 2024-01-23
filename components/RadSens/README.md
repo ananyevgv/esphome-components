@@ -75,7 +75,6 @@ binary_sensor:
 
 ## Switch
 
-HA service call to set device sensivity:
 ```yaml
 switch:
   - platform: custom
