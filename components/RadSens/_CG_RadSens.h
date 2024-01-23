@@ -148,3 +148,67 @@ class MyRadSens: public PollingComponent, public CustomAPIDevice {
     current_sensivity = Sensivity;
   }
 };
+
+
+
+class LPmodeSwitch : public Switch {
+ public:
+  CG_RadSens myself {
+    RS_DEFAULT_I2C_ADDRESS
+  };
+
+  void write_state(bool state) override {
+   myself.setLPmode(state);
+   publish_state(state);
+  }
+};
+
+
+
+
+class HighVoltageGeneratorSwitch : public Switch {
+ public:
+  CG_RadSens myself {
+    RS_DEFAULT_I2C_ADDRESS
+  };
+
+  bool state = myself.getHVGeneratorState();
+
+  void write_state(bool state) override {
+   myself.setHVGeneratorState(state);
+   publish_state(state);
+  }
+};
+
+class LedIndicatorSwitch : public Switch {
+ public:
+  CG_RadSens myself {
+    RS_DEFAULT_I2C_ADDRESS
+  };
+
+  bool state = myself.getLedState();
+
+  void write_state(bool state) override {
+   myself.setLedState(state);
+   publish_state(state);
+  }
+};
+
+class RadSens_Switch : public Component {
+ public:
+  CG_RadSens myself {
+    RS_DEFAULT_I2C_ADDRESS
+  };
+  Switch *lpmode_switch = new LPmodeSwitch();
+  Switch *hv_generator_switch = new HighVoltageGeneratorSwitch();
+  Switch *led_indicator_switch = new LedIndicatorSwitch();
+
+  void setup() override {
+   if (!myself.init()) {
+    ESP_LOGE("radsens", "Component radsens.switch init failed.");
+    this->mark_failed();
+    return;
+   }
+  }
+};
+
