@@ -73,6 +73,27 @@ binary_sensor:
         icon: mdi:flash-triangle
 ```
 
+## Switch
+
+HA service call to set device sensivity:
+```yaml
+switch:
+  - platform: custom
+    lambda: |-
+      auto radsens_switch = new RadSens_Switch();
+      App.register_component(radsens_switch);
+      return {radsens_switch->lpmode_switch, radsens_switch->hv_generator_switch, radsens_switch->led_indicator_switch};
+
+    switches:
+      - name: "lpmode"
+        icon: mdi:lock-clock  
+      - name: "High Voltage Generator"
+        icon: mdi:flash-triangle-outline
+      - name: "LED Indicator"
+        icon: mdi:led-outline
+```
+
+
 ## Services
 
 HA service call to set device sensivity:
