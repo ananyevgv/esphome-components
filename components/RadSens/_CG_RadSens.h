@@ -194,7 +194,7 @@ class LedIndicatorSwitch : public Switch {
   }
 };
 
-class RadSens_Switch : public Component {
+class MyRadSens_Switch : public Component {
  public:
   CG_RadSens myself {
     RS_DEFAULT_I2C_ADDRESS
@@ -205,10 +205,11 @@ class RadSens_Switch : public Component {
 
   void setup() override {
    if (!myself.init()) {
-    ESP_LOGE("radsens", "Component radsens.switch init failed.");
+    ESP_LOGE("rad_sens", "Component rad_sens.switch init failed.");
     this->mark_failed();
     return;
    }
   }
 };
+
 
