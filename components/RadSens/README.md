@@ -79,9 +79,9 @@ binary_sensor:
 switch:
   - platform: custom
     lambda: |-
-      auto radsens_switch = new RadSens_Switch();
-      App.register_component(radsens_switch);
-      return {radsens_switch->lpmode_switch, radsens_switch->hv_generator_switch, radsens_switch->led_indicator_switch};
+      auto rad_sens_switch = new MyRadSens_Switch();
+      App.register_component(rad_sens_switch);
+      return {rad_sens_switch->lpmode_switch, rad_sens_switch->hv_generator_switch, rad_sens_switch->led_indicator_switch};
 
     switches:
       - name: "lpmode"
