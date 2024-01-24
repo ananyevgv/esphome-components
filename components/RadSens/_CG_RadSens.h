@@ -81,6 +81,8 @@ class MyRadSens: public PollingComponent, public CustomAPIDevice {
   Sensor * Sensivity_Sensor = new Sensor();
   Sensor * Firmware_Sensor = new Sensor();
   BinarySensor * HVGenerator_BinarySensor = new BinarySensor();
+  BinarySensor * LedState_BinarySensor = new BinarySensor();
+   
   CG_RadSens myself {
     RS_DEFAULT_I2C_ADDRESS
   };
@@ -124,7 +126,11 @@ class MyRadSens: public PollingComponent, public CustomAPIDevice {
     int Sensivity = myself.getSensitivity();
     int Pulses = myself.getNumberOfPulses();
     bool HVGenerator = myself.getHVGeneratorState();
-    HVGenerator_BinarySensor ->  publish_state(HVGenerator);    
+    bool LedState = myself.getLedState();
+    
+    HVGenerator_BinarySensor ->  publish_state(HVGenerator);
+    LedState_BinarySensor ->  publish_state(LedState);
+    
     if (Pulses > pulsesPrev) {
       cpm.add(Pulses - pulsesPrev);
     }
@@ -172,8 +178,9 @@ class HighVoltageGeneratorSwitch : public Switch {
     RS_DEFAULT_I2C_ADDRESS
   };
 
-  bool state = myself.getHVGeneratorState();
-
+  //bool state = myself.getHVGeneratorState();
+  
+  void set_restore_state(bool restore_state);
   void write_state(bool state) override {
    myself.setHVGeneratorState(state);
    publish_state(state);
@@ -186,9 +193,10 @@ class LedIndicatorSwitch : public Switch {
     RS_DEFAULT_I2C_ADDRESS
   };
 
-  bool state = myself.getLedState();
-
+  //bool state = myself.getLedState();
+  
   void write_state(bool state) override {
+
    myself.setLedState(state);
    publish_state(state);
   }
