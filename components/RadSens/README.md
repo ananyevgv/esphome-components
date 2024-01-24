@@ -17,7 +17,11 @@ esphome:
    - "climateguard/ClimateGuard RadSens"
  includes:
    - RadSens1v2/_CG_RadSens.h
-
+  on_boot:
+    then:
+ #     - delay: 2s
+      - switch.turn_on: hvg
+      - switch.turn_on: led
  i2c:
 
 ...
@@ -67,10 +71,12 @@ binary_sensor:
     lambda: |-
       auto rad_sens = new MyRadSens();
       App.register_component(rad_sens);
-      return {rad_sens->HVGenerator_BinarySensor};
+      return {rad_sens->HVGenerator_BinarySensor, rad_sens->LedState_BinarySensor};
     binary_sensors:
       - name: "HVGenerator"
         icon: mdi:flash-triangle
+      - name: "LedState"
+        icon: mdi:led-outline
 ```
 
 ## Switch
@@ -86,10 +92,13 @@ switch:
     switches:
       - name: "lpmode"
         icon: mdi:lock-clock  
+
       - name: "High Voltage Generator"
         icon: mdi:flash-triangle-outline
+        id: hvg
       - name: "LED Indicator"
         icon: mdi:led-outline
+        id: led
 ```
 
 
