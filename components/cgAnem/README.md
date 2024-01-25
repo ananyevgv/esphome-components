@@ -12,7 +12,9 @@ esphome:
    - my_components/cgAnem/_cg_Anem.h
 
  i2c:
+...
 
+```yaml
 sensor:
   - platform: custom
     lambda: |-
@@ -34,7 +36,9 @@ sensor:
         accuracy_decimals: 1
       - name: "MaxAirFlowRate"
         accuracy_decimals: 1
+...
 
+```yaml
 binary_sensor:
   - platform: custom
     lambda: |-
@@ -43,12 +47,11 @@ binary_sensor:
       return {cg_anem->SensorStatus_BinarySensor};
     binary_sensors:
       - name: "SensorStatus"
-
 ...
 
 ## Services
 
-HA service call to set device sensivity:
+HA service call to set set_duct_area:
 
 ```yaml
 service: esphome.name_set_duct_area 
