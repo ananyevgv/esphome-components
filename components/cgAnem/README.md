@@ -12,7 +12,7 @@ esphome:
    - my_components/cgAnem/_cg_Anem.h
 
  i2c:
-...
+```
 
 ```yaml
 sensor:
@@ -36,7 +36,7 @@ sensor:
         accuracy_decimals: 1
       - name: "MaxAirFlowRate"
         accuracy_decimals: 1
-...
+```
 
 ```yaml
 binary_sensor:
@@ -47,7 +47,7 @@ binary_sensor:
       return {cg_anem->SensorStatus_BinarySensor};
     binary_sensors:
       - name: "SensorStatus"
-...
+```
 
 ## Services
 
