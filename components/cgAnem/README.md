@@ -13,7 +13,7 @@ esphome:
 
  i2c:
 
-...
+
 sensor:
   - platform: custom
     lambda: |-
@@ -45,6 +45,7 @@ binary_sensor:
     binary_sensors:
       - name: "SensorStatus"
 
+...
 
 ## Services
 
