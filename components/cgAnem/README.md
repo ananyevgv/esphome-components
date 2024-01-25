@@ -1,9 +1,6 @@
 ## Description
 
-ESPHome custom component sensor for Climateguard 
-
-
-
+ESPHome custom component sensor for Climateguard CG-Anem
 
 ```yaml
 esphome:
@@ -38,20 +35,11 @@ sensor:
         accuracy_decimals: 1
       - name: "MaxAirFlowRate"
         accuracy_decimals: 1
-        
-
-
-
-
-## Known issues
-
-#### RadSens 1v5
-[1v5 boards workaround](https://github.com/maaad/RadSens1v2/issues/3#issuecomment-1289578773)
 
 
 
 ## References
 
-[Official RadSens library by [ClimateGuard](https://github.com/climateguard/CG-Anem])
+[Official CG-Anem library by [ClimateGuard](https://github.com/climateguard/CG-Anem])
 
 [ESPHome Documentation](https://esphome.io/index.html)
