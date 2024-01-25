@@ -36,7 +36,14 @@ sensor:
       - name: "MaxAirFlowRate"
         accuracy_decimals: 1
 
-
+binary_sensor:
+  - platform: custom
+    lambda: |-
+      auto cg_anem = new MycgAnem();
+      App.register_component(cg_anem);
+      return {cg_anem->SensorStatus_BinarySensor};
+    binary_sensors:
+      - name: "SensorStatus"
 
 ## References
 
