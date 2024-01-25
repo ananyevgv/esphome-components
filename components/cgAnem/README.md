@@ -13,7 +13,6 @@ esphome:
 
  i2c:
 
-
 sensor:
   - platform: custom
     lambda: |-
@@ -50,11 +49,13 @@ binary_sensor:
 ## Services
 
 HA service call to set device sensivity:
+
 ```yaml
 service: esphome.name_set_duct_area 
 data:
   duct_area: "100"
 ```
+
 ## References
 
 [Official CG-Anem library by [ClimateGuard](https://github.com/climateguard/CG-Anem])
