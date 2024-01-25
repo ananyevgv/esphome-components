@@ -28,9 +28,9 @@ sensor:
       - name: "airflowRate"
         accuracy_decimals: 1
       - name: "ductArea"
-        accuracy_decimals: 1
+        accuracy_decimals: 0
       - name: "FirmwareVersion"
-        accuracy_decimals: 1
+        accuracy_decimals: 0
       - name: "MinAirFlowRate"
         accuracy_decimals: 1
       - name: "MaxAirFlowRate"
