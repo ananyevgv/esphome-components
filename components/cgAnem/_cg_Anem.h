@@ -37,7 +37,7 @@ class MycgAnem: public PollingComponent, public CustomAPIDevice {
     myself.init();
     myself.set_duct_area(100); //  
     register_service( & MycgAnem::on_set_duct_area, "set_duct_area", {
-      "sensivity"
+      "duct_area"
     });
   }
 
