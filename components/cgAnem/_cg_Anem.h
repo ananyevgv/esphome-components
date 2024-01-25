@@ -28,12 +28,17 @@ class MycgAnem: public PollingComponent, public CustomAPIDevice {
 
   MycgAnem(): PollingComponent(1000) {}
 
-
+  void on_set_duct_area(float ductarea) {
+    myself.set_duct_area(ductarea);
+    ESP_LOGD("duct_area", "Set to %d", ductarea);
+  }
 
   void setup() override {
     myself.init();
     myself.set_duct_area(100); //  
-
+    register_service( & MycgAnem::on_set_duct_area, "set_duct_area", {
+      "sensivity"
+    });
   }
 
   void update() override {
