@@ -57,14 +57,13 @@ class MycgAnem: public PollingComponent, public CustomAPIDevice {
     float MaxAirFlowRate = myself.getMaxAirFlowRate();
     float MinAirFlowRate = myself.getMinAirFlowRate();
     bool SensorStatus = myself.getSensorStatus();
-    
+
     SensorStatus_BinarySensor ->  publish_state(SensorStatus);
-    if (temperature != 0) {
-      temperature_Sensor -> publish_state(temperature);
-    }
+
     if (FirmwareVersion != 0) {
       FirmwareVersion_Sensor -> publish_state(FirmwareVersion);
     }
+    temperature_Sensor -> publish_state(temperature); 
     airflowRate_Sensor -> publish_state(airflowRate);
     airConsumption_Sensor -> publish_state(airConsumption);
     MaxAirFlowRate_Sensor -> publish_state(MaxAirFlowRate);
