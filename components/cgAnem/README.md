@@ -45,6 +45,15 @@ binary_sensor:
     binary_sensors:
       - name: "SensorStatus"
 
+
+## Services
+
+HA service call to set device sensivity:
+```yaml
+service: esphome.name_set_duct_area 
+data:
+  duct_area: "100"
+```
 ## References
 
 [Official CG-Anem library by [ClimateGuard](https://github.com/climateguard/CG-Anem])
