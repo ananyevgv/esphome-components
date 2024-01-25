@@ -1,4 +1,4 @@
-# ESPHome component PM1006k & MQ gaz sensor & Climateguard RadSens
+# ESPHome component PM1006k & MQ gaz sensor & Climateguard RadSens & Climateguard cgAnem
 
 
 # ESPHome component MQ gaz sensor
