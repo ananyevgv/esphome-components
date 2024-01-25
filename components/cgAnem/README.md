@@ -31,7 +31,7 @@ sensor:
         accuracy_decimals: 1
         state_class: "measurement"
         device_class: volume
-        unit_of_measurement: "m³"
+        unit_of_measurement: "m³/h"
       - name: "airflowRate"
         accuracy_decimals: 1
         state_class: "measurement"
