@@ -57,6 +57,10 @@ HA service call to set set_duct_area:
 service: esphome.name_set_duct_area 
 data:
   duct_area: "100"
+
+service: esphome.name_resetMinMaxValues
+data:
+  reset_Min_Max: "True"
 ```
 
 ## References
