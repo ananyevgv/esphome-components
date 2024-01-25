@@ -32,12 +32,17 @@ class MycgAnem: public PollingComponent, public CustomAPIDevice {
     myself.set_duct_area(ductarea);
     ESP_LOGD("duct_area", "Set to %d", ductarea);
   }
-
+  void on_resetMinMaxValues(bool reset) {
+    myself.resetMinMaxValues(reset);
+    ESP_LOGD("reset_Min_Max_Value");
+  }
   void setup() override {
     myself.init();
     myself.set_duct_area(100); //  
     register_service( & MycgAnem::on_set_duct_area, "set_duct_area", {
       "duct_area"
+    register_service( & MycgAnem::on_resetMinMaxValues, "reset_Min_Max_Values", {
+      "reset_Min_Max"
     });
   }
 
