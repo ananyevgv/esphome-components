@@ -50,20 +50,23 @@ sensor:
         accuracy_decimals: 0
         icon: mdi:folder-arrow-up-outline
         
-      - name: "Current CPM"
+      - name: "Current impulse"
         accuracy_decimals: 1
-        unit_of_measurement: CPM
+        unit_of_measurement: imp
         state_class: measurement
-        icon: mdi:radioactive
-      - name: "Max CPM"
+        icon: mdi:pulse
+
+      - name: "Max impulse"
         accuracy_decimals: 1
-        unit_of_measurement: CPM
+        unit_of_measurement: imp
         state_class: measurement
-        icon: mdi:radioactive
-      - name: "Device Sensivity"
-        id: sensivity
+        icon: mdi:pulse
+
+      - name: "Calibration Sensivity"
         state_class: measurement
         entity_category: diagnostic
+        unit_of_measurement: "imp/μR"
+        icon: mdi:account-wrench-outline
         
 
 binary_sensor:
