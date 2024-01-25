@@ -24,18 +24,35 @@ sensor:
     sensors:
       - name: "temperature"
         accuracy_decimals: 1
+        state_class: "measurement"
+        device_class: temperature
+        unit_of_measurement: "°C"
       - name: "airConsumption"
         accuracy_decimals: 1
+        state_class: "measurement"
+        device_class: volume
+        unit_of_measurement: "m³"
       - name: "airflowRate"
         accuracy_decimals: 1
+        state_class: "measurement"
+        device_class: wind_speed
+        unit_of_measurement: "m/s"
       - name: "ductArea"
         accuracy_decimals: 0
+        device_class: volume
+        unit_of_measurement: "cm²"
       - name: "FirmwareVersion"
-        accuracy_decimals: 0
+        accuracy_decimals: 2
       - name: "MinAirFlowRate"
         accuracy_decimals: 1
+        state_class: "measurement"
+        device_class: wind_speed
+        unit_of_measurement: "m/s"
       - name: "MaxAirFlowRate"
         accuracy_decimals: 1
+        state_class: "measurement"
+        device_class: wind_speed
+        unit_of_measurement: "m/s"
 ```
 
 ```yaml
