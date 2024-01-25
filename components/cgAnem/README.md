@@ -65,6 +65,6 @@ data:
 
 ## References
 
-[Official CG-Anem library by [ClimateGuard](https://github.com/climateguard/CG-Anem])
+[Official CG-Anem library by [ClimateGuard](https://github.com/climateguard/CG-Anem)
 
 [ESPHome Documentation](https://esphome.io/index.html)
