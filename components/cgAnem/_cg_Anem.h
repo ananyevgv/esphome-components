@@ -67,6 +67,7 @@ class MycgAnem: public PollingComponent, public CustomAPIDevice {
     temperature_Sensor -> publish_state(temperature);
     airflowRate_Sensor -> publish_state(airflowRate);
     airConsumption_Sensor -> publish_state(airConsumption);
+    ductArea_Sensor -> publish_state(ductArea);
     MaxAirFlowRate_Sensor -> publish_state(MaxAirFlowRate);
     MinAirFlowRate_Sensor -> publish_state(MinAirFlowRate);
     
