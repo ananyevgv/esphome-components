@@ -23,6 +23,11 @@ esphome:
       - switch.turn_on: hvg
       - switch.turn_on: led
  i2c:
+globals:
+  - id: sens
+    type: float
+    restore_value: no
+    initial_value: '105' # sensitivity
 
 ...
 
