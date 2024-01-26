@@ -82,7 +82,7 @@ data:
 
 service: esphome.name_resetMinMaxValues
 data:
-  reset_Min_Max: "True"
+  reset_Min_Max: ""
 ```
 
 ## References
