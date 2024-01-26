@@ -108,7 +108,7 @@ class MyRadSens: public PollingComponent, public CustomAPIDevice {
   void setup() override {
     myself.init();
     myself.setLedState(true);
-    myself.setSensitivity(105);
+    myself.setSensitivity(id(sens));
     cpm.init(60 / SECONDS_PER_INTERVAL);
     register_service( & MyRadSens::on_reset_cpm, "reset_cpm" );
     register_service( & MyRadSens::on_set_sensivity, "set_sensivity", {
@@ -219,5 +219,4 @@ class MyRadSens_Switch : public Component {
    }
   }
 };
-
 
