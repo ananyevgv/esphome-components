@@ -12,6 +12,11 @@ esphome:
    - my_components/cgAnem/_cg_Anem.h
 
  i2c:
+globals:
+  - id: duct
+    type: float
+    restore_value: no
+    initial_value: '100'  # диаметр трубы
 ```
 
 ```yaml
