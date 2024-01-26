@@ -26,11 +26,11 @@ class MycgAnem: public PollingComponent, public CustomAPIDevice {
     ANEM_I2C_ADDR
   };
 
-  MycgAnem(): PollingComponent(1000) {}
+  MycgAnem(): PollingComponent(5000) {}
 
-  void on_set_duct_area(float ductarea) {
-    myself.set_duct_area(ductarea);
-    ESP_LOGD("duct_area", "Set to %d", ductarea);
+  void on_set_duct_area(float ductarea_) {
+    myself.set_duct_area(ductarea_);
+    ESP_LOGD("duct_area_", "Set to %d", ductarea_);
   }
 
   void on_resetMinMaxValues() {
@@ -40,11 +40,12 @@ class MycgAnem: public PollingComponent, public CustomAPIDevice {
 
   void setup() override {
     myself.init();
-    myself.set_duct_area(100); //  
+    myself.set_duct_area(id(duct)); //  
     register_service( & MycgAnem::on_set_duct_area, "set_duct_area", {
-      "ductarea"
+      "ductarea_"
     });
     register_service( & MycgAnem::on_resetMinMaxValues, "reset_Min_Max_Values");
+    ;
   }
 
   void update() override {
@@ -57,13 +58,13 @@ class MycgAnem: public PollingComponent, public CustomAPIDevice {
     float MaxAirFlowRate = myself.getMaxAirFlowRate();
     float MinAirFlowRate = myself.getMinAirFlowRate();
     bool SensorStatus = myself.getSensorStatus();
-
+    
     SensorStatus_BinarySensor ->  publish_state(SensorStatus);
 
     if (FirmwareVersion != 0) {
       FirmwareVersion_Sensor -> publish_state(FirmwareVersion);
     }
-    temperature_Sensor -> publish_state(temperature); 
+    temperature_Sensor -> publish_state(temperature);
     airflowRate_Sensor -> publish_state(airflowRate);
     airConsumption_Sensor -> publish_state(airConsumption);
     MaxAirFlowRate_Sensor -> publish_state(MaxAirFlowRate);
