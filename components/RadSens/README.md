@@ -101,7 +101,7 @@ switch:
 #  режим пониженного энергопотребления
       - name: "lpmode"
         icon: mdi:lock-clock  
- режим пониженного энергопотребления
+
       - name: "High Voltage Generator"
         icon: mdi:flash-triangle-outline
         id: hvg
