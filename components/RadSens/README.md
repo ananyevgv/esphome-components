@@ -4,9 +4,7 @@ ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7
 
 ## Deployment
 
-First of all get the code:
-```bash
-git clone https://github.com/maaad/RadSens1v2 /usr/share/hassio/homeassistant/esphome/RadSens1v2
+
 ```
 Add to device config for climateguard/RadSens
 ```yaml
