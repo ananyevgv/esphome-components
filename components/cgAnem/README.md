@@ -16,7 +16,7 @@ globals:
   - id: duct
     type: float
     restore_value: no
-    initial_value: '100'  # диаметр трубы
+    initial_value: '100'  # Задаём площадь поперечного площадь воздуховода см^2
 ```
 
 ```yaml
