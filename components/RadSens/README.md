@@ -98,9 +98,10 @@ switch:
       return {rad_sens_switch->lpmode_switch, rad_sens_switch->hv_generator_switch, rad_sens_switch->led_indicator_switch};
 
     switches:
+#  режим пониженного энергопотребления
       - name: "lpmode"
         icon: mdi:lock-clock  
-
+ режим пониженного энергопотребления
       - name: "High Voltage Generator"
         icon: mdi:flash-triangle-outline
         id: hvg
