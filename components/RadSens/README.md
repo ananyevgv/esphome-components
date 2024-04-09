@@ -12,7 +12,7 @@ GPIO32 - + RadSens
 GPIO0 - sleep
 GPIO35 - wakeup
 
-<img src="https://github.com/ananyevgv/esphome-components/main/components/RadSens/dosimeter.jpg" height="300" alt="Дозимер">
+<img src="https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.jpg" height="300" alt="Дозимер">
 
 
 ## Description
