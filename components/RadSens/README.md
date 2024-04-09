@@ -4,6 +4,7 @@ Dosimeter
 https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 
 Подключение
+
   GPIO21 - SDA to RadSens
   
   GPIO22 - SCL to RadSens
