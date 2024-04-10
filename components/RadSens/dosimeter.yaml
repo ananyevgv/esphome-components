@@ -51,7 +51,7 @@ esphome:
       - switch.turn_on: speaker
 esp32:
   board: featheresp32
-
+ # flash_size: 16MB
 api:
   password: !secret api_pass
   reboot_timeout: 0s
