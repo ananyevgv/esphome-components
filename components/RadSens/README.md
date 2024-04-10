@@ -1,4 +1,4 @@
-Dosimeter
+Dosimeter  ESPHome
 ==========
 По мотивам 
 https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
