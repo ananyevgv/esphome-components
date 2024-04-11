@@ -484,7 +484,7 @@ display:
           it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"п.....ц");
           break;
         case 1000 ... 32000: 
-          it.printf(70, 35, id(font0), tred, "Д %3.0f μR/h", (id(radD).state)/1000); 
+          it.printf(70, 35, id(font0), tred, "Д %3.0f mR/h", (id(radD).state)/1000); 
           it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"п.....ц");
           break;
         default: 
