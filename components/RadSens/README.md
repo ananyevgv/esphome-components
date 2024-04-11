@@ -78,13 +78,13 @@ sensor:
         icon: mdi:folder-arrow-up-outline
         
       - name: "Current impulse"
-        accuracy_decimals: 1
+        accuracy_decimals: 0
         unit_of_measurement: imp
         state_class: measurement
         icon: mdi:pulse
 
       - name: "Max impulse"
-        accuracy_decimals: 1
+        accuracy_decimals: 0
         unit_of_measurement: imp
         state_class: measurement
         icon: mdi:pulse
