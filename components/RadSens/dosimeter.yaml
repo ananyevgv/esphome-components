@@ -14,13 +14,13 @@
 # ADC Power	14
 
 ###########################################
-##                         ##
+##                                       ##
 ##  |GND|          |#|     |3.3|         ##   
 ##  |GND|          |#|     |SVP|         ##
 ##  | 21|  sda     |#|     | 37|         ##
 ##  | 22|  scl     |#|     | 38|         ##
 ##  | 17| puls     |#|     |SVN|         ##
-##  |  2| speaker  |#|     | 32| RadSens ##
+##  |  2| speaker  |#|     | 32|         ##
 ##  | 15|          |#|     | 33|         ## 
 ##  | 13|          |#|     | 25|         ##
 ##  | 12|          |#|     | 26|         ##
@@ -51,7 +51,8 @@ esphome:
       - switch.turn_on: speaker
 esp32:
   board: featheresp32
- # flash_size: 16MB
+  flash_size: 16MB
+
 api:
   password: !secret api_pass
   reboot_timeout: 0s
@@ -75,6 +76,9 @@ spi:
   mosi_pin: GPIO19
 
 color:
+  - id: blac
+    hex: '3b0034'
+
   - id: red
     red: 100%
     green: 30%
@@ -129,6 +133,10 @@ font:
       family: Roboto
     id: font1
     size: 20
+    glyphs: |-
+      !"%()+=,-_.:³°₂μ0123456789АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ абвгдеёжзийклмнопрстуфхцчшщьыъэюяabcdefghijklmnopqrstuvwxyz'éèàòùç/&ôœìïöñ
+    # gfonts://family[@weight]
+    
   - file:
       type: gfonts
       family: Roboto
@@ -241,13 +249,16 @@ sensor:
         unit_of_measurement: μR/h
         state_class: measurement
         icon: mdi:radioactive
-
+        filters:
+          - filter_out: nan
       - name: "Static intensity"
         id: radS
         accuracy_decimals: 1
         unit_of_measurement: μR/h
         state_class: measurement
         icon: mdi:radioactive
+        filters:
+          - filter_out: nan
       - name: "Firmware"
         accuracy_decimals: 0
         icon: mdi:folder-arrow-up-outline
@@ -258,9 +269,11 @@ sensor:
         state_class: measurement
         icon: mdi:pulse
         id: imp
+        filters:
+          - filter_out: nan
 
       - name: "Max impulse"
-        accuracy_decimals: 1
+        accuracy_decimals: 0
         unit_of_measurement: imp
         state_class: measurement
         icon: mdi:pulse
@@ -365,7 +378,6 @@ switch:
       - name: "LED Indicator"
         icon: mdi:led-outline
         id: led
-
   - platform: gpio
     pin:
       number: GPIO14
@@ -391,6 +403,7 @@ switch:
     name: radsens   
     id: radsens
 
+
 display:
   - platform: ili9xxx #st7789v
     model: ST7789V #TTGO TDisplay 135x240
@@ -408,12 +421,12 @@ display:
     update_interval: 1s
     lambda: |-
       if (id(led).state) {
-        it.image(170, 105, id(i_led), blue);
+        it.image(100, 0, id(i_led), blue);
       } 
-      it.printf(0, 100, id(font2), white, "%0.0f imp", id(imp).state);
       if (id(hvg).state) {
         it.image(135, 0, id(i_flash), yellow);
       } 
+      it.printf(0, 105, id(font1), white, "%0.0f imp", id(imp).state); 
       if (id(speaker).state) {
         it.image(205, 105, id(i_volume_high), white);
       } 
@@ -450,22 +463,39 @@ display:
 
       uint16_t D = (id(radD).state);
       switch (D) {
-        case 0 ... 20: it.printf(70, 35, id(font0), green, "D: %3.0f μR/h", id(radD).state); break;
-        case 21 ... 40: it.printf(70, 35, id(font0), lgreen, "D: %3.0f μR/h", id(radD).state); break;
-        case 41 ... 60: it.printf(70, 35, id(font0), yellow, "D: %3.0f μR/h", id(radD).state); break;
-        case 61 ... 999: it.printf(70, 35, id(font0), red, "D: %3.0f μR/h", id(radD).state); break;
-        case 1000 ... 32000: it.printf(70, 35, id(font0), red, "D: %3.0f mR/h", (id(radD).state)/1000); break;
-        default: it.printf(70, 35, id(font0), blue, "D: %3.0f μR/h", id(radD).state); break;
+        case 0 ... 20: 
+          it.printf(70, 35, id(font0), green, "Д %3.0f μR/h", id(radD).state);
+          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"норма");
+          break;
+        case 21 ... 40:
+          it.printf(70, 35, id(font0), lgreen, "Д %3.0f μR/h", id(radD).state); 
+          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"допустимо");
+          break;
+        case 41 ... 60: 
+          it.printf(70, 35, id(font0), yellow, "Д %3.0f μR/h", id(radD).state); 
+          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"допустимо");
+          break;
+        case 61 ... 120: 
+          it.printf(70, 35, id(font0), red, "Д %3.0f μR/h", id(radD).state); 
+          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER, "превышение");
+          break;
+        case 121 ... 999: 
+          it.printf(70, 35, id(font0), tred, "Д %3.0f μR/h", id(radD).state); 
+          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"п.....ц");
+          break;
+        default: 
+          it.printf(70, 35, id(font0), blue, "Д %3.0f μR/h", id(radD).state); 
+          break;
       }
 
       uint16_t S = (id(radS).state);
       switch (S) {
-        case 0 ... 20: it.printf(70, 70, id(font0), green, "S: %3.0f μR/h", id(radS).state); break;
-        case 21 ... 40: it.printf(70, 70, id(font0), lgreen, "S: %3.0f μR/h", id(radS).state); break;
-        case 41 ... 60: it.printf(70, 70, id(font0), yellow, "S: %3.0f μR/h", id(radS).state); break;
-        case 61 ... 999: it.printf(70, 70, id(font0), red, "S: %3.0f μR/h", id(radS).state); break;   
-        case 1000 ... 32000: it.printf(70, 35, id(font0), red, "S: %3.0f mR/h", (id(radS).state)/1000); break;    
-        default: it.printf(70, 70, id(font0), blue, "S: %3.0f μR/h", id(radS).state); break;
+        case 0 ... 20: it.printf(70, 70, id(font0), green, "C %3.0f μR/h", id(radS).state); break;
+        case 21 ... 40: it.printf(70, 70, id(font0), lgreen, "C %3.0f μR/h", id(radS).state); break;
+        case 41 ... 60: it.printf(70, 70, id(font0), yellow, "C %3.0f μR/h", id(radS).state); break;
+        case 61 ... 120: it.printf(70, 70, id(font0), red, "C %3.0f μR/h", id(radS).state); break;
+        case 121 ... 999: it.printf(70, 70, id(font0), tred, "C %3.0f μR/h", id(radS).state); break;
+        default: it.printf(70, 70, id(font0), blue, "C %3.0f μR/h", id(radS).state); break;
       }
 
 time:
@@ -478,3 +508,4 @@ web_server:
   auth:
     username: !secret web_user
     password: !secret web_pass   
+
