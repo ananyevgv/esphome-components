@@ -124,18 +124,17 @@ font:
       type: gfonts
       family: Roboto
     id: font0
-    size: 35
+    size: 30
     glyphs: |-
-      !"%()+=,-_.:³°₂μ0123456789АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧЩЬЫЪЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ абвгдеёжзийклмнопрстуфхцчщьыъэюяabcdefghijklmnopqrstuvwxyz'éèàòùç/&ôœìïöñ
-    # gfonts://family[@weight]
+      0123456789 μ/RhnaДC
+ 
   - file:
       type: gfonts
       family: Roboto
     id: font1
     size: 20
     glyphs: |-
-      !"%()+=,-_.:³°₂μ0123456789АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ абвгдеёжзийклмнопрстуфхцчшщьыъэюяabcdefghijklmnopqrstuvwxyz'éèàòùç/&ôœìïöñ
-    # gfonts://family[@weight]
+      0123456789абвгдеёжзийклмнопрстуфхцчшщьыъэюяabcdefghijklmnopqrstuvwxyz 
     
   - file:
       type: gfonts
