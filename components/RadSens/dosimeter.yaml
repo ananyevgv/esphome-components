@@ -483,6 +483,10 @@ display:
           it.printf(70, 35, id(font0), tred, "Д %3.0f μR/h", id(radD).state); 
           it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"п.....ц");
           break;
+        case 1000 ... 32000: 
+          it.printf(70, 35, id(font0), tred, "Д %3.0f μR/h", (id(radD).state)/1000); 
+          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"п.....ц");
+          break;
         default: 
           it.printf(70, 35, id(font0), blue, "Д %3.0f μR/h", id(radD).state); 
           break;
@@ -495,6 +499,7 @@ display:
         case 41 ... 60: it.printf(70, 70, id(font0), yellow, "C %3.0f μR/h", id(radS).state); break;
         case 61 ... 120: it.printf(70, 70, id(font0), red, "C %3.0f μR/h", id(radS).state); break;
         case 121 ... 999: it.printf(70, 70, id(font0), tred, "C %3.0f μR/h", id(radS).state); break;
+        case 1000 ... 32000: it.printf(70, 35, id(font0), red, "C %3.0f mR/h", (id(radS).state)/1000); break;
         default: it.printf(70, 70, id(font0), blue, "C %3.0f μR/h", id(radS).state); break;
       }
 
@@ -508,4 +513,5 @@ web_server:
   auth:
     username: !secret web_user
     password: !secret web_pass   
+
 
