@@ -9,8 +9,20 @@ sensor:
       id: vbatt
     bus_voltage:
       name: "Bus Voltage"
+      id: vbus
     level:
       name: "Battery level"
       id: batt
+
+binary_sensor:
+  - platform: template
+    name: "charge"
+    lambda: |-
+      if (id(vbus).state > 0) {
+        return true;
+      } else {
+        return false;
+      }
+
 ```
 <img src="https://github.com/ananyevgv/esphome-components/blob/main/components/lilygo_t_battery/bat.jpg" height="300" alt="liligo">
