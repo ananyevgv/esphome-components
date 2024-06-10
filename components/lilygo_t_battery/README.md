@@ -13,4 +13,4 @@ sensor:
       name: "Battery level"
       id: batt
 ```
-<img src="https://github.com/ananyevgv/esphome-components/edit/main/components/lilygo_t_battery/bat.jpg" height="300" alt="liligo">
+<img src="https://github.com/ananyevgv/esphome-components/main/components/lilygo_t_battery/bat.jpg" height="300" alt="liligo">
