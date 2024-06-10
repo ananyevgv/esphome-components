@@ -17,6 +17,7 @@ sensor:
 binary_sensor:
   - platform: template
     name: "charge"
+    device_class: battery_charging
     lambda: |-
       if (id(vbus).state > 0) {
         return true;
