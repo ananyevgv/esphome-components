@@ -1,3 +1,4 @@
+```yaml
 sensor:
   - platform: lilygo_t_battery
     update_interval: 5s
@@ -9,3 +10,4 @@ sensor:
     level:
       name: "Battery level"
       id: batt
+```
