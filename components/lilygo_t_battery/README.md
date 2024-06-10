@@ -1,3 +1,5 @@
+##liligo t-display измерение напряжения и уровняя заряда батареи
+
 ```yaml
 sensor:
   - platform: lilygo_t_battery
