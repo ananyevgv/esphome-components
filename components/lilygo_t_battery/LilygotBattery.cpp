@@ -31,8 +31,8 @@ void LilygotBattery::update_battery_info() {
   else {
     int level = (1-(4.1-battery_voltage)/(4.1-3.3))*100;
   }
-  if (level > 100) {level=100;} 
-  if (level < 0) {level=0;} 
+  //if (level > 100) {level=100;} 
+  //if (level < 0) {level=0;} 
   
   if (this-> bus_voltage != nullptr) {
     this->bus_voltage->publish_state(bus);
