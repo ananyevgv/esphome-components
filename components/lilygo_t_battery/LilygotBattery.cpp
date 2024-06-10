@@ -22,7 +22,7 @@ void LilygotBattery::update_battery_info() {
   int level;
   float battery_voltage;
   if (bus > 0) {
-    level = (1-(5-battery_voltage)/(5-4.2))*100;
+    level = (1-(5-bus)/(5-4.2))*100;
   }
   else {
     digitalWrite(14, HIGH);
