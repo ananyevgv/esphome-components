@@ -12,7 +12,7 @@ void LilygotBattery::setup() {
 void LilygotBattery::update() {
   
   // wait for voltage to stabilise
-  delay(100);
+  delay(10);
   LilygotBattery::update_battery_info();
 }
 void LilygotBattery::update_battery_info() {
@@ -23,7 +23,7 @@ void LilygotBattery::update_battery_info() {
   float bus = (vb / 4095.0) * 7.26;
   
   digitalWrite(14, HIGH);
-  //delay(1);
+  delay(10);
   
   uint16_t v = analogRead(34);
   //double_t battery_voltage = ((double_t) v / 4095.0) * 2.0 * 3.3 * (this->vref / 1000.0);
