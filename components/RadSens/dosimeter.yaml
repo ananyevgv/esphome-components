@@ -220,13 +220,13 @@ sensor:
   - platform: lilygo_t_battery
     update_interval: 5s
     voltage:
-      name: "Battery Voltage"
+      name: "${name} battery Voltage"
       id: vbatt
     bus_voltage:
-      name: "Bus Voltage"
+      name: "${name} bus Voltage"
       id: vbus
     level:
-      name: "Battery level"
+      name: "${name} battery level"
       id: batt
 
   - platform: internal_temperature
@@ -389,12 +389,7 @@ switch:
       - name: "LED Indicator"
         icon: mdi:led-outline
         id: led
-  - platform: gpio
-    pin:
-      number: GPIO14
-    name: PWR_AC   
-    id: power
-    icon: mdi:battery-check
+
   - platform: gpio
     pin: GPIO4
     name: "Backlight"
