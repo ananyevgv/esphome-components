@@ -20,7 +20,7 @@
 ##  | 21|  sda     |#|     | 37|         ##
 ##  | 22|  scl     |#|     | 38|         ##
 ##  | 17| puls     |#|     |SVN|         ##
-##  |  2| speaker  |#|     | 32|         ##
+##  |  2| speaker  |#|     | 32| RadSens ##
 ##  | 15|          |#|     | 33|         ## 
 ##  | 13|          |#|     | 25|         ##
 ##  | 12|          |#|     | 26|         ##
@@ -46,12 +46,16 @@ esphome:
       - switch.turn_on: hvg
       - switch.turn_off: led
       - switch.turn_on: backlight
-      - switch.turn_on: power
       - switch.turn_on: radsens
-      - switch.turn_on: speaker
+      - switch.turn_off: speaker
 esp32:
   board: featheresp32
   flash_size: 16MB
+  
+external_components:
+  source: github://ananyevgv/esphome-components
+  components: [ lilygo_t_battery ]
+  refresh: 0s
 
 api:
   password: !secret api_pass
@@ -76,9 +80,6 @@ spi:
   mosi_pin: GPIO19
 
 color:
-  - id: blac
-    hex: '3b0034'
-
   - id: red
     red: 100%
     green: 30%
@@ -216,6 +217,17 @@ globals:
     initial_value: '105' # sensitivity
 
 sensor:
+  - platform: lilygo_t_battery
+    update_interval: 5s
+    voltage:
+      name: "Battery Voltage"
+      id: vbatt
+    bus_voltage:
+      name: "Bus Voltage"
+    level:
+      name: "Battery level"
+      id: batt
+
   - platform: internal_temperature
     name: "${name} ESP32 T"
   - platform: esp32_hall
@@ -282,16 +294,6 @@ sensor:
         entity_category: diagnostic
         unit_of_measurement: "imp/μR"
         icon: mdi:account-wrench-outline
-
-  - platform: adc
-    pin: 34
-    name: VBatt
-    id: vbatt
-    attenuation: auto # auto is recommended, otherwise 11db
-    filters:
-      - multiply: 2 #1.84
-    update_interval: 5s
-
 
 binary_sensor:
   - platform: custom
@@ -382,11 +384,12 @@ switch:
       number: GPIO14
     name: PWR_AC   
     id: power
-
+    icon: mdi:battery-check
   - platform: gpio
     pin: GPIO4
     name: "Backlight"
-    id: backlight   
+    id: backlight  
+    icon: mdi:message-alert-outline
 
   - platform: gpio
     pin: 
@@ -394,6 +397,7 @@ switch:
       drive_strength: 40mA 
     name: "speaker"
     id: speaker
+    icon: mdi:volume-mute
 
   - platform: gpio
     pin:
@@ -401,7 +405,7 @@ switch:
       drive_strength: 40mA
     name: radsens   
     id: radsens
-
+    icon: mdi:radioactive-off
 
 display:
   - platform: ili9xxx #st7789v
@@ -480,11 +484,11 @@ display:
           break;
         case 121 ... 999: 
           it.printf(70, 35, id(font0), tred, "Д %3.0f μR/h", id(radD).state); 
-          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"п.....ц");
+          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"писец");
           break;
         case 1000 ... 32000: 
           it.printf(70, 35, id(font0), tred, "Д %3.0f mR/h", (id(radD).state)/1000); 
-          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"п.....ц");
+          it.print(140, 105, id(font1), green, TextAlign::TOP_CENTER,"полнписец");
           break;
         default: 
           it.printf(70, 35, id(font0), blue, "Д %3.0f μR/h", id(radD).state); 
@@ -512,5 +516,4 @@ web_server:
   auth:
     username: !secret web_user
     password: !secret web_pass   
-
 
