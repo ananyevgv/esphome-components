@@ -5,8 +5,7 @@ namespace esphome {
 namespace lilygo_t_battery {
 
 void LilygotBattery::setup() {
-  int level;
-  float battery_voltage;
+
 }
 void LilygotBattery::update() {
   
@@ -19,7 +18,8 @@ void LilygotBattery::update_battery_info() {
 
   float vb = analogRead(34);
   float bus = (vb / 4095.0) * 7.26;
-  
+  int level;
+  float battery_voltage;
   if (bus > 0) {
     level = (1-(4.9-bus)/(4.9-4.2))*100;
     //battery_voltage = 0;
