@@ -224,6 +224,7 @@ sensor:
       id: vbatt
     bus_voltage:
       name: "Bus Voltage"
+      id: vbus
     level:
       name: "Battery level"
       id: batt
@@ -296,6 +297,14 @@ sensor:
         icon: mdi:account-wrench-outline
 
 binary_sensor:
+  - platform: template
+    name: "charge"
+    lambda: |-
+      if (id(vbus).state > 0) {
+        return true;
+      } else {
+        return false;
+      }
   - platform: custom
     lambda: |-
       auto rad_sens = new MyRadSens();
@@ -451,15 +460,20 @@ display:
         case 75 ... 100: it.image(170, 0, id(i_wifi4), green); break;
         default: it.image(170, 0, id(i_wifioff), red); break;
       }
-      uint16_t bat = (id(vbatt).state) * 100;
-      switch (bat) {
-        case 0 ... 349: it.image(205, 0, id(i_battery_off_outline), blue); break;
-        case 350 ... 363: it.image(205, 0, id(i_battery_off_outline), red); break;
-        case 364 ... 370: it.image(205, 0, id(i_battery_outline), red); break;
-        case 371 ... 378: it.image(205, 0, id(i_battery_low), yellow); break;
-        case 379 ... 392: it.image(205, 0, id(i_battery_medium), lgreen); break;
-        case 393 ... 420: it.image(205, 0, id(i_battery_high), green); break;        
-        default: it.image(205, 0, id(i_battery_charging), green); break;
+
+      if (id(vbus).state) {
+        it.image(205, 0, id(i_battery_charging), green);
+      }
+      else {
+        uint16_t bat = (id(batt).state);
+        switch (bat) {
+          case 0 ... 9: it.image(205, 0, id(i_battery_off_outline), tred); break;
+          case 10 ... 19: it.image(205, 0, id(i_battery_outline), red); break;
+          case 20 ... 49: it.image(205, 0, id(i_battery_low), yellow); break;
+          case 50 ... 79: it.image(205, 0, id(i_battery_medium), lgreen); break;
+          case 80 ... 100: it.image(205, 0, id(i_battery_high), green); break;        
+          default: it.image(205, 0, id(i_battery_high), blue); break;
+        }
       }
 
       it.image(0, 35, id(i_radioactive), yellow);
@@ -516,4 +530,3 @@ web_server:
   auth:
     username: !secret web_user
     password: !secret web_pass   
-
