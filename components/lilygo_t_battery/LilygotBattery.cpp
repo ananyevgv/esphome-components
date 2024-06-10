@@ -21,8 +21,8 @@ void LilygotBattery::update_battery_info() {
 
   digitalWrite(14, HIGH);
   delay(10);
-  uint16_t v = analogRead(34);
-  battery_voltage = (v / 4095.0) * 7.26;
+  float v = analogRead(34);
+  float battery_voltage = (v / 4095.0) * 7.26;
   digitalWrite(14, LOW);
   int level;
   if (bus > 0) {
