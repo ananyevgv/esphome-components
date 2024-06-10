@@ -18,21 +18,19 @@ void LilygotBattery::update_battery_info() {
 
   float vb = analogRead(34);
   float bus = (vb / 4095.0) * 7.26;
+
+  digitalWrite(14, HIGH);
+  delay(10);
+  uint16_t v = analogRead(34);
+  battery_voltage = (v / 4095.0) * 7.26;
+  digitalWrite(14, LOW);
   int level;
-  float battery_voltage;
-  if (bus > 0)
-  {
+  if (bus > 0) {
     level = (1-(4.9-bus)/(4.9-4.2))*100;
     //battery_voltage = 0;
   }
-  else
-  {
-    digitalWrite(14, HIGH);
-    delay(10);
-    uint16_t v = analogRead(34);
-    battery_voltage = (v / 4095.0) * 7.26;
+  else {
     level = (1-(4.1-battery_voltage)/(4.1-3.3))*100;
-    digitalWrite(14, LOW);
   }
   //if (level > 100) {level=100;} 
   //if (level < 0) {level=0;} 
