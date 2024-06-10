@@ -13,7 +13,7 @@ void LilygotBattery::setup() {
 void LilygotBattery::update() {
   
   // wait for voltage to stabilise
-  delay(10);
+  delay(1);
   LilygotBattery::update_battery_info();
 }
 void LilygotBattery::update_battery_info() {
