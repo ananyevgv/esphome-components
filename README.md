@@ -121,3 +121,45 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309
     "MQ303A": [ISO_BUTANO, CHYDROGEN, ETHANOL],
     
     "MQ309A": [H2, CH4, CO, ALCOHOL],
+
+
+## RadSens
+
+ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7
+https://github.com/ananyevgv/esphome-components/tree/main/components/RadSens
+
+
+## CG-Anem
+
+ESPHome custom component sensor for Climateguard CG-Anem
+https://github.com/ananyevgv/esphome-components/tree/main/components/cgAnem
+
+## Ttgo t-display esp32 battery
+
+ESPHome custom component sTtgo t-display esp32 battery
+https://github.com/ananyevgv/esphome-components/tree/main/components/lilygo_t_battery
+
+Dosimeter  ESPHome
+==========
+По мотивам 
+https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
+
+Подключение
+
+  GPIO21 - SDA to RadSens
+  
+  GPIO22 - SCL to RadSens
+  
+  GPIO17 - pulse input from RadSens, + Buzzer
+  
+  GPIO2 - Buzzer
+  
+  GPIO32 - + RadSens 
+  
+  GPIO0 - sleep
+  
+  GPIO35 - wakeup
+
+<img src="https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.jpg" height="300" alt="Дозимер">
+
+https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.yaml
