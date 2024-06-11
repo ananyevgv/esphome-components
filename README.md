@@ -65,12 +65,9 @@ external_components:
         id: "pm10"
       update_interval: 30s
 ```
-# Ikea vindriktning
+# [Ikea vindriktning](https://github.com/ananyevgv/esphome-vindriktning-ikea/)
 
-https://github.com/ananyevgv/esphome-vindriktning-ikea/
-
-# yaml
-https://github.com/ananyevgv/esphome-vindriktning-ikea/blob/main/ikea-circle-new.yaml
+[yaml v3](https://github.com/ananyevgv/esphome-vindriktning-ikea/blob/main/ikea-circle-new.yaml)
 
 # ESPHome component MQ gaz sensor
 
@@ -129,23 +126,13 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309
 
 
 ## RadSens
-
-ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7
-
-https://github.com/ananyevgv/esphome-components/tree/main/components/RadSens
-
+[ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7](https://github.com/ananyevgv/esphome-components/tree/main/components/RadSens)
 
 ## CG-Anem
-
-ESPHome custom component sensor for Climateguard CG-Anem
-
-https://github.com/ananyevgv/esphome-components/tree/main/components/cgAnem
+[ESPHome custom component sensor for Climateguard CG-Anem](https://github.com/ananyevgv/esphome-components/tree/main/components/cgAnem)
 
 ## Ttgo t-display esp32 battery
-
-ESPHome custom component Ttgo t-display esp32 battery
-
-https://github.com/ananyevgv/esphome-components/tree/main/components/lilygo_t_battery
+ [ESPHome custom component Ttgo t-display esp32 battery](https://github.com/ananyevgv/esphome-components/tree/main/components/lilygo_t_battery)
 
 Dosimeter  ESPHome
 ==========
@@ -153,6 +140,4 @@ Dosimeter  ESPHome
 https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 
 [RadSens](https://github.com/ananyevgv/esphome-components/tree/main/components/RadSens)
-
-# yaml
-https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.yaml
+[Dosimeter yaml] (https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.yaml)
