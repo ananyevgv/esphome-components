@@ -1,4 +1,4 @@
-Dosimeter  ESPHome
+ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7 + Dosimeter  ESPHome
 ==========
 По мотивам 
 https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
@@ -16,13 +16,7 @@ https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 
 <img src="https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.jpg" height="300" alt="Дозимер">
 
-
-## Description
-
 ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7
-
-## Deployment
-
 
 ```
 Add to device config for climateguard/RadSens
