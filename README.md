@@ -1,8 +1,6 @@
-# ESPHome component PM1006k & MQ gaz sensor & Climateguard RadSens & Climateguard cgAnem
+# ESPHome component PM1006k & MQ gaz sensor & Climateguard RadSens & Climateguard cgAnem  & Ttgo t-display esp32 battery
 
 
-
-    
 # ESPHome component PM1006k с родным контроллером
 основан на PM1006
 ```yaml
@@ -67,6 +65,11 @@ external_components:
         id: "pm10"
       update_interval: 30s
 ```
+# Ikea vindriktning
+
+https://github.com/ananyevgv/esphome-vindriktning-ikea/
+https://github.com/ananyevgv/esphome-vindriktning-ikea/blob/main/ikea-circle-new.yaml
+
 # ESPHome component MQ gaz sensor
 
 основан на
