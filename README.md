@@ -68,6 +68,8 @@ external_components:
 # Ikea vindriktning
 
 https://github.com/ananyevgv/esphome-vindriktning-ikea/
+
+# yaml
 https://github.com/ananyevgv/esphome-vindriktning-ikea/blob/main/ikea-circle-new.yaml
 
 # ESPHome component MQ gaz sensor
@@ -165,4 +167,5 @@ https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 
 <img src="https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.jpg" height="300" alt="Дозимер">
 
+# yaml
 https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.yaml
