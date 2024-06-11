@@ -25,7 +25,7 @@ void LilygotBattery::update_battery_info() {
   int level = 0;
   float battery_voltage;
   if (bus > 0) { 
-    level = (1-(4.75-bus)/(4.75-4.5))*100;
+    level = (1-(4.75-bus)/(4.75-4.2))*100;
     battery_voltage = 0;
   } 
   else {
