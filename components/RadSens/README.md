@@ -18,7 +18,6 @@ https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 
 # ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7
 
-```
 Add to device config for climateguard/RadSens
 ```yaml
 esphome:
