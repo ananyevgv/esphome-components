@@ -16,6 +16,8 @@
  [ESPHome custom component Ttgo t-display esp32 battery](https://github.com/ananyevgv/esphome-components/tree/main/components/lilygo_t_battery)
 
 
+# Проекты:
+
 Ikea vindriktning
 ==========
 [Ikea vindriktning](https://github.com/ananyevgv/esphome-vindriktning-ikea/)
