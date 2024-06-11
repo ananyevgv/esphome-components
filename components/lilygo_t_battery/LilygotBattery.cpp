@@ -34,7 +34,7 @@ void LilygotBattery::update_battery_info() {
     float v = analogRead(34);
     battery_voltage = (v / 4095.0) * 7.26;
     digitalWrite(14, LOW);
-    level = (1-(3.95-battery_voltage)/(3.95-3.25))*100;
+    level = (1-(4-battery_voltage)/(4-3.25))*100;
   }
   
   if (level > 100) {level=100;} 
