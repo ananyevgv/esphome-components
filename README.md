@@ -4,7 +4,7 @@
 [ESPHome custom component PM1006k](https://github.com/ananyevgv/esphome-components/tree/main/components/pm1006k)
 
 ##  MQ
-[ESPHome custom component sensor MQ gaz sensor]https://github.com/ananyevgv/esphome-components/tree/main/components/mq
+[ESPHome custom component sensor MQ gaz sensor](https://github.com/ananyevgv/esphome-components/tree/main/components/mq)
 
 ## RadSens
 [ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7](https://github.com/ananyevgv/esphome-components/tree/main/components/RadSens)
