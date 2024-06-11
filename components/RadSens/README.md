@@ -21,7 +21,7 @@ https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 Add to device config for climateguard/RadSens
 ```yaml
 esphome:
-  ...
+
  libraries:
    - Wire
    - "climateguard/ClimateGuard RadSens"
@@ -32,7 +32,7 @@ esphome:
  #     - delay: 2s
       - switch.turn_on: hvg
       - switch.turn_on: led
- i2c:
+i2c:
 globals:
   - id: sens
     type: float
@@ -41,6 +41,9 @@ globals:
 
 ...
 
+## Sensor
+
+```yaml
 sensor:
   - platform: custom
     lambda: |-
@@ -83,7 +86,11 @@ sensor:
         unit_of_measurement: "imp/μR"
         icon: mdi:account-wrench-outline
         
+...
 
+## Binary sensor
+
+```yaml
 binary_sensor:
   - platform: custom
     lambda: |-
