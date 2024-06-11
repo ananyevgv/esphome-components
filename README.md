@@ -152,14 +152,13 @@ https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 Подключение
 |ESP32            |RadSens          |
 |-----------------|-----------------|
-|  GPIO21 | SDA to RadSens| 
-|  GPIO22 | SCL to RadSens|
-|  GPIO17 | pulse input from RadSens, + Buzzer| 
-|  GPIO2 | - Buzzer| 
+| GPIO21 | SDA to RadSens| 
+| GPIO22 | SCL to RadSens|
+| GPIO17 | pulse input from RadSens, + Buzzer| 
+| GPIO2 | - Buzzer| 
 | GPIO32 | + RadSens |
 | GPIO0 | sleep|
-  
-  GPIO35 - wakeup
+| GPIO35|  wakeup|
 
 <img src="https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.jpg" height="300" alt="Дозимер">
 
