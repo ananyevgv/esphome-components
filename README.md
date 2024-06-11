@@ -3,10 +3,6 @@
 ## PM1006k
 [ESPHome custom component PM1006k](https://github.com/ananyevgv/esphome-components/tree/main/components/pm1006k)
 
-# [Ikea vindriktning](https://github.com/ananyevgv/esphome-vindriktning-ikea/)
-
-[yaml v3](https://github.com/ananyevgv/esphome-vindriktning-ikea/blob/main/ikea-circle-new.yaml)
-
 ##  MQ
 [ESPHome custom component sensor MQ gaz sensor]https://github.com/ananyevgv/esphome-components/tree/main/components/mq
 
@@ -18,6 +14,12 @@
 
 ## Ttgo t-display esp32 battery
  [ESPHome custom component Ttgo t-display esp32 battery](https://github.com/ananyevgv/esphome-components/tree/main/components/lilygo_t_battery)
+
+
+Ikea vindriktning
+==========
+[Ikea vindriktning](https://github.com/ananyevgv/esphome-vindriktning-ikea/)
+[yaml Ikea vindriktning v3](https://github.com/ananyevgv/esphome-vindriktning-ikea/blob/main/ikea-circle-new.yaml)
 
 Dosimeter  ESPHome
 ==========
