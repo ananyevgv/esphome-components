@@ -1,4 +1,10 @@
-# ESPHome component PM1006k & MQ gaz sensor & Climateguard RadSens & Climateguard cgAnem  & Ttgo t-display esp32 battery
+# ESPHome component:
+
+PM1006k
+MQ gaz sensor 
+Climateguard RadSens
+Climateguard cgAnem 
+Ttgo t-display esp32 battery
 
 ## PM1006k
 [ESPHome custom component PM1006k](https://github.com/ananyevgv/esphome-components/tree/main/components/pm1006k)
