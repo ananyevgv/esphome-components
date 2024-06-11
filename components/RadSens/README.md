@@ -19,6 +19,7 @@ https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 # ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7
 
 Add to device config for climateguard/RadSens
+
 ```yaml
 esphome:
 
@@ -39,10 +40,8 @@ globals:
     restore_value: no
     initial_value: '105' # sensitivity
 
-...
-
+```
 ## Sensor
-
 ```yaml
 sensor:
   - platform: custom
@@ -84,12 +83,9 @@ sensor:
         state_class: measurement
         entity_category: diagnostic
         unit_of_measurement: "imp/μR"
-        icon: mdi:account-wrench-outline
-        
-...
-
+        icon: mdi:account-wrench-outline 
+```
 ## Binary sensor
-
 ```yaml
 binary_sensor:
   - platform: custom
@@ -103,9 +99,7 @@ binary_sensor:
       - name: "LedState"
         icon: mdi:led-outline
 ```
-
 ## Switch
-
 ```yaml
 switch:
   - platform: custom
