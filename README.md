@@ -152,7 +152,7 @@ Dosimeter  ESPHome
 По мотивам 
 https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 
-[https://github.com/ananyevgv/esphome-components/components/RadSens/](https://github.com/ananyevgv/esphome-components/tree/main/components/cgAnem)
+[RadSens](https://github.com/ananyevgv/esphome-components/tree/main/components/RadSens)
 
 # yaml
 https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.yaml
