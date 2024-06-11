@@ -27,4 +27,4 @@ Dosimeter  ESPHome
 https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
 
 [RadSens](https://github.com/ananyevgv/esphome-components/tree/main/components/RadSens)
-[Dosimeter yaml] (https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.yaml)
+[Dosimeter yaml](https://github.com/ananyevgv/esphome-components/blob/main/components/RadSens/dosimeter.yaml)
