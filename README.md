@@ -136,7 +136,7 @@ https://github.com/ananyevgv/esphome-components/tree/main/components/cgAnem
 
 ## Ttgo t-display esp32 battery
 
-ESPHome custom component sTtgo t-display esp32 battery
+ESPHome custom component Ttgo t-display esp32 battery
 https://github.com/ananyevgv/esphome-components/tree/main/components/lilygo_t_battery
 
 Dosimeter  ESPHome
