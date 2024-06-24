@@ -12,6 +12,14 @@ void LilygotBattery::setup() {
   pinMode(14, OUTPUT);
 
 }
+void LilygotBattery::dump_config() {
+  ESP_LOGCONFIG(TAG, "lilygo:");
+  LOG_SENSOR("  ", "USB voltage", this->voltage);
+  LOG_SENSOR("  ", "Battery charge", this->bus_voltage);
+  LOG_SENSOR("  ", "Battery voltage", this->battery_level);
+  LOG_UPDATE_INTERVAL(this);
+}
+
 void LilygotBattery::update() {
   
   // wait for voltage to stabilise
