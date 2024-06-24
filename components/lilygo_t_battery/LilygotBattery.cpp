@@ -50,9 +50,9 @@ void LilygotBattery::update_battery_info() {
   if (level > 100) {level=100;} 
   if (level < 0) {level=0;} 
   
-  ESP_LOGD(TAG, "USB voltage: %d V", bus);
+  ESP_LOGD(TAG, "USB voltage: %0.2f V", bus);
   ESP_LOGD(TAG, "Battery charge: %d %%", level);
-  ESP_LOGD(TAG, "Battery voltage: %d V", battery_voltage);
+  ESP_LOGD(TAG, "Battery voltage: %0.2f V", battery_voltage);
   
   if (this-> bus_voltage != nullptr) {
     this->bus_voltage->publish_state(bus);
