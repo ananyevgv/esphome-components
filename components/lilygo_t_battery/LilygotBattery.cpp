@@ -4,6 +4,8 @@
 namespace esphome {
 namespace lilygo_t_battery {
 
+static const char *const TAG = "lilygo";
+
 void LilygotBattery::setup() {
   esp_adc_cal_characteristics_t adc_chars;
   esp_adc_cal_value_t val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_1, (adc_atten_t)ADC_ATTEN_DB_2_5, (adc_bits_width_t)ADC_WIDTH_BIT_12, 1100, &adc_chars);
@@ -40,7 +42,7 @@ void LilygotBattery::update_battery_info() {
   if (level > 100) {level=100;} 
   if (level < 0) {level=0;} 
   
-  ESP_LOGD(TAG, "USB voltage: %d V³", bus);
+  ESP_LOGD(TAG, "USB voltage: %d V", bus);
   ESP_LOGD(TAG, "Battery charge: %d %%", level);
   ESP_LOGD(TAG, "Battery voltage: %d V", battery_voltage);
   
