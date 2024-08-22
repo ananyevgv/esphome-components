@@ -3,9 +3,9 @@
 #include "esphome/core/hal.h"
 #include "esphome/core/defines.h"
 #include "esphome/components/sensor/sensor.h"
+#include "MQUnifiedsensor.h"
 
 
-#include <MQUnifiedsensor.h>
 #include <map>
 
 namespace esphome {
