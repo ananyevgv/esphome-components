@@ -18,7 +18,7 @@ from esphome.const import (
     STATE_CLASS_MEASUREMENT,
     UNIT_VOLT,
     UNIT_PARTS_PER_MILLION,
-    ICON_MOLECULE_CO2,
+    ICON_GAS_CYLINDER,
 )
 from . import (
     ATTENUATION_MODES,
@@ -134,9 +134,8 @@ def validate_sensors(config):
 
 sensor_schema = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_MOLECULE_CO2,
+    icon=ICON_GAS_CYLINDER,
     accuracy_decimals=2,
-    device_class=DEVICE_CLASS_CARBON_MONOXIDE,
     state_class=STATE_CLASS_MEASUREMENT
 )
 
