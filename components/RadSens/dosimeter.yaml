@@ -13,6 +13,7 @@
 # BUTTON2	0
 # ADC Power	14
 
+
 ###########################################
 ##                                       ##
 ##  |GND|          |#|     |3.3|         ##   
@@ -36,26 +37,29 @@ substitutions:
 esphome: 
   comment: "${device_description}"
   name: "${name}"
-  libraries:
-    - Wire
-    - "climateguard/ClimateGuard RadSens"
-  includes:
-    - RadSens1v2/_CG_RadSens.h
   on_boot:
     then:
       - switch.turn_on: hvg
       - switch.turn_off: led
       - switch.turn_on: backlight
-      - switch.turn_on: radsens
+      - switch.turn_on: radsens_on
       - switch.turn_off: speaker
 esp32:
   board: featheresp32
   flash_size: 16MB
   
 external_components:
-  source: github://ananyevgv/esphome-components
-  components: [ lilygo_t_battery ]
-  refresh: 0s
+  - source: github://ananyevgv/esphome-components
+    components: [ lilygo_t_battery ]
+    refresh: 0s
+
+  - source: github://krbaker/esphome-radsens
+    components: [ radsens ]
+    refresh: 600s
+
+psram:
+  mode: octal
+  speed: 80MHz
 
 api:
   password: !secret api_pass
@@ -63,7 +67,8 @@ api:
 #Включаем загрузку по воздуху
 ota:
   password: !secret ota_pass
-
+  platform: esphome
+  
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
@@ -71,13 +76,17 @@ wifi:
 logger:
 
 i2c:
-   sda: 21
-   scl: 22
-   scan: true
-   
+  sda: 21
+  scl: 22
+  scan: true
+  frequency: 400kHz
+
 spi:
   clk_pin: GPIO18
   mosi_pin: GPIO19
+
+radsens:
+  sensitivity: 105
 
 color:
   - id: red
@@ -148,58 +157,73 @@ image:
   - file: mdi:radioactive
     id: i_radioactive
     resize: 70x70 
-
+    type: BINARY
   - file: mdi:wifi-strength-1
     id: i_wifi1
     resize: 35x35 
+    type: BINARY
   - file: mdi:wifi-strength-2
     id: i_wifi2
     resize: 35x35 
+    type: BINARY
   - file: mdi:wifi-strength-3
     id: i_wifi3
-    resize: 35x35     
+    resize: 35x35 
+    type: BINARY
   - file: mdi:wifi-strength-4
     id: i_wifi4
     resize: 35x35  
+    type: BINARY
   - file: mdi:wifi-strength-off-outline
     id: i_wifioff
     resize: 35x35 
-
+    type: BINARY
 
   - file: mdi:led-outline
     id: i_led
     resize: 35x35 
+    type: BINARY
   - file: mdi:battery-high
     id: i_battery_high
     resize: 35x35 
+    type: BINARY
   - file: mdi:battery-medium
     id: i_battery_medium
     resize: 35x35 
+    type: BINARY
   - file: mdi:battery-low
     id: i_battery_low
     resize: 35x35 
+    type: BINARY
   - file: mdi:battery-outline
     id: i_battery_outline
     resize: 35x35 
+    type: BINARY
   - file: mdi:battery-off-outline
     id: i_battery_off_outline
     resize: 35x35 
+    type: BINARY
   - file: mdi:battery-charging
     id: i_battery_charging
     resize: 35x35
+    type: BINARY
 
   - file: mdi:flash-triangle
     id: i_flash
     resize: 35x35  
+    type: BINARY
   - file: mdi:pulse
     id: i_pulse
     resize: 35x35
+    type: BINARY
   - file: mdi:volume-high
     id: i_volume_high
     resize: 35x35     
+    type: BINARY
   - file: mdi:volume-off
     id: i_volume_off
     resize: 35x35    
+    type: BINARY
 
 deep_sleep:
   run_duration: 10min
@@ -210,13 +234,20 @@ deep_sleep:
     allow_other_uses: true
   wakeup_pin_mode: IGNORE
 
-globals:
-  - id: sens
-    type: float
-    restore_value: no
-    initial_value: '105' # sensitivity
-
 sensor:
+  - platform: radsens
+    dynamic_intensity:
+      name: "Dynamic Intensity"
+      id: radD
+    static_intensity:
+      name: "Static Intensity"
+      id: radS
+    counts_per_minute:
+      name: "Counts Per Minute"
+      id: imp
+    firmware_version:
+      name: "Firmware"
+
   - platform: lilygo_t_battery
     update_interval: 5s
     voltage:
@@ -249,52 +280,7 @@ sensor:
     entity_category: "diagnostic"
     id: WiFiP
 
-  - platform: custom
-    lambda: |-
-      auto rad_sens = new MyRadSens();
-      App.register_component(rad_sens);
-      return {rad_sens->IntensityDynamic_Sensor,rad_sens->IntensityStatic_Sensor, rad_sens->Firmware_Sensor, rad_sens->CurrentCPM_Sensor, rad_sens->MaxCPM_Sensor, rad_sens->Sensivity_Sensor};
-    sensors:
-      - name: "Dynamic intensity"
-        id: radD
-        accuracy_decimals: 1
-        unit_of_measurement: μR/h
-        state_class: measurement
-        icon: mdi:radioactive
-        filters:
-          - filter_out: nan
-      - name: "Static intensity"
-        id: radS
-        accuracy_decimals: 1
-        unit_of_measurement: μR/h
-        state_class: measurement
-        icon: mdi:radioactive
-        filters:
-          - filter_out: nan
-      - name: "Firmware"
-        accuracy_decimals: 0
-        icon: mdi:folder-arrow-up-outline
-        
-      - name: "Current impulse"
-        accuracy_decimals: 0
-        unit_of_measurement: imp
-        state_class: measurement
-        icon: mdi:pulse
-        id: imp
-        filters:
-          - filter_out: nan
-
-      - name: "Max impulse"
-        accuracy_decimals: 0
-        unit_of_measurement: imp
-        state_class: measurement
-        icon: mdi:pulse
-
-      - name: "Calibration Sensivity"
-        state_class: measurement
-        entity_category: diagnostic
-        unit_of_measurement: "imp/μR"
-        icon: mdi:account-wrench-outline
+ 
 
 binary_sensor:
   - platform: template
@@ -306,18 +292,7 @@ binary_sensor:
       } else {
         return false;
       }
-  - platform: custom
-    lambda: |-
-      auto rad_sens = new MyRadSens();
-      App.register_component(rad_sens);
-      return {rad_sens->HVGenerator_BinarySensor, rad_sens->LedState_BinarySensor};
-    binary_sensors:
-      - name: "HVGenerator"
-        icon: mdi:flash-triangle
-        id: bHVG
-      - name: "LedState"
-        icon: mdi:led-outline
-        id: bled
+
 
   - platform: status
     name: "${name} API HA"
@@ -372,24 +347,16 @@ text_sensor:
       icon: mdi:lan
 
 switch:
-  - platform: custom
-    lambda: |-
-      auto rad_sens_switch = new MyRadSens_Switch();
-      App.register_component(rad_sens_switch);
-      return {rad_sens_switch->lpmode_switch, rad_sens_switch->hv_generator_switch, rad_sens_switch->led_indicator_switch};
-
-    switches:
-#  режим пониженного энергопотребления
-      - name: "lpmode"
-        icon: mdi:lock-clock  
-
-      - name: "High Voltage Generator"
-        icon: mdi:flash-triangle-outline
-        id: hvg
-      - name: "LED Indicator"
-        icon: mdi:led-outline
-        id: led
-
+  - platform: radsens
+    control_led:
+      name: "LED Indicator"
+      #icon: mdi:led-outline
+      id: led
+    control_high_voltage:
+      name: "High Voltage Generator"
+      id: hvg
+    control_low_power:
+      name: "low power mode"
   - platform: gpio
     pin: GPIO4
     name: "Backlight"
@@ -409,7 +376,7 @@ switch:
       number: GPIO32
       drive_strength: 40mA
     name: radsens   
-    id: radsens
+    id: radsens_on
     icon: mdi:radioactive-off
 
 display:
@@ -526,3 +493,4 @@ web_server:
   auth:
     username: !secret web_user
     password: !secret web_pass   
+  
