@@ -493,4 +493,3 @@ web_server:
   auth:
     username: !secret web_user
     password: !secret web_pass   
-  
