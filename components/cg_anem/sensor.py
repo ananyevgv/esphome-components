@@ -13,6 +13,7 @@ from esphome.const import (
 
     UNIT_CELSIUS,
     UNIT_WATT,
+    UNIT_CUBIC_METER_PER_HOUR,
     UNIT_EMPTY,
     STATE_CLASS_MEASUREMENT,
     ICON_CHIP,
