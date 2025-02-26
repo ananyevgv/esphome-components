@@ -10,6 +10,7 @@ from esphome.const import (
     DEVICE_CLASS_POWER,
     DEVICE_CLASS_VOLUME,
     DEVICE_CLASS_EMPTY,
+    DEVICE_CLASS_PROBLEM,
 
     UNIT_CELSIUS,
     UNIT_WATT,
