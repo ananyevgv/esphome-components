@@ -12,6 +12,7 @@ from esphome.const import (
     DEVICE_CLASS_EMPTY,
 
     UNIT_CELSIUS,
+    UNIT_WATT,
     UNIT_EMPTY,
     STATE_CLASS_MEASUREMENT,
     ICON_CHIP,
