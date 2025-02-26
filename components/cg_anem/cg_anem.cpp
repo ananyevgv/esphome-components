@@ -231,6 +231,7 @@ void CGAnemComponent::update() {
   float temp = tempRaw / 10.0f;
   float speed = speedRaw / 10.0f;
   float сonsumption;
+  float duct config[CONF_DUCT];
   if (duct > -0.01 && speed != -255) {
     consumption = 6 * speed * duct * 0.06;
   } else {
