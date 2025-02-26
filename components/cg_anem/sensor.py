@@ -73,7 +73,7 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_WIND_SPEED,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
-            cv.Optional(CONF_CONF_HEAT_POWER): sensor.sensor_schema(
+            cv.Optional(CONF_HEAT_POWER): sensor.sensor_schema(
                 unit_of_measurement=UNIT_WATT,
                 accuracy_decimals=1,
                 device_class=DEVICE_CLASS_POWER,
