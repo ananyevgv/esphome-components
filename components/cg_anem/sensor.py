@@ -122,17 +122,17 @@ async def to_code(config):
     if CONF_HOTEND_TEMPERATURE in config:
         sens = await sensor.new_sensor(config[CONF_HOTEND_TEMPERATURE])
         cg.add(var.set_hotend_temperature_sensor(sens))
-    if AIR_FLOW_RATE in config:
+    if CONF_AIR_FLOW_RATE in config:
         sens = await sensor.new_sensor(config[AIR_FLOW_RATE])
         cg.add(var.set_air_flow_rate(sens))
-    if MIN_AIR_FLOW_RATE in config:
-        sens = await sensor.new_sensor(config[MIN_AIR_FLOW_RATE])
+    if CONF_MIN_AIR_FLOW_RATE in config:
+        sens = await sensor.new_sensor(config[CONF_MIN_AIR_FLOW_RATE])
         cg.add(var.set_min_air_flow_rate(sens))
-    if MAX_AIR_FLOW_RATE in config:
+    if CONF_MAX_AIR_FLOW_RATE in config:
         sens = await sensor.new_sensor(config[MAX_AIR_FLOW_RATE])
         cg.add(var.set_max_air_flow_rate(sens))
-    if HEAT_POWER in config:
-        sens = await sensor.new_sensor(config[HEAT_POWER])
+    if CONF_HEAT_POWER in config:
+        sens = await sensor.new_sensor(config[CONF_HEAT_POWER])
         cg.add(var.set_heat_power(sens))
     if CONF_FIRMWARE_VERSION in config:
         sens = await sensor.new_sensor(config[CONF_FIRMWARE_VERSION])
