@@ -98,19 +98,13 @@ CONFIG_SCHEMA = (
 
 
             cv.Optional(CONF_STATUS_UP): binary_sensor.binary_sensor_schema(
- 
-    		device_class=DEVICE_CLASS_EMPTY,
-    		entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+                device_class=DEVICE_CLASS_PROBLEM,
             ),
             cv.Optional(CONF_STATUS_OV): binary_sensor.binary_sensor_schema(
- 
-    		device_class=DEVICE_CLASS_EMPTY,
-    		entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+                device_class=DEVICE_CLASS_PROBLEM,
             ),
             cv.Optional(CONF_STATUS_WDT): binary_sensor.binary_sensor_schema(
- 
-    		device_class=DEVICE_CLASS_EMPTY,
-    		entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+                device_class=DEVICE_CLASS_PROBLEM,
             ),
 
         }
