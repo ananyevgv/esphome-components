@@ -3,7 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import i2c, sensor
 from esphome.const import (
     CONF_ID,
-    CONF_DUCT,
+
     CONF_AMBIENT_TEMPERATURE,
     CONF_HOTEND_TEMPERATURE,
     CONF_HEAT_POWER,
