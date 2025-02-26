@@ -3,18 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import i2c, sensor
 from esphome.const import (
     CONF_ID,
-    CONF_DUCT,
-    CONF_AMBIENT_TEMPERATURE,
-    CONF_HOTEND_TEMPERATURE,
-    CONF_HEAT_POWER,
-    CONF_AIR_CONSUMPTION,
-    CONF_AIR_FLOW_RATE,
-    CONF_FIRMWARE_VERSION,
-    CONF_MIN_AIR_FLOW_RATE,
-    CONF_MAX_AIR_FLOW_RATE,
-    CONF_STATUS_UP,
-    CONF_STATUS_OV,
-    CONF_STATUS_WDT,
+
     DEVICE_CLASS_TEMPERATURE,
     DEVICE_CLASS_WIND_SPEED,
     DEVICE_CLASS_FIRMWARE,
@@ -29,7 +18,18 @@ from esphome.const import (
     ICON_CHIP,
     ENTITY_CATEGORY_DIAGNOSTIC
 )
-
+CONF_DUCT = "duct"
+CONF_AMBIENT_TEMPERATURE = "ambient_temperature"
+CONF_HOTEND_TEMPERATURE = "hotend_temperature"
+CONF_HEAT_POWER = "heat_power"
+CONF_AIR_CONSUMPTION = "air_consumption"
+CONF_AIR_FLOW_RATE = "air_flow_rate"
+CONF_FIRMWARE_VERSION = "firmware_version"
+CONF_MIN_AIR_FLOW_RATE = "min_air_flow_rate"
+CONF_MAX_AIR_FLOW_RATE = "max_air_flow_rate"
+CONF_STATUS_UP = "status_up"
+CONF_STATUS_OV = "status_ov"
+CONF_STATUS_WDT = "status_wdt"
 UNIT_METER_PER_SECOND = "m/s"
 UNIT_COUNTS_PER_SQUARED_CENTIMETER = "cm²"
 DEPENDENCIES = ["i2c"]
