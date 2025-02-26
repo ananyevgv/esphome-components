@@ -126,7 +126,7 @@ async def to_code(config):
         sens = await sensor.new_sensor(config[CONF_HOTEND_TEMPERATURE])
         cg.add(var.set_hotend_temperature_sensor(sens))
     if CONF_AIR_FLOW_RATE in config:
-        sens = await sensor.new_sensor(config[AIR_FLOW_RATE])
+        sens = await sensor.new_sensor(config[CONF_AIR_FLOW_RATE])
         cg.add(var.set_air_flow_rate(sens))
     if CONF_MIN_AIR_FLOW_RATE in config:
         sens = await sensor.new_sensor(config[CONF_MIN_AIR_FLOW_RATE])
