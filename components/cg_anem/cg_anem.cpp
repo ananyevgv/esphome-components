@@ -63,7 +63,7 @@ void CGAnemComponent::setup() {
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
 
-  uint8_t versionRaw = 1;
+  uint8_t versionRaw = 0;
   if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
     // this->error_code_ = COMMUNICATION_FAILED;
     // this->mark_failed();
@@ -162,8 +162,8 @@ void CGAnemComponent::update() {
   }
 
   uint16_t tempRaw;
-  if (auto tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
-    if (auto tempL = this->read_byte(CG_ANEM_REGISTER_COLD_L)) {
+  if (uint8_t tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
+    if (uint8_t tempL = this->read_byte(CG_ANEM_REGISTER_COLD_L)) {
       tempRaw = (*tempH << 8) | *tempL;
 
     } else {
