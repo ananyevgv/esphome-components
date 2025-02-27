@@ -38,6 +38,8 @@ static const uint8_t CG_ANEM_STATUS_WATCHDOG_TIMER = 0b00100000;
 static const uint8_t CG_ANEM_STATUS_OVERVOLTAGE = 0b00000010;
 static const uint8_t CG_ANEM_STATUS_UNSTEADY_PROCESS = 0b00000001;
 
+static const uint8_t versionRaw = 0;
+
 inline uint16_t combine_bytes(uint8_t msb, uint8_t lsb) { return ((msb & 0xFF) << 8) | (lsb & 0xFF); }
 
 void CGAnemComponent::setup() {
@@ -58,7 +60,7 @@ void CGAnemComponent::setup() {
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
 
-  uint8_t versionRaw = 0;
+
 
   if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
     this->error_code_ = COMMUNICATION_FAILED;
@@ -187,7 +189,7 @@ void CGAnemComponent::update() {
   }
 
   float power;
-  if (auto PowerRaw = this->read_byte(CG_ANEM_REGISTER_HEAT_WT)) {
+  if (float PowerRaw = this->read_byte(CG_ANEM_REGISTER_HEAT_WT)) {
     power = (PowerRaw * 1.36125) / 255;
   } else {
     ESP_LOGW(TAG, "Error reading power.");
@@ -199,9 +201,9 @@ void CGAnemComponent::update() {
     this->hotend_temperature_sensor_->publish_state(power);
 
   float MinAir;
-  if (version >= 1) {
-    if (auto MinAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_H)) {
-      if (auto MinAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_L)) {
+  if (versionRaw >= 1) {
+    if (uint32_t  MinAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_H)) {
+      if (uint32_t  MinAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_L)) {
         MinAir = ((MinAirH << 8) | MinAirL) / 10.0;
       }
      }
@@ -211,9 +213,9 @@ void CGAnemComponent::update() {
     return;
   }
   float MaxAir;
-  if (version >= 1) {
-    if (auto MaxAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H)) {
-      if (auto MaxAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L)) {
+  if (versionRaw >= 1) {
+    if (uint32_t  MaxAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H)) {
+      if (uint32_t  MaxAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L)) {
         MinAir = ((MaxAirH << 8) | MaxAirL) / 10.0;
       }
      }
