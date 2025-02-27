@@ -65,8 +65,9 @@ void CGAnemComponent::setup() {
 
   uint8_t versionRaw = 0;
   if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
-    this->error_code_ = COMMUNICATION_FAILED;
+    // this->error_code_ = COMMUNICATION_FAILED;
     // this->mark_failed();
+    ESP_LOGI(TAG, "VerRaw: %d", versionRaw);
     return;
   }
   ESP_LOGI(TAG, "VerRaw: %d", versionRaw);
