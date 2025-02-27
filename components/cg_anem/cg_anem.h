@@ -13,7 +13,7 @@ class CGAnemComponent : public PollingComponent, public i2c::I2CDevice {
  public:
   void set_duct(float duct);
   void set_ambient_temperature_sensor(sensor::Sensor *ambient_temperature_sensor) { ambient_temperature_sensor_ = ambient_temperature_sensor; }
-  void set_hotend_temperature(sensor::Sensor *hotend_temperature_sensor) { hotend_temperature_sensor_ = hotend_temperature_sensor; }
+  void set_hotend_temperature_sensor(sensor::Sensor *hotend_temperature_sensor) { hotend_temperature_sensor_ = hotend_temperature_sensor; }
   void set_heat_power_sensor(sensor::Sensor *heat_power_sensor) { heat_power_sensor_ = heat_power_sensor; }
   void set_air_consumption_sensor(sensor::Sensor *air_consumption_sensor) { air_consumption_sensor_ = air_consumption_sensor; }
   void set_air_flow_rate_sensor(sensor::Sensor *air_flow_rate_sensor) { air_flow_rate_sensor_ = air_flow_rate_sensor; }
