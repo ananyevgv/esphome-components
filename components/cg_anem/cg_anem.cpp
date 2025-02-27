@@ -58,7 +58,7 @@ void CGAnemComponent::setup() {
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
 
-  static uint8_t versionRaw = 0;
+  static const uint8_t versionRaw = 0;
 
   if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
     this->error_code_ = COMMUNICATION_FAILED;
@@ -227,11 +227,11 @@ void CGAnemComponent::update() {
   float temp = tempRaw / 10.0f;
   float speed = speedRaw / 10.0f;
   float сonsumption;
-  float duct config[CONF_DUCT];
+  float duct 105;
   if (duct > -0.01 && speed != -255) {
-    consumption = 6 * speed * duct * 0.06;
+    сonsumption = 6 * speed * duct * 0.06;
   } else {
-    consumption = -255;
+    сonsumption = -255;
   }
 
 
