@@ -58,7 +58,7 @@ void CGAnemComponent::setup() {
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
 
-  static const uint8_t versionRaw = 0;
+  uint8_t versionRaw = 0;
 
   if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
     this->error_code_ = COMMUNICATION_FAILED;
@@ -199,7 +199,7 @@ void CGAnemComponent::update() {
     this->hotend_temperature_sensor_->publish_state(power);
 
   float MinAir;
-  if (versionRaw >= 10) {
+  if (version >= 1) {
     if (auto MinAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_H)) {
       if (auto MinAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_L)) {
         MinAir = ((MinAirH << 8) | MinAirL) / 10.0;
@@ -211,7 +211,7 @@ void CGAnemComponent::update() {
     return;
   }
   float MaxAir;
-  if (versionRaw >= 10) {
+  if (version >= 1) {
     if (auto MaxAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H)) {
       if (auto MaxAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L)) {
         MinAir = ((MaxAirH << 8) | MaxAirL) / 10.0;
@@ -227,7 +227,7 @@ void CGAnemComponent::update() {
   float temp = tempRaw / 10.0f;
   float speed = speedRaw / 10.0f;
   float сonsumption;
-  float duct 105;
+  float duct = 105;
   if (duct > -0.01 && speed != -255) {
     сonsumption = 6 * speed * duct * 0.06;
   } else {
