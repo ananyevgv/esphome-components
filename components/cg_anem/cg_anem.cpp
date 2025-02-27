@@ -162,8 +162,8 @@ void CGAnemComponent::update() {
   }
 
   uint16_t tempRaw;
-  if (uint8_t tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
-    if (uint8_t tempL = this->read_byte(CG_ANEM_REGISTER_COLD_L)) {
+  if (char tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
+    if (char tempL = this->read_byte(CG_ANEM_REGISTER_COLD_L)) {
       tempRaw = (*tempH << 8) | *tempL;
 
     } else {
