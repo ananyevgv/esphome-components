@@ -69,7 +69,7 @@ void CGAnemComponent::setup() {
     // this->mark_failed();
     return;
   }
-  ESP_LOGI(VerRaw, "Id: %d", versionRaw);
+  ESP_LOGI(TAG, "VerRaw: %d", versionRaw);
   
   float version = versionRaw / 10.0;
   ESP_LOGI(TAG, "Version: %.1f", version);
