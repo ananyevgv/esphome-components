@@ -222,11 +222,7 @@ void CGAnemComponent::update() {
     this->air_flow_rate_sensor_->publish_state(speed);
   if (this->air_consumption_sensor_ != nullptr)
     this->air_consumption_sensor_->publish_state(сonsumption);
-  if (this->min_air_flow_rate_sensor_ != nullptr)
-    this->min_air_flow_rate_sensor_->publish_state(MinAir);
-  if (this->max_air_flow_rate_sensor_ != nullptr)
-    this->max_air_flow_rate_sensor_->publish_state(MaxAir);
-  this->status_clear_warning();
+
 }
 
 }  // namespace cg_anem
