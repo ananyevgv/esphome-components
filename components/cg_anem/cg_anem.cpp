@@ -38,7 +38,7 @@ static const uint8_t CG_ANEM_STATUS_WATCHDOG_TIMER = 0b00100000;
 static const uint8_t CG_ANEM_STATUS_OVERVOLTAGE = 0b00000010;
 static const uint8_t CG_ANEM_STATUS_UNSTEADY_PROCESS = 0b00000001;
 
-static const uint8_t versionRaw = 0;
+static const char versionRaw = 0;
 
 inline uint16_t combine_bytes(uint8_t msb, uint8_t lsb) { return ((msb & 0xFF) << 8) | (lsb & 0xFF); }
 
@@ -189,7 +189,7 @@ void CGAnemComponent::update() {
   }
 
   float power;
-  if (float PowerRaw = this->read_byte(CG_ANEM_REGISTER_HEAT_WT)) {
+  if (PowerRaw = this->read_byte(CG_ANEM_REGISTER_HEAT_WT)) {
     power = (PowerRaw * 1.36125) / 255;
   } else {
     ESP_LOGW(TAG, "Error reading power.");
