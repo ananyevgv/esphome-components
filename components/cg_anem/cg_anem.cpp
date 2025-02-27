@@ -58,15 +58,13 @@ void CGAnemComponent::setup() {
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
 
-
-
+  uint8_t versionRaw = 0;
   if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
     this->error_code_ = COMMUNICATION_FAILED;
     this->mark_failed();
     return;
   }
-  
-  uint8_t versionRaw = 0;
+
   float version = versionRaw / 10.0;
   ESP_LOGI(TAG, "Version: %.1f", version);
   if (this->firmware_version_sensor_ != nullptr)
