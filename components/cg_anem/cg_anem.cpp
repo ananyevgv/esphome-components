@@ -14,16 +14,16 @@ static const uint8_t CG_ANEM_REGISTER_STATUS = 0x06;
 static const uint8_t CG_ANEM_REGISTER_WIND_H = 0x07;
 static const uint8_t CG_ANEM_REGISTER_WIND_L = 0x08; // 16 bit
 
-static const uint8_t CG_ANEM_REGISTER_TEST_COLD_H = 0x10;
-static const uint8_t CG_ANEM_REGISTER_TEST_COLD_L = 0x11;
+static const uint8_t CG_ANEM_REGISTER_TEST_COLD_H = 0x09;
+static const uint8_t CG_ANEM_REGISTER_TEST_COLD_L = 0x0A;
 static const uint8_t CG_ANEM_REGISTER_TEST_HOT_H = 0x0B;
 static const uint8_t CG_ANEM_REGISTER_TEST_HOT_L = 0x0C;
 
 static const uint8_t CG_ANEM_REGISTER_VIN = 0x0D;
 static const uint8_t CG_ANEM_REGISTER_HEAT_WT = 0x0E;
 
-static const uint8_t CG_ANEM_REGISTER_COLD_H = 0x0A;
-static const uint8_t CG_ANEM_REGISTER_COLD_L = 0x0B;
+static const uint8_t CG_ANEM_REGISTER_COLD_H = 0x10;
+static const uint8_t CG_ANEM_REGISTER_COLD_L = 0x11;
 static const uint8_t CG_ANEM_REGISTER_HOT_H = 0x12;
 static const uint8_t CG_ANEM_REGISTER_HOT_L = 0x13;
 static const uint8_t CG_ANEM_REGISTER_DT_H = 0x14;
