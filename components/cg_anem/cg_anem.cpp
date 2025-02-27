@@ -53,7 +53,7 @@ void CGAnemComponent::setup() {
 
   if (!this->read_byte(CG_ANEM_REGISTER_WHO_I_AM, &chip_id)) {
     this->error_code_ = COMMUNICATION_FAILED;
-    this->mark_failed();
+    // this->mark_failed();
     return;
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
@@ -61,7 +61,7 @@ void CGAnemComponent::setup() {
   uint8_t versionRaw = 0;
   if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
     this->error_code_ = COMMUNICATION_FAILED;
-    this->mark_failed();
+    // this->mark_failed();
     return;
   }
 
