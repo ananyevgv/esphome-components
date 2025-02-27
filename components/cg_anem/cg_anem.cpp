@@ -68,8 +68,8 @@ void CGAnemComponent::setup() {
 
   float version = versionRaw / 10.0;
   ESP_LOGI(TAG, "Version: %.1f", version);
-  if (this->firmware_version_ != nullptr)
-    this->firmware_version_->publish_state(version);
+  if (this->firmware_version_sensor_ != nullptr)
+    this->firmware_version_sensor_->publish_state(version);
 
   if (version >= 1.0f) {
     // Send a max wind reset soft reset.
