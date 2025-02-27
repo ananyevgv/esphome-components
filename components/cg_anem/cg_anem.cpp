@@ -200,30 +200,7 @@ void CGAnemComponent::update() {
   if (this->hotend_temperature_sensor_ != nullptr)
     this->hotend_temperature_sensor_->publish_state(power);
 
-  float MinAir;
-  if (versionRaw >= 1) {
-    if (char  MinAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_H)) {
-      if (char  MinAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_L)) {
-        MinAir = ((MinAirH << 8) | MinAirL) / 10.0;
-      }
-     }
-  } else {
-    MinAir = -255;
-    this->status_set_warning();
-    return;
-  }
-  float MaxAir;
-  if (versionRaw >= 1) {
-    if (char  MaxAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H)) {
-      if (char  MaxAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L)) {
-        MinAir = ((MaxAirH << 8) | MaxAirL) / 10.0;
-      }
-     }
-  } else {
-    MinAir = -255;
-    this->status_set_warning();
-    return;
-  }
+
 
 
   float temp = tempRaw / 10.0f;
