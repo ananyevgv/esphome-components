@@ -2,7 +2,6 @@
 
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
-#include "esphome/components/binary_sensor/binary_sensor.h"
 #include "esphome/components/i2c/i2c.h"
 
 namespace esphome {
@@ -21,9 +20,6 @@ class CGAnemComponent : public PollingComponent, public i2c::I2CDevice {
   void set_min_air_flow_rate_sensor(sensor::Sensor *min_air_flow_rate_sensor) { min_air_flow_rate_sensor_ = min_air_flow_rate_sensor; }
   void set_max_air_flow_rate_sensor(sensor::Sensor *max_air_flow_rate_sensor) { max_air_flow_rate_sensor_ = max_air_flow_rate_sensor; }
 
-  void set_status_up_sensor(binary_sensor::BinarySensor *status_up) { status_up_sensor_ = status_up_sensor; }
-  void set_status_ov_sensor(binary_sensor::BinarySensor *status_ov) { status_ov_sensor_ = status_ov_sensor; }
-  void set_status_wdt_sensor(binary_sensor::BinarySensor *status_wdt) { status_wdt_sensor_ = status_wdt_sensor; }
 
   // ========== INTERNAL METHODS ==========
   // (In most use cases you won't need these)
