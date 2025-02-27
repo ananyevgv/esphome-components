@@ -187,7 +187,7 @@ void CGAnemComponent::update() {
 
   float power;
   if (auto PowerRaw = this->read_byte(CG_ANEM_REGISTER_HEAT_WT)) {
-    power = (PowerRaw * 1.36125) / 255;
+    power = (PowerRaw * 1.36) / 255;
   } else {
     ESP_LOGW(TAG, "Error reading power.");
     this->status_set_warning();
