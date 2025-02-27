@@ -125,26 +125,26 @@ void CGAnemComponent::read_status() {
 
   if ((status & CG_ANEM_STATUS_WATCHDOG_TIMER) == 0) {
     ESP_LOGW(TAG, "Watchdog disabled");
-    this->status_wdt_sensor_->publish_state(true);
+    // this->status_wdt_sensor_->publish_state(true);
   } else {
-    this->status_wdt_sensor_->publish_state(false);
+    // this->status_wdt_sensor_->publish_state(false);
   }
 
 
   if (status & CG_ANEM_STATUS_OVERVOLTAGE) {
     ESP_LOGW(TAG, "Overvoltage detected");
-    this->status_ov_sensor_->publish_state(true);
+    // this->status_ov_sensor_->publish_state(true);
   } else {
-    this->status_ov_sensor_->publish_state(false);
+    // this->status_ov_sensor_->publish_state(false);
   }
 
   if (status & CG_ANEM_STATUS_UNSTEADY_PROCESS) {
     ESP_LOGW(TAG, "Unsteady process detected");
     this->status_set_warning();
-    this->status_up_sensor_->publish_state(true);
+    // this->status_up_sensor_->publish_state(true);
   } else {
     this->status_clear_warning();
-    this->status_up_sensor_->publish_state(false);
+    // this->status_up_sensor_->publish_state(false);
   }
 }
 
