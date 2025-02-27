@@ -31,3 +31,22 @@ binary_sensor:
     name: "OVERVOLTAGE"
   status_wdt:
     name: "WATCHDOG TIMER"
+
+
+  - platform: cg_anem
+    temperature:
+      name: "temp_dorm"
+    wind_speed:
+      name: "speed_dorm"
+      id: airflowRate
+    address: 0x11
+    update_interval: 10s
+  - platform: template
+    name: "Air Consumption"
+    lambda: |- 
+      if (id(airflowRate).state) {
+        return 0;
+      } else {
+        return 6 * id(airflowRate).state * ${duct}  * 0.06;
+      }
+    update_interval: 10s
