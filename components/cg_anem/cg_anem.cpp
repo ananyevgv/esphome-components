@@ -14,6 +14,11 @@ static const uint8_t CG_ANEM_REGISTER_STATUS = 0x06;
 static const uint8_t CG_ANEM_REGISTER_WIND_H = 0x07;
 static const uint8_t CG_ANEM_REGISTER_WIND_L = 0x08; // 16 bit
 
+static const uint8_t CG_ANEM_REGISTER_TEST_COLD_H = 0x09;
+static const uint8_t CG_ANEM_REGISTER_TEST_COLD_L = 0x0A;
+static const uint8_t CG_ANEM_REGISTER_TEST_HOT_H = 0x0B;
+static const uint8_t CG_ANEM_REGISTER_TEST_HOT_L = 0x0C;
+
 static const uint8_t CG_ANEM_REGISTER_VIN = 0x0D;
 static const uint8_t CG_ANEM_REGISTER_HEAT_WT = 0x0E;
 
@@ -53,7 +58,7 @@ void CGAnemComponent::setup() {
 
   if (!this->read_byte(CG_ANEM_REGISTER_WHO_I_AM, &chip_id)) {
     this->error_code_ = COMMUNICATION_FAILED;
-    // this->mark_failed();
+    this->mark_failed();
     return;
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
