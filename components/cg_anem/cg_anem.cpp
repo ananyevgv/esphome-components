@@ -181,6 +181,8 @@ void CGAnemComponent::update() {
   if (auto speedH = this->read_byte(CG_ANEM_REGISTER_WIND_H)) {
     if (auto speedL = this->read_byte(CG_ANEM_REGISTER_WIND_L)) {
       speedRaw = (*speedH << 8) | *speedL;
+      ESP_LOGI(TAG, "speedH: %d", speedH);
+      ESP_LOGI(TAG, "speedL: %d", speedL);
     } else {
       ESP_LOGW(TAG, "Error reading wind speed.");
       this->status_set_warning();
