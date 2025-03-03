@@ -52,7 +52,7 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(CGAnemComponent),
-            cv.Optional(CONF_DUCT, default = 105): cv.uint16_t,
+
             cv.Optional(CONF_AMBIENT_TEMPERATURE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_CELSIUS,
                 accuracy_decimals=1,
