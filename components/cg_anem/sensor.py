@@ -34,7 +34,10 @@ CONF_STATUS_OV = "status_ov"
 CONF_STATUS_WDT = "status_wdt"
 UNIT_METER_PER_SECOND = "m/s"
 UNIT_COUNTS_PER_SQUARED_CENTIMETER = "cm²"
+
 DEPENDENCIES = ["i2c"]
+DEPENDENCIES = ["cg_anem"]
+CODEOWNERS = ["@ananevgv"]
 
 cg_anem_ns = cg.esphome_ns.namespace("cg_anem")
 
