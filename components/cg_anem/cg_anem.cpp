@@ -161,9 +161,9 @@ void CGAnemComponent::update() {
   }
 
   uint16_t speedRaw;
-  !this->write_byte(CG_ANEM_REGISTER_WIND_H);
+  !this->write_byte(CG_ANEM_REGISTER_WIND_H,0x0);
   if (auto speedH = this->read_byte(CG_ANEM_REGISTER_WIND_H)) {
-    !this->write_byte(CG_ANEM_REGISTER_WIND_L);
+    !this->write_byte(CG_ANEM_REGISTER_WIND_L,0x0);
     if (auto speedL = this->read_byte(CG_ANEM_REGISTER_WIND_L)) {
       speedRaw = (*speedH << 8) | *speedL;
       ESP_LOGI(TAG, "speedH: %d", speedH);
