@@ -64,13 +64,7 @@ void CGAnemComponent::setup() {
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
 
-  if (!this->write_byte_16(INA260_REGISTER_CONFIG, 0x8000)) {
-    this->error_code_ = DEVICE_RESET_FAILED;
-    this->mark_failed();
-    return;
-  }
 
-  
   if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &version_raw)) {
      this->error_code_ = COMMUNICATION_FAILED;
      this->mark_failed();
