@@ -107,7 +107,8 @@ void CGAnemComponent::dump_config() {
   LOG_SENSOR("  ", "Max air flow rate", this->max_air_flow_rate_sensor_);
 
 }
-// float CGAnemComponent::get_setup_priority() const { return setup_priority::DATA; }
+ float CGAnemComponent::get_setup_priority() const { return setup_priority::DATA; }
+ void CGAnemComponent::set_duct(uint16_t duct) { this->duct_ = duct; }
 
 void CGAnemComponent::read_status() {
   uint8_t status;
