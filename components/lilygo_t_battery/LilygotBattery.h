@@ -1,5 +1,5 @@
 #pragma once
-
+#include <Arduino.h>
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/core/hal.h"
