@@ -10,7 +10,7 @@ namespace cg_anem {
 /// This class implements support for the GC Anem Temperature+Pressure+Humidity i2c sensor.
 class CGAnemComponent : public PollingComponent, public i2c::I2CDevice {
  public:
-  void set_duct(float duct);
+
   void set_ambient_temperature_sensor(sensor::Sensor *ambient_temperature_sensor) { ambient_temperature_sensor_ = ambient_temperature_sensor; }
   void set_hotend_temperature_sensor(sensor::Sensor *hotend_temperature_sensor) { hotend_temperature_sensor_ = hotend_temperature_sensor; }
   void set_heat_power_sensor(sensor::Sensor *heat_power_sensor) { heat_power_sensor_ = heat_power_sensor; }
