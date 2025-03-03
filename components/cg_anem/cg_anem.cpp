@@ -64,7 +64,7 @@ void CGAnemComponent::setup() {
   }
   ESP_LOGI(TAG, "Id: %d", chip_id);
 
-  this->read_byte(CG_ANEM_REGISTER_VERSION, &this->&version_raw)) {
+  this->read_byte(CG_ANEM_REGISTER_VERSION, &this->version_raw)) {
   ESP_LOGI(TAG, "VerRaw: %d", version_raw);
 
   
