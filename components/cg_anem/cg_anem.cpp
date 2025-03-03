@@ -56,7 +56,13 @@ void CGAnemComponent::setup() {
     this->component_state_ &= ~COMPONENT_STATE_MASK;
     this->component_state_ |= COMPONENT_STATE_CONSTRUCTION;
   }
-
+  if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &version_raw)) {
+     this->error_code_ = COMMUNICATION_FAILED;
+     this->mark_failed();
+    return;
+  }
+  ESP_LOGI(TAG, "VerRaw: %d", version_raw);
+  
   if (!this->read_byte(CG_ANEM_REGISTER_WHO_I_AM, &chip_id)) {
     this->error_code_ = COMMUNICATION_FAILED;
     this->mark_failed();
@@ -65,12 +71,7 @@ void CGAnemComponent::setup() {
   ESP_LOGI(TAG, "Id: %d", chip_id);
 
   
-  if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &version_raw)) {
-     this->error_code_ = COMMUNICATION_FAILED;
-     this->mark_failed();
-    return;
-  }
-  ESP_LOGI(TAG, "VerRaw: %d", version_raw);
+
   
   float version = version_raw / 10.0;
   ESP_LOGI(TAG, "Version: %.1f", version);
