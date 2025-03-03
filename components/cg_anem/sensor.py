@@ -121,6 +121,7 @@ CONFIG_SCHEMA = (
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
+    cg.add(var.set_duct(config[CONF_DUCT]))
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
     if CONF_AMBIENT_TEMPERATURE in config:
