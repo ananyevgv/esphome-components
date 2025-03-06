@@ -25,13 +25,6 @@ class CGAnemComponent : public PollingComponent, public i2c::I2CDevice {
   void set_min_air_flow_rate_sensor(sensor::Sensor *min_air_flow_rate_sensor) { this->min_air_flow_rate_sensor_ = min_air_flow_rate_sensor; }
   void set_max_air_flow_rate_sensor(sensor::Sensor *max_air_flow_rate_sensor) { this->max_air_flow_rate_sensor_ = max_air_flow_rate_sensor; }
 
-
-  // ========== INTERNAL METHODS ==========
-  // (In most use cases you won't need these)
-
-
-  float get_setup_priority() const override;
-
  protected:
   sensor::Sensor *ambient_temperature_sensor_{nullptr};
   sensor::Sensor *hotend_temperature_sensor_{nullptr};
