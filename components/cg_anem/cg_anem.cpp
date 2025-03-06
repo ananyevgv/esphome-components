@@ -163,10 +163,8 @@ void CGAnemComponent::update() {
   uint16_t speedRaw;
   Wire.write(CG_ANEM_REGISTER_WIND_H);
   Wire.endTransmission(false);
-  if (auto speedH = this->Wire.requestFrom(CG_ANEM_REGISTER_WIND_H, 1)) {
-    Wire.write(CG_ANEM_REGISTER_WIND_L);
-    Wire.endTransmission(false);
-    if (auto speedL = this->Wire.requestFrom(CG_ANEM_REGISTER_WIND_L, 1)) {
+  if (auto speedH = this->read_byte(CG_ANEM_REGISTER_WIND_H)) {
+    if (auto speedL = this->read_byte(CG_ANEM_REGISTER_WIND_L)) {
       speedRaw = (*speedH << 8) | *speedL;
       ESP_LOGI(TAG, "speedH: %d", speedH);
       ESP_LOGI(TAG, "speedL: %d", speedL);
