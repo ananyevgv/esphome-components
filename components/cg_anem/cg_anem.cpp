@@ -55,6 +55,12 @@ void CGAnemComponent::setup() {
     this->component_state_ &= ~COMPONENT_STATE_MASK;
     this->component_state_ |= COMPONENT_STATE_CONSTRUCTION;
   }
+  uint8_t version_raw;
+  !this->read_byte(CG_ANEM_REGISTER_VERSION, &version_raw);
+  float version = version_raw / 10.0;
+  ESP_LOGI(TAG, "Version: %.1f", version);
+  if (this->firmware_version_sensor_ != nullptr)
+    this->firmware_version_sensor_->publish_state(version);
   
   if (!this->write_byte(CG_ANEM_REGISTER_WHO_I_AM, 0x11)) {
      this->error_code_ = COMMUNICATION_FAILED;
@@ -136,13 +142,6 @@ void CGAnemComponent::update() {
   if (this->status_has_warning()) {
     return;
   }
-  uint8_t version_raw;
-  !this->read_byte(CG_ANEM_REGISTER_VERSION, &version_raw);
-  float version = version_raw / 10.0;
-  ESP_LOGI(TAG, "Version: %.1f", version);
-  if (this->firmware_version_sensor_ != nullptr)
-    this->firmware_version_sensor_->publish_state(version);
-
 
   uint16_t tempRaw;
   if (auto tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
