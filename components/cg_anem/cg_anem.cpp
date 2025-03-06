@@ -161,8 +161,6 @@ void CGAnemComponent::update() {
   }
 
   uint16_t speedRaw;
-  Wire.write(CG_ANEM_REGISTER_WIND_H);
-  Wire.endTransmission(false);
   if (auto speedH = this->read_byte(CG_ANEM_REGISTER_WIND_H)) {
     if (auto speedL = this->read_byte(CG_ANEM_REGISTER_WIND_L)) {
       speedRaw = (*speedH << 8) | *speedL;
