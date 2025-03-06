@@ -40,7 +40,6 @@ DEPENDENCIES = ["i2c"]
 CODEOWNERS = ["@ananevgv"]
 
 cg_anem_ns = cg.esphome_ns.namespace("cg_anem")
-
 CGAnemComponent = cg_anem_ns.class_(
     "CGAnemComponent", cg.PollingComponent, i2c.I2CDevice
 )
@@ -49,7 +48,6 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(CGAnemComponent),
-
             cv.Optional(CONF_AMBIENT_TEMPERATURE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_CELSIUS,
                 accuracy_decimals=1,
