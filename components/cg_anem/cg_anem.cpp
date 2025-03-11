@@ -200,16 +200,9 @@ void CGAnemComponent::update() {
     this->status_set_warning();
     return;
   }
-
-  if (this->hotend_temperature_sensor_ != nullptr)
-    this->hotend_temperature_sensor_->publish_state(power);
-
-
-
-
   float temp = tempRaw / 10.0f;
   float speed = speedRaw / 10.0f;
-  float сonsumption;
+    float сonsumption;
   // duct= πr2
   float duct = 78.5;
   if (duct > -0.01 && speed != -255) {
@@ -217,17 +210,25 @@ void CGAnemComponent::update() {
   } else {
     сonsumption = -255;
   }
-
-
-
-  ESP_LOGV(TAG, "Got temperature=%.1f°C speed=%.1fm/s ", temp, speed);
-
+  if (this->hotend_temperature_sensor_ != nullptr)
+    this->hotend_temperature_sensor_->publish_state(power);
   if (this->ambient_temperature_sensor_ != nullptr)
     this->ambient_temperature_sensor_->publish_state(temp);
   if (this->air_flow_rate_sensor_ != nullptr)
     this->air_flow_rate_sensor_->publish_state(speed);
   if (this->air_consumption_sensor_ != nullptr)
     this->air_consumption_sensor_->publish_state(сonsumption);
+
+
+
+
+
+
+
+
+  ESP_LOGV(TAG, "Got temperature=%.1f°C speed=%.1fm/s ", temp, speed);
+
+
 
 }
 
