@@ -137,7 +137,7 @@ void CGAnemComponent::update() {
 
   uint16_t tempRaw;
   if (auto tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
-    if (auto tempL = this->read_byte(CG_ANEM_REGISTER_COLD_L)) {
+    if (auto tempL = this->read_byte(CG_ANEM_REGISTER_COLD_H+1)) {
       tempRaw = (*tempH << 8) | *tempL;
 
     } else {
@@ -146,8 +146,7 @@ void CGAnemComponent::update() {
       return;
     }
   } else {
-    ESP_LOGW(TAG, "Error reading cold_h temp.");
-    this->status_set_warning();
+
     return;
   }
 
