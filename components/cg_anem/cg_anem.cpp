@@ -47,7 +47,7 @@ inline uint16_t combine_bytes(uint8_t msb, uint8_t lsb) { return ((msb & 0xFF) <
 
 void CGAnemComponent::setup() {
   ESP_LOGCONFIG(TAG, "Setting up CG Anem...");
-  uint8_t chip_id = 11;
+
 
   // Mark as not failed before initializing. Some devices will turn off sensors to save on batteries
   // and when they come back on, the COMPONENT_STATE_FAILED bit must be unset on the component.
@@ -56,7 +56,7 @@ void CGAnemComponent::setup() {
     this->component_state_ |= COMPONENT_STATE_CONSTRUCTION;
   }
 
-  if (!this->write_byte(CG_ANEM_REGISTER_WHO_I_AM, &chip_id)) {
+  if (!this->write_byte(CG_ANEM_REGISTER_WHO_I_AM, 0x11)) {
     this->error_code_ = COMMUNICATION_FAILED;
     this->mark_failed();
     return;
