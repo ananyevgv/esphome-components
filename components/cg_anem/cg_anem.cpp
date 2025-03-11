@@ -141,12 +141,12 @@ void CGAnemComponent::update() {
       tempRaw = (*tempH << 8) | *tempL;
 
     } else {
-      ESP_LOGW(TAG, "Error reading cold temp.");
+      ESP_LOGW(TAG, "Error reading cold_l temp.");
       this->status_set_warning();
       return;
     }
   } else {
-    ESP_LOGW(TAG, "Error reading cold temp.");
+    ESP_LOGW(TAG, "Error reading cold_h temp.");
     this->status_set_warning();
     return;
   }
