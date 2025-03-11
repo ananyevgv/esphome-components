@@ -62,27 +62,6 @@ void CGAnemComponent::setup() {
     return;
   }
 
-  uint8_t versionRaw = 0;
-
-  if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
-    this->error_code_ = COMMUNICATION_FAILED;
-    this->mark_failed();
-    return;
-  }
-
-  float version = versionRaw / 10.0;
-  ESP_LOGI(TAG, "Version: %.1f", version);
-
-  if (version >= 1.0f) {
-    // Send a max wind reset soft reset.
-    // if (!this->write_byte(CG_ANEM_REGISTER_RESET_WIND, 0x01)) {
-    //   this->mark_failed();
-    //   return;
-    // }
-  }
-
-  this->read_status();
-}
 void CGAnemComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "CGANEM:");
   LOG_I2C_DEVICE(this);
