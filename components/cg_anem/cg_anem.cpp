@@ -61,7 +61,7 @@ void CGAnemComponent::setup() {
     this->mark_failed();
     return;
   }
-
+}
 void CGAnemComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "CGANEM:");
   LOG_I2C_DEVICE(this);
