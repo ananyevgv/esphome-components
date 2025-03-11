@@ -61,7 +61,6 @@ void CGAnemComponent::setup() {
     this->mark_failed();
     return;
   }
-  ESP_LOGI(TAG, "Id: %d", chip_id);
 
   uint8_t versionRaw = 0;
 
