@@ -47,7 +47,7 @@ inline uint16_t combine_bytes(uint8_t msb, uint8_t lsb) { return ((msb & 0xFF) <
 
 void CGAnemComponent::setup() {
   ESP_LOGCONFIG(TAG, "Setting up CG Anem...");
-  uint8_t chip_id = 0;
+  uint8_t chip_id = 11;
 
   // Mark as not failed before initializing. Some devices will turn off sensors to save on batteries
   // and when they come back on, the COMPONENT_STATE_FAILED bit must be unset on the component.
@@ -55,21 +55,35 @@ void CGAnemComponent::setup() {
     this->component_state_ &= ~COMPONENT_STATE_MASK;
     this->component_state_ |= COMPONENT_STATE_CONSTRUCTION;
   }
-  uint8_t version_raw;
-  !this->read_byte(CG_ANEM_REGISTER_VERSION, &version_raw);
-  float version = version_raw / 10.0;
-  ESP_LOGI(TAG, "Version: %.1f", version);
-  if (this->firmware_version_sensor_ != nullptr)
-    this->firmware_version_sensor_->publish_state(version);
-  
-  if (!this->write_byte(CG_ANEM_REGISTER_WHO_I_AM, 0x11)) {
-     this->error_code_ = COMMUNICATION_FAILED;
-     this->mark_failed();
+
+  if (!this->write_byte(CG_ANEM_REGISTER_WHO_I_AM, &chip_id)) {
+    this->error_code_ = COMMUNICATION_FAILED;
+    this->mark_failed();
     return;
   }
+  ESP_LOGI(TAG, "Id: %d", chip_id);
+
+  uint8_t versionRaw = 0;
+
+  if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
+    this->error_code_ = COMMUNICATION_FAILED;
+    this->mark_failed();
+    return;
+  }
+
+  float version = versionRaw / 10.0;
+  ESP_LOGI(TAG, "Version: %.1f", version);
+
+  if (version >= 1.0f) {
+    // Send a max wind reset soft reset.
+    // if (!this->write_byte(CG_ANEM_REGISTER_RESET_WIND, 0x01)) {
+    //   this->mark_failed();
+    //   return;
+    // }
+  }
+
   this->read_status();
 }
-
 void CGAnemComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "CGANEM:");
   LOG_I2C_DEVICE(this);
