@@ -135,34 +135,22 @@ void CGAnemComponent::update() {
     return;
   }
 
-  if (this->bus_voltage_sensor_ != nullptr) {
-    uint16_t raw_bus_voltage;
-    if (!this->read_byte_16(INA260_REGISTER_BUS_VOLTAGE, &raw_bus_voltage)) {
+  if (this->ambient_temperature_sensor_ != nullptr) {
+    uint16_t tempRaw;
+    uint8_t tempH;
+    if (!this->read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) 
       this->status_set_warning();
       return;
     }
-    float bus_voltage_v = int16_t(raw_bus_voltage) * 0.00125f;
-    this->bus_voltage_sensor_->publish_state(bus_voltage_v);
+    uint8_t tempL;
+    if (!this->read_byte(CG_ANEM_REGISTER_COLD_H+1, &tempL)) 
+      this->status_set_warning();
+      return;
+    }
+    tempRaw = (*tempH << 8) | *tempL;
+    float temp = tempRaw / 10.0f;
+    this->ambient_temperature_sensor_->publish_state(temp);
   }
-
-  if (this->ambient_temperature_sensor_ != nullptr) {
-    uint16_t tempRaw;
-    if (auto tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
-      if (auto tempL = this->read_byte(CG_ANEM_REGISTER_COLD_H+1)) {
-        tempRaw = (*tempH << 8) | *tempL;
-        float temp = tempRaw / 10.0f;
-        this->ambient_temperature_sensor_->publish_state(temp);
-      } else {
-        ESP_LOGW(TAG, "Error reading cold_l temp.");
-        this->status_set_warning();
-        return;
-      } else {
-        ESP_LOGW(TAG, "Error reading cold_h temp.");
-        this->status_set_warning();
-        return;
-        }
-      }
-   }
     
   uint16_t speedRaw;
   if (auto speedH = this->read_byte(CG_ANEM_REGISTER_WIND_H)) {
