@@ -135,19 +135,21 @@ void CGAnemComponent::update() {
     return;
   }
 
-  uint16_t tempRaw;
-  if (auto tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
-    if (auto tempL = this->read_byte(CG_ANEM_REGISTER_COLD_H+1)) {
-      tempRaw = (*tempH << 8) | *tempL;
+  if (this->ambient_temperature_sensor_ != nullptr) {
+    uint16_t tempRaw;
+    if (auto tempH = this->read_byte(CG_ANEM_REGISTER_COLD_H)) {
+      if (auto tempL = this->read_byte(CG_ANEM_REGISTER_COLD_H+1)) {
+        tempRaw = (*tempH << 8) | *tempL;
+      } else {
+        ESP_LOGW(TAG, "Error reading cold_l temp.");
+        this->status_set_warning();
+        return;
 
-    } else {
-      ESP_LOGW(TAG, "Error reading cold_l temp.");
-      this->status_set_warning();
-      return;
+      } else {
+        float temp = tempRaw / 10.0f;
+        this->ambient_temperature_sensor_->publish_state(temp);
+      }
     }
-  } else {
-
-    return;
   }
 
   uint16_t speedRaw;
