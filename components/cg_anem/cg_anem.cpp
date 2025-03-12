@@ -136,7 +136,6 @@ void CGAnemComponent::update() {
   }
 
   if (this->ambient_temperature_sensor_ != nullptr) {
-    uint16_t tempRaw;
     uint8_t tempH;
     if (!this->read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) 
       this->status_set_warning();
@@ -147,6 +146,7 @@ void CGAnemComponent::update() {
       this->status_set_warning();
       return;
     }
+    uint16_t tempRaw;
     tempRaw = (*tempH << 8) | *tempL;
     float temp = tempRaw / 10.0f;
     this->ambient_temperature_sensor_->publish_state(temp);
