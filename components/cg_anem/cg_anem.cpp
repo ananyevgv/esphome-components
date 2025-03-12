@@ -144,7 +144,6 @@ void CGAnemComponent::update() {
         ESP_LOGW(TAG, "Error reading cold_l temp.");
         this->status_set_warning();
         return;
-
       } else {
         float temp = tempRaw / 10.0f;
         this->ambient_temperature_sensor_->publish_state(temp);
