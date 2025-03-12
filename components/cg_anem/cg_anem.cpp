@@ -149,7 +149,7 @@ void CGAnemComponent::update() {
         this->ambient_temperature_sensor_->publish_state(temp);
       }
     }
-  }
+
 
   uint16_t speedRaw;
   if (auto speedH = this->read_byte(CG_ANEM_REGISTER_WIND_H)) {
@@ -219,12 +219,6 @@ void CGAnemComponent::update() {
     this->air_flow_rate_sensor_->publish_state(speed);
   if (this->air_consumption_sensor_ != nullptr)
     this->air_consumption_sensor_->publish_state(сonsumption);
-
-
-
-
-
-
 
 
   ESP_LOGV(TAG, "Got temperature=%.1f°C speed=%.1fm/s ", temp, speed);
