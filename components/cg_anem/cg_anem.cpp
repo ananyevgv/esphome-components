@@ -146,8 +146,7 @@ void CGAnemComponent::update() {
       this->status_set_warning();
       return;
     }
-    uint16_t tempRaw;
-    tempRaw = (*tempH << 8) | *tempL;
+    uint16_t tempRaw = (*tempH << 8) | *tempL;
     float temp = tempRaw / 10.0f;
     this->ambient_temperature_sensor_->publish_state(temp);
   }
