@@ -12,8 +12,9 @@ from esphome.const import (
     UNIT_PERCENT,
     DEVICE_CLASS_VOLTAGE,
     DEVICE_CLASS_BATTERY,
+    ICON_BATTERY,
 )
-
+ICON_BATTERY_CHARGING = "mdi:battery-charging"
 
 Lilygotbattery_ns = cg.esphome_ns.namespace("lilygo_t_battery")
 Lilygotbattery = Lilygotbattery_ns.class_(
@@ -25,6 +26,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.GenerateID(): cv.declare_id(Lilygotbattery),
         cv.Optional(CONF_VOLTAGE): sensor.sensor_schema(
             unit_of_measurement=UNIT_VOLT,
+            icon=ICON_BATTERY,
             accuracy_decimals=2,
             device_class=DEVICE_CLASS_VOLTAGE,
         ),
@@ -33,6 +35,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_BUS_VOLTAGE): sensor.sensor_schema(
             unit_of_measurement=UNIT_VOLT,
             accuracy_decimals=2,
+            icon=ICON_BATTERY_CHARGING,
             device_class=DEVICE_CLASS_VOLTAGE,
         ),
         
@@ -40,6 +43,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_LEVEL): sensor.sensor_schema(
             unit_of_measurement=UNIT_PERCENT,
             accuracy_decimals=0,
+            icon=ICON_BATTERY,
             device_class=DEVICE_CLASS_BATTERY,
         ), 
     }
