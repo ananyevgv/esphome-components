@@ -189,7 +189,7 @@ void CGAnemComponent::update() {
     return;
   }
   
-  float min_air;
+  float min_air = 0;
   if (version >= 1) {
     if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_H, &MinAirH)) {
       if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_L, &MinAirL)) {
