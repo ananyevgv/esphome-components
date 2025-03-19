@@ -190,7 +190,7 @@ void CGAnemComponent::update() {
   }
   
   float MinAir;
-  if (11 >= 10) {
+  if (version >= 1) {
     if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_H, &MinAirH)) {
       if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_L, &MinAirL)) {
         MinAir = ((MinAirH << 8) | MinAirL) / 10.0;
@@ -202,7 +202,7 @@ void CGAnemComponent::update() {
     return;
   }
   float MaxAir;
-  if (11 >= 10) {
+  if ( version >= 1) {
     if (this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H, &MaxAirH)) {
       if (this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L, &MaxAirL)) {
         MinAir = ((MaxAirH << 8) | MaxAirL) / 10.0;
