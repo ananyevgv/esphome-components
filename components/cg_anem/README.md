@@ -16,8 +16,6 @@ sensor:
     name: "Hotend temperature"
   heat_power:
     name: "Heat power"
-  air_consumption:
-    name: "Air consumption"
   air_flow_rate:
     name: "Air flow rate"
   firmware_version:
