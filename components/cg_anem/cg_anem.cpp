@@ -226,7 +226,8 @@ void CGAnemComponent::update() {
     this->air_flow_rate_sensor_->publish_state(speed);
   if (this->air_consumption_sensor_ != nullptr)
     this->air_consumption_sensor_->publish_state(сonsumption);
-
+  if (this->firmfare_sensor_!= nullptr)
+    this->firmfare_sensor_->publish_state(version);
 
   ESP_LOGV(TAG, "Got temperature=%.1f°C speed=%.1fm/s ", temp, speed);
 
