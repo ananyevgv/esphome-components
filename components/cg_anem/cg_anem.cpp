@@ -143,8 +143,8 @@ void CGAnemComponent::update() {
   if (this->status_has_warning()) {
     return;
   }
-  uint8_t tempH, tempL, speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw;
-  uint16_t tempRaw, speedRaw;
+  uint8_t tempH, tempL, hotH, hotL speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw;
+  uint16_t tempRaw, hotRaw,speedRaw;
   
   if (this-> read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) {
     if (this-> read_byte(CG_ANEM_REGISTER_COLD_L, &tempL)) {
@@ -159,7 +159,20 @@ void CGAnemComponent::update() {
     this->status_set_warning();
     return;
   }
-    
+  
+  if (this-> read_byte(CG_ANEM_REGISTER_HOT_H, &hotH)) {
+    if (this-> read_byte(CG_ANEM_REGISTER_HOT_L, &hotL)) {
+      hotRaw = (hotH << 8) | hotL;
+    } else {
+      ESP_LOGW(TAG, "Error reading hot temp-L.");
+      //this->status_set_warning();
+      return;
+    }
+  } else {
+    ESP_LOGW(TAG, "Error reading hot temp-H.");
+    this->status_set_warning();
+    return;
+  }
 
   if (this-> read_byte(CG_ANEM_REGISTER_WIND_H, &speedH)) {
     if (this-> read_byte(CG_ANEM_REGISTER_WIND_L, &speedL)) {
@@ -209,6 +222,7 @@ void CGAnemComponent::update() {
     this->status_set_warning();
     return;
   }
+  float hot = hotRaw / 10.0f;
   float temp = tempRaw / 10.0f;
   float speed = speedRaw / 10.0f;
     float сonsumption;
@@ -223,6 +237,8 @@ void CGAnemComponent::update() {
     this->heat_power_sensor_->publish_state(power);
   if (this->ambient_temperature_sensor_ != nullptr)
     this->ambient_temperature_sensor_->publish_state(temp);
+  if (this->hotend_temperature_sensor_ != nullptr)
+    this->hotend_temperature_sensor_->publish_state(hot);
   if (this->air_flow_rate_sensor_ != nullptr)
     this->air_flow_rate_sensor_->publish_state(speed);
   if (this->air_consumption_sensor_ != nullptr)
