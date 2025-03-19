@@ -212,7 +212,7 @@ void CGAnemComponent::update() {
 
   float power;
   if (this->read_byte(CG_ANEM_REGISTER_HEAT_WT, &PowerRaw)) {
-    power = (PowerRaw * 1.0);
+    power = (PowerRaw << 8);
     // power = (PowerRaw * 1.36125) / 255;
     // power = PowerRaw / 10;
   } else {
