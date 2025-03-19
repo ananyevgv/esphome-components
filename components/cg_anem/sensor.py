@@ -159,11 +159,11 @@ async def to_code(config):
 
     if CONF_STATUS_UP in config:
         sens = await binary_sensor.new_binary_sensor(config[CONF_STATUS_UP])
-        cg.add(var.set_status_up_sensor(sens))
+        cg.add(var.set_status_up_binary_sensor(sens))
     if CONF_STATUS_OV in config:
         sens = await binary_sensor.new_binary_sensor(config[CONF_STATUS_OV])
-        cg.add(var.set_status_ov_sensor(sens))
+        cg.add(var.set_status_ov_binary_sensor(sens))
     if CONF_STATUS_WDT in config:
         sens = await binary_sensor.new_binary_sensor(config[CONF_STATUS_WDT])
-        cg.add(var.set_status_wdt_sensor(sens))
+        cg.add(var.set_status_wdt_binary_sensor(sens))
 
