@@ -25,7 +25,7 @@ class CGAnemComponent : public PollingComponent, public i2c::I2CDevice {
   void set_firmware_version_sensor(sensor::Sensor *firmware_version_sensor) { this->firmware_version_sensor_ = firmware_version_sensor; }
   void set_min_air_flow_rate_sensor(sensor::Sensor *min_air_flow_rate_sensor) { this->min_air_flow_rate_sensor_ = min_air_flow_rate_sensor; }
   void set_max_air_flow_rate_sensor(sensor::Sensor *max_air_flow_rate_sensor) { this->max_air_flow_rate_sensor_ = max_air_flow_rate_sensor; }
-  void set_status_up_binary_sensor(binary_sensor::BinarySensor *status_up_binary_sensor),{ this->status_up_binary_sensor_ = status_up_binary_sensor; }
+  void set_status_up_binary_sensor(binary_sensor::BinarySensor *status_up_binary_sensor) { this->status_up_binary_sensor_ = status_up_binary_sensor; }
 
  protected:
   sensor::Sensor *ambient_temperature_sensor_{nullptr};
