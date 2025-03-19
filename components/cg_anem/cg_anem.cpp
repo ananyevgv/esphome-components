@@ -134,45 +134,44 @@ void CGAnemComponent::update() {
   if (this->status_has_warning()) {
     return;
   }
-
-  if (this->ambient_temperature_sensor_ != nullptr) {
-    uint8_t tempH;
-    if (!this->read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) 
-      this->status_set_warning();
+  uint8_t tempH, tempL, speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw;
+  uint16_t tempRaw, speedRaw;
+  
+  if (this-> read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) {
+    if (this-> read_byte(CG_ANEM_REGISTER_COLD_L, &tempL)) {
+      tempRaw = (tempH << 8) | tempL;
+    } else {
+      ESP_LOGW(TAG, "Error reading cold temp-L.");
+      //this->status_set_warning();
       return;
     }
-    uint8_t tempL;
-    if (!this->read_byte(CG_ANEM_REGISTER_COLD_H+1, &tempL)) 
-      this->status_set_warning();
-      return;
-    }
-    uint16_t tempRaw = (*tempH << 8) | *tempL;
-    float temp = tempRaw / 10.0f;
-    this->ambient_temperature_sensor_->publish_state(temp);
+  } else {
+    ESP_LOGW(TAG, "Error reading cold temp-H.");
+    this->status_set_warning();
+    return;
   }
     
-  uint16_t speedRaw;
-  if (auto speedH = this->read_byte(CG_ANEM_REGISTER_WIND_H)) {
-    if (auto speedL = this->read_byte(CG_ANEM_REGISTER_WIND_L)) {
-      speedRaw = (*speedH << 8) | *speedL;
-      ESP_LOGI(TAG, "speedH: %d", speedH);
-      ESP_LOGI(TAG, "speedL: %d", speedL);
+
+  if (this-> read_byte(CG_ANEM_REGISTER_WIND_H, &speedH)) {
+    if (this-> read_byte(CG_ANEM_REGISTER_WIND_L, &speedL)) {
+      speedRaw = (speedH << 8) | speedL;
+
     } else {
-      ESP_LOGW(TAG, "Error reading wind speed.");
+      ESP_LOGW(TAG, "Error reading wind speed-L.");
       this->status_set_warning();
       return;
     }
   } else {
-    ESP_LOGW(TAG, "Error reading wind speed.");
+    ESP_LOGW(TAG, "Error reading wind speed_H.");
     this->status_set_warning();
     return;
   }
   
   float MinAir;
   if (11 >= 10) {
-    if (auto MinAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_H)) {
-      if (auto MinAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MIN_L)) {
-        MinAir = ((*MinAirH << 8) | *MinAirL) / 10.0;
+    if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_H, &MinAirH)) {
+      if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_L, &MinAirL)) {
+        MinAir = ((MinAirH << 8) | MinAirL) / 10.0;
       }
      }
   } else {
@@ -182,9 +181,9 @@ void CGAnemComponent::update() {
   }
   float MaxAir;
   if (11 >= 10) {
-    if (auto MaxAirH = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H)) {
-      if (auto MaxAirL = this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L)) {
-        MinAir = ((*MaxAirH << 8) | *MaxAirL) / 10.0;
+    if (this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H, &MaxAirH)) {
+      if (this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L, &MaxAirL)) {
+        MinAir = ((MaxAirH << 8) | MaxAirL) / 10.0;
       }
      }
   } else {
@@ -194,8 +193,8 @@ void CGAnemComponent::update() {
   }
 
   float power;
-  if (auto PowerRaw = this->read_byte(CG_ANEM_REGISTER_HEAT_WT)) {
-    power = (*PowerRaw * 1.36125) / 255;
+  if (this->read_byte(CG_ANEM_REGISTER_HEAT_WT, &PowerRaw)) {
+    power = (PowerRaw * 1.36125) / 255;
   } else {
     ESP_LOGW(TAG, "Error reading power.");
     this->status_set_warning();
