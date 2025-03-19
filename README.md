@@ -10,7 +10,7 @@
 [ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7](https://github.com/ananyevgv/esphome-components/tree/main/components/RadSens)
 
 ## CG-Anem
-[ESPHome custom component sensor for Climateguard CG-Anem](https://github.com/ananyevgv/esphome-components/tree/main/components/cgAnem)
+[ESPHome external component sensor for Climateguard CG-Anem](https://github.com/ananyevgv/esphome-components/tree/main/components/cg_anem)
 
 ## Ttgo t-display esp32 battery
  [ESPHome custom component Ttgo t-display esp32 battery](https://github.com/ananyevgv/esphome-components/tree/main/components/lilygo_t_battery)
