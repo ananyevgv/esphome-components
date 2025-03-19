@@ -55,6 +55,14 @@ void CGAnemComponent::setup() {
     this->component_state_ &= ~COMPONENT_STATE_MASK;
     this->component_state_ |= COMPONENT_STATE_CONSTRUCTION;
   }
+  uint8_t versionRaw = 0;
+  if (!this->read_byte(CG_ANEM_REGISTER_VERSION, &versionRaw)) {
+    this->error_code_ = COMMUNICATION_FAILED;
+    this->mark_failed();
+    return;
+  }
+  float version = versionRaw / 10.0;
+  ESP_LOGI(TAG, "Version: %.1f", version);
 
   if (!this->write_byte(CG_ANEM_REGISTER_WHO_I_AM, 0x11)) {
     this->error_code_ = COMMUNICATION_FAILED;
