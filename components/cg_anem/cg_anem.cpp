@@ -207,7 +207,7 @@ void CGAnemComponent::update() {
       }
      }
   } else {
-    MinAir = -255;
+    MaxAir = -255;
   }
 
   float power;
