@@ -143,7 +143,7 @@ void CGAnemComponent::update() {
   if (this->status_has_warning()) {
     return;
   }
-  uint8_t tempH, tempL, hotH, hotL speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw;
+  uint8_t tempH, tempL, hotH, hotL, speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw;
   uint16_t tempRaw, hotRaw,speedRaw;
   
   if (this-> read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) {
