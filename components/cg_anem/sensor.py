@@ -56,7 +56,7 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_HOTEND_TEMPERATURE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_CELSIUS,
-                accuracy_decimals=1,
+                accuracy_decimals=5,
                 device_class=DEVICE_CLASS_TEMPERATURE,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
@@ -93,7 +93,7 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_FIRMWARE_VERSION): sensor.sensor_schema(
     		unit_of_measurement=UNIT_EMPTY,
     		icon=ICON_CHIP,
-    		accuracy_decimals=0,
+    		accuracy_decimals=1,
     		state_class=STATE_CLASS_MEASUREMENT,
     		device_class=DEVICE_CLASS_EMPTY,
     		entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
