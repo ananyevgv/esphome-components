@@ -5,6 +5,8 @@ external_components:
   - source: github://ananyevgv/esphome-components/
     components: [ cg_anem ]
     refresh: 0s
+i2c:
+  frequency: 10kHz
 
 sensor:
 - platform: cg_anem
