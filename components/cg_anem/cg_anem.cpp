@@ -63,7 +63,8 @@ void CGAnemComponent::setup() {
   }
   float version = versionRaw / 10.0;
   ESP_LOGI(TAG, "Version: %.1f", version);
-
+  if (this->firmware_version_sensor_!= nullptr)
+    this->firmware_version_sensor_->publish_state(version);
   if (!this->write_byte(CG_ANEM_REGISTER_WHO_I_AM, 0x11)) {
     this->error_code_ = COMMUNICATION_FAILED;
     this->mark_failed();
@@ -226,8 +227,7 @@ void CGAnemComponent::update() {
     this->air_flow_rate_sensor_->publish_state(speed);
   if (this->air_consumption_sensor_ != nullptr)
     this->air_consumption_sensor_->publish_state(сonsumption);
-  if (this->firmware_version_sensor_!= nullptr)
-    this->firmware_version_sensor_->publish_state(version);
+
 
   ESP_LOGV(TAG, "Got temperature=%.1f°C speed=%.1fm/s ", temp, speed);
 
