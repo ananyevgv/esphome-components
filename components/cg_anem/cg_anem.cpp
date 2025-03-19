@@ -198,7 +198,6 @@ void CGAnemComponent::update() {
      }
   } else {
     MinAir = -255;
-    this->status_set_warning();
     return;
   }
   float MaxAir;
@@ -210,7 +209,6 @@ void CGAnemComponent::update() {
      }
   } else {
     MinAir = -255;
-    this->status_set_warning();
     return;
   }
 
