@@ -89,14 +89,14 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_HEAT_POWER): sensor.sensor_schema(
                 unit_of_measurement=UNIT_WATT,
                 icon = ICON_HEATING_COIL,
-                accuracy_decimals=5,
+                accuracy_decimals=1,
                 device_class=DEVICE_CLASS_POWER,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_AIR_CONSUMPTION): sensor.sensor_schema(
                 unit_of_measurement=UNIT_CUBIC_METER_PER_HOUR,
                 icon = ICON_WEATHER_WINDY,
-                accuracy_decimals=5,
+                accuracy_decimals=3,
                 device_class=DEVICE_CLASS_VOLUME,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
