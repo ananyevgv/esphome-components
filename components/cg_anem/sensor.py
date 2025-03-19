@@ -19,6 +19,9 @@ from esphome.const import (
     UNIT_EMPTY,
     STATE_CLASS_MEASUREMENT,
     ICON_CHIP,
+    ICON_WEATHER_WINDY,
+    ICON_THERMOMETER,
+    ICON_HEATING_COIL,
     ENTITY_CATEGORY_DIAGNOSTIC
 )
 CONF_DUCT = "duct"
@@ -49,6 +52,7 @@ CONFIG_SCHEMA = (
         {
             cv.GenerateID(): cv.declare_id(CGAnemComponent),
             cv.Optional(CONF_AMBIENT_TEMPERATURE): sensor.sensor_schema(
+                icon = ICON_THERMOMETER,
                 unit_of_measurement=UNIT_CELSIUS,
                 accuracy_decimals=2,
                 device_class=DEVICE_CLASS_TEMPERATURE,
@@ -56,47 +60,53 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_HOTEND_TEMPERATURE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_CELSIUS,
+                icon = ICON_THERMOMETER,
                 accuracy_decimals=2,
                 device_class=DEVICE_CLASS_TEMPERATURE,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_AIR_FLOW_RATE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_METER_PER_SECOND,
+                icon = ICON_WEATHER_WINDY,
                 accuracy_decimals=1,
                 device_class=DEVICE_CLASS_WIND_SPEED,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_MIN_AIR_FLOW_RATE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_METER_PER_SECOND,
+                icon = ICON_WEATHER_WINDY,
                 accuracy_decimals=1,
                 device_class=DEVICE_CLASS_WIND_SPEED,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_MAX_AIR_FLOW_RATE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_METER_PER_SECOND,
+                icon = ICON_WEATHER_WINDY,
                 accuracy_decimals=1,
                 device_class=DEVICE_CLASS_WIND_SPEED,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_HEAT_POWER): sensor.sensor_schema(
                 unit_of_measurement=UNIT_WATT,
+                icon = ICON_HEATING_COIL,
                 accuracy_decimals=5,
                 device_class=DEVICE_CLASS_POWER,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_AIR_CONSUMPTION): sensor.sensor_schema(
                 unit_of_measurement=UNIT_CUBIC_METER_PER_HOUR,
+                icon = ICON_WEATHER_WINDY,
                 accuracy_decimals=5,
                 device_class=DEVICE_CLASS_VOLUME,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_FIRMWARE_VERSION): sensor.sensor_schema(
-    		unit_of_measurement=UNIT_EMPTY,
-    		icon=ICON_CHIP,
-    		accuracy_decimals=1,
-    		state_class=STATE_CLASS_MEASUREMENT,
-    		device_class=DEVICE_CLASS_EMPTY,
-    		entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+    		    unit_of_measurement=UNIT_EMPTY,
+        		icon=ICON_CHIP,
+        		accuracy_decimals=1,
+        		state_class=STATE_CLASS_MEASUREMENT,
+        		device_class=DEVICE_CLASS_EMPTY,
+    		    entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
             ),
 
 
