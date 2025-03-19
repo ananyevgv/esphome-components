@@ -219,8 +219,8 @@ void CGAnemComponent::update() {
   } else {
     сonsumption = -255;
   }
-  if (this->hotend_temperature_sensor_ != nullptr)
-    this->hotend_temperature_sensor_->publish_state(power);
+  if (this->heat_power_sensor_ != nullptr)
+    this->heat_power_sensor_->publish_state(power);
   if (this->ambient_temperature_sensor_ != nullptr)
     this->ambient_temperature_sensor_->publish_state(temp);
   if (this->air_flow_rate_sensor_ != nullptr)
