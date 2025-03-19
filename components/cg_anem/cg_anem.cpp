@@ -189,25 +189,25 @@ void CGAnemComponent::update() {
     return;
   }
   
-  float MinAir;
+  float min_air;
   if (version >= 1) {
     if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_H, &MinAirH)) {
       if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_L, &MinAirL)) {
-        MinAir = ((MinAirH << 8) | MinAirL) / 10.0;
+        min_air = ((MinAirH << 8) | MinAirL) / 10.0;
       }
      }
   } else {
-    MinAir = -255;
+    min_air = -255;
   }
-  float MaxAir;
+  float max_air;
   if (version >= 1) {
     if (this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H, &MaxAirH)) {
       if (this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L, &MaxAirL)) {
-        MaxAir = ((MaxAirH << 8) | MaxAirL) / 10.0;
+        max_air = ((MaxAirH << 8) | MaxAirL) / 10.0;
       }
      }
   } else {
-    MaxAir = -255;
+    max_air = -255;
   }
 
   float power;
@@ -240,9 +240,9 @@ void CGAnemComponent::update() {
   if (this->air_consumption_sensor_ != nullptr)
     this->air_consumption_sensor_->publish_state(сonsumption);
   if (this->min_air_flow_rate_sensor_ != nullptr)
-    this->min_air_flow_rate_sensor_->publish_state(MinAir);
+    this->min_air_flow_rate_sensor_->publish_state(min_air);
   if (this->max_air_flow_rate_sensor_ != nullptr)
-    this->max_air_flow_rate_sensor_->publish_state(MaxAir);
+    this->max_air_flow_rate_sensor_->publish_state(max_air);
  
   ESP_LOGV(TAG, "Got temperature=%.1f°C speed=%.1fm/s ", temp, speed);
 
