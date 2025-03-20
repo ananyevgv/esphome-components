@@ -222,7 +222,7 @@ void CGAnemComponent::update() {
 
   float supply_v;
   if (this->read_byte(CG_ANEM_REGISTER_SUPPLY_V, &Supply_vRaw)) {
-    supply_v = Supply_vRaw/255.0;
+    supply_v = Supply_vRaw/10.0;
     ESP_LOGI(TAG, "Supply_v: %.3f", supply_v);
   } else {
     ESP_LOGW(TAG, "Error reading Supply_v.");
