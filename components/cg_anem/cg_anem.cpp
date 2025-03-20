@@ -211,21 +211,23 @@ void CGAnemComponent::update() {
     max_air = -255;
   }
 
-  float power;
-  if (this->read_byte(CG_ANEM_REGISTER_HEAT_WT, &PowerRaw)) {
-    power = PowerRaw/255.0*(3.3*3.3/8);
-  } else {
-    ESP_LOGW(TAG, "Error reading power.");
-    this->status_set_warning();
-    return;
-  }
+
 
   float supply_v;
   if (this->read_byte(CG_ANEM_REGISTER_SUPPLY_V, &Supply_vRaw)) {
     supply_v = Supply_vRaw/10.0;
-    ESP_LOGI(TAG, "Supply_v: %.3f", supply_v);
+    ESP_LOGI(TAG, "Supply_v: %.1f", supply_v);
   } else {
     ESP_LOGW(TAG, "Error reading Supply_v.");
+    this->status_set_warning();
+    return;
+  }
+
+  float power;
+  if (this->read_byte(CG_ANEM_REGISTER_HEAT_WT, &PowerRaw)) {
+    power = PowerRaw/255.0*(supply_v*supply_v/8);
+  } else {
+    ESP_LOGW(TAG, "Error reading power.");
     this->status_set_warning();
     return;
   }
