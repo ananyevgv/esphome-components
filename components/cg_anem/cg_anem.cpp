@@ -225,7 +225,7 @@ void CGAnemComponent::update() {
     supply_v = Supply_vRaw/255.0*(3.3*3.3/8);
     ESP_LOGI(TAG, "Supply_v: %.3f", supply_v);
   } else {
-    ESP_LOGW(TAG, "Error reading power.");
+    ESP_LOGW(TAG, "Error reading Supply_v.");
     this->status_set_warning();
     return;
   }
