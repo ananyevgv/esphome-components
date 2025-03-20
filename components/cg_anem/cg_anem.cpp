@@ -21,6 +21,7 @@ static const uint8_t CG_ANEM_REGISTER_TEST_HOT_L = 0x0C;
 
 static const uint8_t CG_ANEM_REGISTER_VIN = 0x0D;
 static const uint8_t CG_ANEM_REGISTER_HEAT_WT = 0x0E;
+static const uint8_t CG_ANEM_REGISTER_SUPPLY_V = 0x0D;
 
 static const uint8_t CG_ANEM_REGISTER_COLD_H = 0x10;
 static const uint8_t CG_ANEM_REGISTER_COLD_L = 0x11;
@@ -143,7 +144,7 @@ void CGAnemComponent::update() {
   if (this->status_has_warning()) {
     return;
   }
-  uint8_t tempH, tempL, hotH, hotL, speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw;
+  uint8_t tempH, tempL, hotH, hotL, speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw, Supply_vRaw;
   uint16_t tempRaw, hotRaw,speedRaw;
   
   if (this-> read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) {
@@ -218,6 +219,17 @@ void CGAnemComponent::update() {
     this->status_set_warning();
     return;
   }
+
+  float supply_v;
+  if (this->read_byte(CG_ANEM_REGISTER_SUPPLY_V, &Supply_vRaw)) {
+    supply_v = Supply_vRaw/255.0*(3.3*3.3/8);
+    ESP_LOGI(TAG, "Supply_v: %.3f", supply_v);
+  } else {
+    ESP_LOGW(TAG, "Error reading power.");
+    this->status_set_warning();
+    return;
+  }
+  
   float hot = hotRaw / 10.0f;
   float temp = tempRaw / 10.0f;
   float speed = speedRaw / 10.0f;
