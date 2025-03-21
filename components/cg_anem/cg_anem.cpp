@@ -144,12 +144,14 @@ void CGAnemComponent::update() {
   if (this->status_has_warning()) {
     return;
   }
+
   uint8_t tempH, tempL, hotH, hotL, speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw, Supply_vRaw;
-  uint16_t tempRaw, hotRaw,speedRaw;
+  float hot, temp, speed, min_air, max_air, power;
   
+
   if (this-> read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) {
     if (this-> read_byte(CG_ANEM_REGISTER_COLD_L, &tempL)) {
-      tempRaw = (tempH << 8) | tempL;
+      temp = ((tempH << 8) | tempL) / 10.0f;
     } else {
       ESP_LOGW(TAG, "Error reading cold temp-L.");
       //this->status_set_warning();
@@ -163,7 +165,7 @@ void CGAnemComponent::update() {
   
   if (this-> read_byte(CG_ANEM_REGISTER_HOT_H, &hotH)) {
     if (this-> read_byte(CG_ANEM_REGISTER_HOT_L, &hotL)) {
-      hotRaw = (hotH << 8) | hotL;
+      hot = ((hotH << 8) | hotL) / 10.0f;
     } else {
       ESP_LOGW(TAG, "Error reading hot temp-L.");
       //this->status_set_warning();
@@ -177,7 +179,7 @@ void CGAnemComponent::update() {
 
   if (this-> read_byte(CG_ANEM_REGISTER_WIND_H, &speedH)) {
     if (this-> read_byte(CG_ANEM_REGISTER_WIND_L, &speedL)) {
-      speedRaw = (speedH << 8) | speedL;
+      speed = ((speedH << 8) | speedL) / 10.0f;
 
     } else {
       ESP_LOGW(TAG, "Error reading wind speed-L.");
@@ -190,28 +192,44 @@ void CGAnemComponent::update() {
     return;
   }
   
-  float min_air = 0;
+
   if (version >= 1) {
     if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_H, &MinAirH)) {
       if (this-> read_byte(CG_ANEM_REGISTER_WIND_MIN_L, &MinAirL)) {
         min_air = ((MinAirH << 8) | MinAirL) / 10.0;
+        } else {
+          ESP_LOGW(TAG, "Error reading MinAir-L.");
+          this->status_set_warning();
+          return;
+        }
+      } else {
+        ESP_LOGW(TAG, "Error reading MinAir-H.");
+        this->status_set_warning();
+        return;
       }
-     }
-  } else {
-    min_air = -255;
-  }
-  float max_air = 0;
+    } else {
+      ESP_LOGW(TAG, "Error reading MinAir version < 1");
+      min_air = -1;
+    }
+
   if (version >= 1) {
     if (this->read_byte(CG_ANEM_REGISTER_WIND_MAX_H, &MaxAirH)) {
       if (this->read_byte(CG_ANEM_REGISTER_WIND_MAX_L, &MaxAirL)) {
         max_air = ((MaxAirH << 8) | MaxAirL) / 10.0;
+        } else {
+          ESP_LOGW(TAG, "Error reading MaxAir-L.");
+          this->status_set_warning();
+          return;
+        }
+      } else {
+        ESP_LOGW(TAG, "Error reading MaxAir-H.");
+        this->status_set_warning();
+        return;
       }
-     }
-  } else {
-    max_air = -255;
-  }
-
-
+    } else {
+      ESP_LOGW(TAG, "Error reading MaxAir version < 1");
+      max_air = -1;
+    }
 
   float supply_v;
   if (this->read_byte(CG_ANEM_REGISTER_SUPPLY_V, &Supply_vRaw)) {
@@ -219,25 +237,23 @@ void CGAnemComponent::update() {
     ESP_LOGI(TAG, "Supply_v: %.1f", supply_v);
   } else {
     ESP_LOGW(TAG, "Error reading Supply_v.");
-    this->status_set_warning();
     return;
   }
 
-  float power;
+
   if (this->read_byte(CG_ANEM_REGISTER_HEAT_WT, &PowerRaw)) {
-    power = PowerRaw/255.0*(4.7*4.7/8);
-    float pow = PowerRaw/10.0;
-    ESP_LOGI(TAG, "PowerRaw: %.4f",pow);
+    if (version >= 1) {
+      power = PowerRaw/255.0*(4.7*4.7/8);
+     } else {
+       power = PowerRaw/10.0;
+     }
   } else {
     ESP_LOGW(TAG, "Error reading power.");
     this->status_set_warning();
     return;
   }
-  
-  float hot = hotRaw / 10.0f;
-  float temp = tempRaw / 10.0f;
-  float speed = speedRaw / 10.0f;
-    float сonsumption;
+
+  float сonsumption;
   // duct= πr2
   float duct = 91.6; // 91.6 = расчитанное сечение воздуховода 108мм где стоит анемометр в метрах сантиметрах 122.71 для 125
   if (duct > -0.01 && speed != -255) {
@@ -245,6 +261,8 @@ void CGAnemComponent::update() {
   } else {
     сonsumption = -255;
   }
+
+      
   if (this->heat_power_sensor_ != nullptr)
     this->heat_power_sensor_->publish_state(power);
   if (this->ambient_temperature_sensor_ != nullptr)
