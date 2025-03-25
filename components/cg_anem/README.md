@@ -16,6 +16,7 @@ sensor:
     duct: 91.6 # 91.6 = расчитанное сечение воздуховодав см2  где стоит анемометр в метрах сантиметрах 122.71 для 125
     air_consumption:
       name: "Air consumption"
+      id: air
     ambient_temperature:
       name: "Ambient temperature"
     hotend_temperature:
