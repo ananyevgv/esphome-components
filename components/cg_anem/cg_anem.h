@@ -16,7 +16,7 @@ class CGAnemComponent : public PollingComponent, public i2c::I2CDevice {
   void update() override;
 
   float get_setup_priority() const override { return setup_priority::DATA; }
-
+  void set_duct(float duct) { duct_ = duct; }
   void set_ambient_temperature_sensor(sensor::Sensor *ambient_temperature_sensor) { this->ambient_temperature_sensor_ = ambient_temperature_sensor; }
   void set_hotend_temperature_sensor(sensor::Sensor *hotend_temperature_sensor) { this->hotend_temperature_sensor_ = hotend_temperature_sensor; }
   void set_heat_power_sensor(sensor::Sensor *heat_power_sensor) { this->heat_power_sensor_ = heat_power_sensor; }
@@ -37,6 +37,7 @@ class CGAnemComponent : public PollingComponent, public i2c::I2CDevice {
   sensor::Sensor *min_air_flow_rate_sensor_{nullptr};
   sensor::Sensor *max_air_flow_rate_sensor_{nullptr};
 
+  float duct_;
 
   enum ErrorCode {
     NONE = 0,

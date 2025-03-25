@@ -50,6 +50,7 @@ CGAnemComponent = cg_anem_ns.class_(
 CONFIG_SCHEMA = (
     cv.Schema(
         {
+            cv.Optional(CONF_DUCT, default=91.6): cv.float_range(min=1, max=1000),
             cv.GenerateID(): cv.declare_id(CGAnemComponent),
             cv.Optional(CONF_AMBIENT_TEMPERATURE): sensor.sensor_schema(
                 icon = ICON_THERMOMETER,
@@ -131,6 +132,7 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
+    cg.add(var.set_duct(config[CONF_DUCT]))
     if CONF_AMBIENT_TEMPERATURE in config:
         sens = await sensor.new_sensor(config[CONF_AMBIENT_TEMPERATURE])
         cg.add(var.set_ambient_temperature_sensor(sens))
