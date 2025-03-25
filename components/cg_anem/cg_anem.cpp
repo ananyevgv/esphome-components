@@ -254,9 +254,7 @@ void CGAnemComponent::update() {
   }
 
   float consumption;
-  // duct= πr2
-  float duct = 91.6; // 91.6 = расчитанное сечение воздуховода 108мм где стоит анемометр в метрах сантиметрах 122.71 для 125
-  if (duct > -0.01 && speed != -255) {
+  if (duct_ > -0.01 && speed != -255) {
     consumption = speed * duct_ * 0.36;
   } else {
     consumption = -255;
