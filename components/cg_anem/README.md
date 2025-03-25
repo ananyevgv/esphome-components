@@ -31,7 +31,22 @@ sensor:
     max_air_flow_rate:
       name: "Max air flow rate"
     address: 0x11
-    update_interval: 10s
+    update_interval: 1s
+
+
+  - platform: total_daily_energy
+    name: 'Total Daily Air'
+    power_id: air
+    unit_of_measurement: 'm³'
+    state_class: total_increasing
+    device_class: volume
+    accuracy_decimals: 3
+
+time:
+  - platform: sntp
+    id: sntp_time
+    servers:
+     - 0.pool.ntp.org
 
 
 ```
