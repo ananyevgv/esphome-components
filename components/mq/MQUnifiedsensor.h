@@ -1,7 +1,7 @@
 #ifndef MQUnifiedsensor_H
   #define MQUnifiedsensor_H
 
-
+#include <Arduino.h>
 #include <stdint.h>
 
 /***********************Software Related Macros************************************/
