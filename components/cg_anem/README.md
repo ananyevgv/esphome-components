@@ -54,7 +54,8 @@ time:
 
 ```
 
-Для версий прошивки < 1.0
+# Для версий прошивки < 1.0
+```
 sensor:
   - platform: copy
     source_id: flow_rate
@@ -70,3 +71,4 @@ sensor:
       - max:
           window_size: 10
           send_every: 4
+```
