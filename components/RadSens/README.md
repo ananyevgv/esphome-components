@@ -1,4 +1,4 @@
-ESPHome custom component sensor for Climateguard RadSens 1v2, 1v7, 2v7 + Dosimeter  ESPHome
+Dosimeter  ESPHome for Climateguard RadSens 1v2, 1v7, 2v7 +
 ==========
 По мотивам 
 https://github.com/med-lasers/Dosimeter_RadSens_NarodMon
