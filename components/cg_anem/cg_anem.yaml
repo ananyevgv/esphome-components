@@ -1,0 +1,50 @@
+##### Copy file esphome/packages and add config: ##################################
+#packages:
+#  cg_anem: !include 
+#    file: packages/cg_anem.yaml
+#    vars:
+#      air_duct: 91.6 # 91.6 = расчитанное сечение воздуховода 108мм где стоит анемометр в метрах сантиметрах 122.71 для 125
+##################################################################################
+# add TIME!!!!!!
+##################################################################################
+
+external_components:
+  - source: github://ananyevgv/esphome-components/
+    components: [ cg_anem ]
+    refresh: 0s
+
+#  - source: my_components
+ #   components: [ cg_anem ]
+ #   refresh: 0s
+i2c:
+  frequency: 10kHz
+
+sensor:
+  - platform: cg_anem
+    duct: $air_duct
+    air_consumption:
+      name: "Air consumption"
+      id: air
+    ambient_temperature:
+      name: "Ambient temperature"
+    hotend_temperature:
+      name: "Hotend temperature"
+    heat_power:
+      name: "Heat power"
+    air_flow_rate:
+      name: "Air flow rate"
+    firmware_version:
+      name: "Firmware version"
+    min_air_flow_rate:
+      name: "Min air flow rate"
+    max_air_flow_rate:
+      name: "Max air flow rate"
+    address: 0x11
+    update_interval: 1s
+  - platform: total_daily_energy
+    name: 'Total Daily Air'
+    power_id: air
+    unit_of_measurement: 'm³'
+    state_class: total_increasing
+    device_class: volume
+    accuracy_decimals: 3
