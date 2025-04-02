@@ -26,6 +26,7 @@ sensor:
       name: "Heat power"
     air_flow_rate:
       name: "Air flow rate"
+      id: flow_rate
     firmware_version:
       name: "Firmware version"
     min_air_flow_rate:
@@ -52,3 +53,20 @@ time:
 
 
 ```
+
+Для версий прошивки < 1.0
+sensor:
+  - platform: copy
+    source_id: flow_rate
+    name: "Min air flow rate"
+    filters:
+      - min:
+          window_size: 10
+          send_every: 4
+  - platform: copy
+    source_id: flow_rate
+    name: "Max air flow rate"
+    filters:
+      - max:
+          window_size: 10
+          send_every: 4
