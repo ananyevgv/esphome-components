@@ -25,6 +25,7 @@ sensor:
       name: Sensor CO
 ```
 
+# Набор сенсоров в зависимости от датчика:
 model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309A
 
     "MQ2": [H2, LPG, CO, ALCOHOL, PROPANE],
@@ -52,3 +53,6 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309
     "MQ303A": [ISO_BUTANO, CHYDROGEN, ETHANOL],
     
     "MQ309A": [H2, CH4, CO, ALCOHOL],
+
+    
+# примеры в sensor.yaml
