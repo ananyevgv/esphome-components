@@ -45,6 +45,22 @@ Sensor:
       name: Sensor ALCOHOL   
 
   - platform: mq
+    model: MQ7
+    pin:  A0
+    update_interval: 30s
+    sensor_lpg:
+      name: Sensor LPG
+    sensor_co:
+      name: Sensor CO
+      id: gas_co
+    sensor_ch4:
+      name: Sensor CH4
+    sensor_h2:
+      name: Sensor H2
+    sensor_alcohol:
+      name: Sensor ALCOHOL
+      
+  - platform: mq
     model: MQ9
     pin: A0
     update_interval: 30s
