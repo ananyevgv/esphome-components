@@ -176,7 +176,7 @@ sensor_schema_co = sensor.sensor_schema(
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
-sensor_schema_c02 = sensor.sensor_schema(
+sensor_schema_co2 = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
     icon=ICON_MOLECULE_CO2,
     accuracy_decimals=2,
