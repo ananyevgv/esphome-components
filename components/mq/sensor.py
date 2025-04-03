@@ -138,7 +138,126 @@ sensor_schema = sensor.sensor_schema(
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
-
+sensor_schema_acetona = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_alcohol = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_benzene = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_ch4 = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_cl2 = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_co = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_c02 = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_ethanol = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_h2 = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_hexane = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_hydrogen = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_iso_butano = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_lpg = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_nh4 = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_h2s = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_nox = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_o3 = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_propane = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_smoke = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
+sensor_schema_tolueno = sensor.sensor_schema(
+    unit_of_measurement=UNIT_PARTS_PER_MILLION,
+    icon=ICON_GAS_CYLINDER,
+    accuracy_decimals=2,
+    state_class=STATE_CLASS_MEASUREMENT
+)
 CONFIG_SCHEMA = cv.All(
     cv.Schema({
         cv.GenerateID(): cv.declare_id(MQSensor),
@@ -148,26 +267,26 @@ CONFIG_SCHEMA = cv.All(
         cv.Required(CONF_MODEL): cv.enum(
             MQ_MODELS, upper=True, space="_"
         ),
-        cv.Optional(CONF_SENSOR_ACETONA): sensor_schema,
-        cv.Optional(CONF_SENSOR_ALCOHOL): sensor_schema,
-        cv.Optional(CONF_SENSOR_BENZENE): sensor_schema,
-        cv.Optional(CONF_SENSOR_CH4): sensor_schema,
-        cv.Optional(CONF_SENSOR_CL2): sensor_schema,
-        cv.Optional(CONF_SENSOR_CO): sensor_schema,
-        cv.Optional(CONF_SENSOR_CO2): sensor_schema,
-        cv.Optional(CONF_SENSOR_ETHANOL): sensor_schema,
-        cv.Optional(CONF_SENSOR_H2): sensor_schema,
-        cv.Optional(CONF_SENSOR_HEXANE): sensor_schema,
-        cv.Optional(CONF_SENSOR_HYDROGEN): sensor_schema,
-        cv.Optional(CONF_SENSOR_ISO_BUTANO): sensor_schema,
-        cv.Optional(CONF_SENSOR_LPG): sensor_schema,
-        cv.Optional(CONF_SENSOR_NH4): sensor_schema,
-        cv.Optional(CONF_SENSOR_H2S): sensor_schema,       
-        cv.Optional(CONF_SENSOR_NOX): sensor_schema,
-        cv.Optional(CONF_SENSOR_O3): sensor_schema,
-        cv.Optional(CONF_SENSOR_PROPANE): sensor_schema,
-        cv.Optional(CONF_SENSOR_SMOKE): sensor_schema,
-        cv.Optional(CONF_SENSOR_TOLUENO): sensor_schema,
+        cv.Optional(CONF_SENSOR_ACETONA): sensor_schema_acetona,
+        cv.Optional(CONF_SENSOR_ALCOHOL): sensor_schema_alcohol,
+        cv.Optional(CONF_SENSOR_BENZENE): sensor_schema_benzene,
+        cv.Optional(CONF_SENSOR_CH4): sensor_schema_ch4,
+        cv.Optional(CONF_SENSOR_CL2): sensor_schema_cl2,
+        cv.Optional(CONF_SENSOR_CO): sensor_schema_co,
+        cv.Optional(CONF_SENSOR_CO2): sensor_schema_co2,
+        cv.Optional(CONF_SENSOR_ETHANOL): sensor_schema_ethanol,
+        cv.Optional(CONF_SENSOR_H2): sensor_schema_h2,
+        cv.Optional(CONF_SENSOR_HEXANE): sensor_schema_hexane,
+        cv.Optional(CONF_SENSOR_HYDROGEN): sensor_schema_hydrogen,
+        cv.Optional(CONF_SENSOR_ISO_BUTANO): sensor_schema_butano,
+        cv.Optional(CONF_SENSOR_LPG): sensor_schema_lpg,
+        cv.Optional(CONF_SENSOR_NH4): sensor_schema_nh4,
+        cv.Optional(CONF_SENSOR_H2S): sensor_schema_h2s,       
+        cv.Optional(CONF_SENSOR_NOX): sensor_schema_nox,
+        cv.Optional(CONF_SENSOR_O3): sensor_schema_o3,
+        cv.Optional(CONF_SENSOR_PROPANE): sensor_schema_propane,
+        cv.Optional(CONF_SENSOR_SMOKE): sensor_schema_smoke,
+        cv.Optional(CONF_SENSOR_TOLUENO): sensor_schema_tolueno,
     }).extend(cv.polling_component_schema("10s")),
     validate_sensors,
 )
