@@ -19,6 +19,8 @@ from esphome.const import (
     UNIT_VOLT,
     UNIT_PARTS_PER_MILLION,
     ICON_GAS_CYLINDER,
+    ICON_MOLECULE_CO,
+    ICON_MOLECULE_CO2,
 )
 from . import (
     ATTENUATION_MODES,
@@ -170,13 +172,13 @@ sensor_schema_cl2 = sensor.sensor_schema(
 )
 sensor_schema_co = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_MOLECULE_CO,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_c02 = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_MOLECULE_CO2,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
