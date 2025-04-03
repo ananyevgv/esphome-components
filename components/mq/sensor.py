@@ -61,9 +61,9 @@ ICON_BACTERIA_OUTLINE = "mdi:bacteria-outline"
 ICON_ALPHA_N = "mdi:alpha-n"
 ICON_CHEMICAL_WEAPON = "mdi:chemical-weapon"
 ICON_SMOKE = "mdi:smoke"
-ICON_HUB_OUTLINE = "icon: mdi:hub-outline"
+ICON_HUB_OUTLINE = "mdi:hub-outline"
 ICON_HYDROGEN_STATION = "mdi:hydrogen-station"
-ICON_LIQUOR = "icon: mdi:liquor"
+ICON_LIQUOR = "mdi:liquor"
 ICON_PROPANE_TANK = "mdi:propane-tank"	
 
 mq_ns = cg.esphome_ns.namespace("mq")
