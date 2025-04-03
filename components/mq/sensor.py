@@ -52,6 +52,20 @@ CONF_SENSOR_PROPANE = "sensor_propane"
 CONF_SENSOR_SMOKE = "sensor_smoke"
 CONF_SENSOR_TOLUENO = "sensor_tolueno"
 
+ICON_FORMAT_COLOR_FILL = "mdi:format-color-fill"
+ICON_FUEL = "mdi:fuel"
+ICON_BOTTLE_TONIC_SKULL = "mdi:bottle-tonic-skull"
+ICON_MOLECULE = "mdi:molecule"
+ICON_VECTOR_TRIANGLE = "mdi:vector-triangle"
+ICON_BACTERIA_OUTLINE = "mdi:bacteria-outline"
+ICON_ALPHA_N = "mdi:alpha-n"
+ICON_CHEMICAL_WEAPON = "mdi:chemical-weapon"
+ICON_SMOKE = "mdi:smoke"
+ICON_HUB_OUTLINE = "icon: mdi:hub-outline"
+ICON_HYDROGEN_STATION = "mdi:hydrogen-station"
+ICON_LIQUOR = "icon: mdi:liquor"
+ICON_PROPANE_TANK = "mdi:propane-tank"	
+
 mq_ns = cg.esphome_ns.namespace("mq")
 MQModel = mq_ns.enum("MQModel")
 MQ_MODELS = {
@@ -142,31 +156,31 @@ sensor_schema = sensor.sensor_schema(
 )
 sensor_schema_acetona = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_FORMAT_COLOR_FILL,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_alcohol = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_LIQUOR,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_benzene = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_FUEL,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_ch4 = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_PROPANE_TANK,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_cl2 = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_BOTTLE_TONIC_SKULL,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
@@ -184,79 +198,79 @@ sensor_schema_co2 = sensor.sensor_schema(
 )
 sensor_schema_ethanol = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_LIQUOR,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_h2 = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_HYDROGEN_STATION,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_hexane = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_MOLECULE,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_hydrogen = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_HYDROGEN_STATION,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_iso_butano = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_PROPANE_TANK,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_lpg = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_PROPANE_TANK,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_nh4 = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_VECTOR_TRIANGLE,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_h2s = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_BACTERIA_OUTLINE,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_nox = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_ALPHA_N,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_o3 = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_CHEMICAL_WEAPON,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_propane = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_PROPANE_TANK,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_smoke = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_SMOKE,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
 sensor_schema_tolueno = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_GAS_CYLINDER,
+    icon=ICON_HUB_OUTLINE,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
