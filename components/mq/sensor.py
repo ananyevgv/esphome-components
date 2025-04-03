@@ -280,7 +280,7 @@ CONFIG_SCHEMA = cv.All(
         cv.Optional(CONF_SENSOR_H2): sensor_schema_h2,
         cv.Optional(CONF_SENSOR_HEXANE): sensor_schema_hexane,
         cv.Optional(CONF_SENSOR_HYDROGEN): sensor_schema_hydrogen,
-        cv.Optional(CONF_SENSOR_ISO_BUTANO): sensor_schema_butano,
+        cv.Optional(CONF_SENSOR_ISO_BUTANO): sensor_schema_iso_butano,
         cv.Optional(CONF_SENSOR_LPG): sensor_schema_lpg,
         cv.Optional(CONF_SENSOR_NH4): sensor_schema_nh4,
         cv.Optional(CONF_SENSOR_H2S): sensor_schema_h2s,       
