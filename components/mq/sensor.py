@@ -313,7 +313,7 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID], pin, config[CONF_MODEL], CORE.is_esp8266, config[CONF_RL])
     await cg.register_component(var, config)
 
-    cg.add_library("MQUnifiedsensor", "2.0.1")
+    cg.add_library("MQUnifiedsensor", "3.0.0")
 
     if CONF_R0 in config:
         cg.add(var.set_R0(config[CONF_R0]))
