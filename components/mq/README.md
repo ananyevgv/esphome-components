@@ -5,6 +5,9 @@
 https://github.com/nonameplum/esphome_devices/
 
 https://github.com/miguel5612/MQSensorsLib
+# Схема включения
+
+<img src="[https://github.com/ananyevgv/esphome-components/blob/main/components/mq/MQ_ESP8266.png]" height="300" alt="MQ">
 
 ```yaml
 external_components:
