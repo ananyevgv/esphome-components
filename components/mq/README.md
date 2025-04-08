@@ -18,6 +18,8 @@ external_components:
 sensor:
   - platform: mq
     model: MQ9
+    r0: 4.1
+    rl: 10
     pin: A0
     update_interval: 2s
     sensor_lpg:
