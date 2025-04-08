@@ -5,7 +5,7 @@
 https://github.com/nonameplum/esphome_devices/
 
 https://github.com/miguel5612/MQSensorsLib
-# Схема включения
+# Схема включения ESP8266-ESP32
 
 <img src="https://raw.githubusercontent.com/miguel5612/MQSensorsLib_Docs/master/static/img/MQ_ESP8266.PNG" height="300" alt="MQ">
 
