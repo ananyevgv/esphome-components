@@ -1,0 +1,104 @@
+#-------------------------------------------
+# Add yaml and copy file esphome/packages/sensor/
+#packages:
+#  mq: !include 
+#    file: packages/sensor/mq4.yaml
+#    vars:
+#      MQPin: A0
+#      GPIO_Close_gas: D7
+#      RationClearAir: 4.4
+#      R2PCB: 10
+#      MQBinarry: D8
+#-------------------------------------------
+
+
+
+
+
+#-------------------------------------------
+# EXTERNAL COMPONENT
+#-------------------------------------------
+external_components:
+  - source: github://ananyevgv/esphome-components
+    components: [mq]
+    refresh: 0s
+    
+#-------------------------------------------
+# SENSOR MQ-4
+#-------------------------------------------
+sensor:
+  - platform: mq
+    model: MQ4
+    pin: $MQPin
+    r0: $RationClearAir
+    rl: $R2PCB
+    update_interval: 30s
+    sensor_lpg:
+      name: Sensor LPG
+      device_class: carbon_monoxide
+    sensor_smoke:
+      name: Sensor smoke
+      device_class: carbon_dioxide
+      id: gas_co2
+    sensor_co:
+      name: Sensor CO
+      device_class: carbon_monoxide
+      id: gas_co
+    sensor_ch4:
+      name: Sensor CH4
+      device_class: gas
+      id: gas_ch4
+    sensor_alcohol:
+      name: Sensor ALCOHOL
+
+#-------------------------------------------
+# BINARY SENSOR 
+#-------------------------------------------  
+binary_sensor:
+  - platform: gpio
+    name: "MQ4"
+    pin: $MQBinarry
+    device_class: gas
+    
+  - platform: template
+    name: "Gas CH4"
+    device_class: gas
+    lambda: |-
+      if (id(gas_ch4).state > 1500) {
+        return true;
+      } else {
+        return false;
+      }
+    on_press:
+    #  - switch.turn_on: close_gas
+    #  - delay: 1s
+      - switch.turn_off: close_gas
+      
+  - platform: template
+    name: "Gas CO"
+    device_class: gas
+    lambda: |-
+      if (id(gas_co).state > 17) {
+        return true;
+      } else {
+        return false;
+      }
+  - platform: template
+    name: "Gas CO₂"
+    device_class: gas
+    lambda: |-
+      if (id(gas_co2).state > 2000) {
+        return true;
+      } else {
+        return false;
+      }
+
+#-------------------------------------------
+# SWITCH
+#-------------------------------------------
+switch:
+  - platform: gpio
+    pin: $GPIO_Close_gas
+    name: "Close_gas"
+    id: close_gas
+      
