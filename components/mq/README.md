@@ -60,9 +60,11 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309
     "MQ309A": [H2, CH4, CO, ALCOHOL],R0 = 11
     
 Данные платы, должно быть значение RL в кОм
+
  <img src="https://raw.githubusercontent.com/miguel5612/MQSensorsLib_Docs/master/static/img/Points_explanation.jpeg" height="300" alt="RL">
-Значение RS/R0 (из спецификации вашего датчика)
-RS/R0 (Чистый воздух)
+ 
+Значение RS/R0 (из спецификации вашего датчика) RS/R0 (Чистый воздух)
+
  <img src="https://raw.githubusercontent.com/miguel5612/MQSensorsLib_Docs/master/static/img/Graph_Explanation.jpeg height="300" alt="R0">
 
 # примеры в sensor.yaml
