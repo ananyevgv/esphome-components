@@ -18,7 +18,7 @@ external_components:
 sensor:
   - platform: mq
     model: MQ9
-    r0: 4.1
+    r0: 9.6
     rl: 10
     pin: A0
     update_interval: 2s
@@ -33,31 +33,31 @@ sensor:
 # Набор сенсоров в зависимости от датчика:
 model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309A
 
-    "MQ2": [H2, LPG, CO, ALCOHOL, PROPANE],
+    "MQ2": [H2, LPG, CO, ALCOHOL, PROPANE],R0 = 9.83
     
-    "MQ3": LPG, CH4, CO, ALCOHOL, BENZENE, HEXANE],
+    "MQ3": LPG, CH4, CO, ALCOHOL, BENZENE, HEXANE],R0 = 60 
     
-    "MQ4": [LPG, CH4,CO, ALCOHOL, SMOKE],
+    "MQ4": [LPG, CH4,CO, ALCOHOL, SMOKE],R0 = 4.4
     
-    "MQ5": [H2, LPG,CH4, CO, ALCOHOL],
+    "MQ5": [H2, LPG,CH4, CO, ALCOHOL],R0 = 6.5
     
-    "MQ6": [H2, LPG,CH4, CO, ALCOHOL],
+    "MQ6": [H2, LPG,CH4, CO, ALCOHOL],R0 = 10 
     
-    "MQ7": [H2, LPG,CH4, CO, ALCOHOL],
+    "MQ7": [H2, LPG,CH4, CO, ALCOHOL],R0 = 27.5
     
-    "MQ8": [H2, LPG,CH4, CO, ALCOHOL],
+    "MQ8": [H2, LPG,CH4, CO, ALCOHOL],R0 = 70
     
-    "MQ9": [LPG, CH4, CO],
+    "MQ9": [LPG, CH4, CO],R0 = 9.6
     
-    "MQ131": [NOX, CL2, O3],
+    "MQ131": [NOX, CL2, O3],R0 = 15 
     
-    "MQ135": [CO, ALCOHOL, CO2, TOLUENO, NH4, ACETONA],
+    "MQ135": [CO, ALCOHOL, CO2, TOLUENO, NH4, ACETONA],R0 = 3.6 
     
-    "MQ136": [H2S, NH4, CO],
+    "MQ136": [H2S, NH4, CO], R0 = 3.6 
     
-    "MQ303A": [ISO_BUTANO, CHYDROGEN, ETHANOL],
+    "MQ303A": [ISO_BUTANO, CHYDROGEN, ETHANOL],R0 = 1
     
-    "MQ309A": [H2, CH4, CO, ALCOHOL],
+    "MQ309A": [H2, CH4, CO, ALCOHOL],R0 = 11
 
     
 # примеры в sensor.yaml
