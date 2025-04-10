@@ -180,6 +180,7 @@ class MQSensor : public PollingComponent {
   MQSensor(InternalGPIOPin *pin, MQModel model, bool is_ESP8266, float rl);
   void add_sensor(sensor::Sensor *sensor, MQGasType gas_type);
   void set_R0(float r0);
+  void set_VR(float vr);
 
   float get_setup_priority() const override;
   void setup() override;
