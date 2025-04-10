@@ -193,6 +193,7 @@ class MQSensor : public PollingComponent {
   bool is_ESP8266_;
   float rl_ = 10.0;
   float r0_ = 0.0;
+  float Voltage_Resolution = 3.3;
   MQModelParameters model_parameters_;
 
  private:
