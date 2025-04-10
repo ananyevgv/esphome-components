@@ -65,8 +65,6 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309
 
 <img src="https://static.insales-cdn.com/files/1/7780/30170724/original/mceclip8-1688735102483.jpg" height="300" alt="RL">
 
- <img src="https://raw.githubusercontent.com/miguel5612/MQSensorsLib_Docs/master/static/img/Points_explanation.jpeg" height="300" alt="RL">
- 
 Значение RS/R0 (из спецификации вашего датчика) RS/R0 (Чистый воздух)
 
  <img src="https://raw.githubusercontent.com/miguel5612/MQSensorsLib_Docs/master/static/img/Graph_Explanation.jpeg" height="300" alt="R0">
