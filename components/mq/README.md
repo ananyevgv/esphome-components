@@ -18,8 +18,8 @@ external_components:
 sensor:
   - platform: mq
     model: MQ9
-    r0: 9.6
-    rl: 10
+    r0: 9.6 # из спецификации вашего датчика) RS/R0 (Чистый воздух)
+    rl: 10 # Номинал R2 (RL) в кОм
     pin: A0
     update_interval: 2s
     sensor_lpg:
@@ -61,7 +61,7 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309
 
 
     
-Данные платы, должно быть значение RL в кОм
+Номинал RL (R2), значение RL в кОм
 
 <img src="https://static.insales-cdn.com/files/1/7780/30170724/original/mceclip8-1688735102483.jpg" height="300" alt="RL">
 
