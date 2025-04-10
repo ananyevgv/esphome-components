@@ -31,6 +31,7 @@ from . import (
 
 CONF_RL = "rl"
 CONF_R0 = "r0"
+CONF_VR = "vr"
 CONF_SENSOR_ACETONA = "sensor_acetona"
 CONF_SENSOR_ALCOHOL = "sensor_alcohol"
 CONF_SENSOR_BENZENE = "sensor_benzene"
@@ -317,7 +318,9 @@ async def to_code(config):
 
     if CONF_R0 in config:
         cg.add(var.set_R0(config[CONF_R0]))
-
+    if CONF_VR in config:
+        cg.add(var.set_VR(config[CONF_VR]))
+        
     model_valid_sensors = set(MQ_MODEL_SENSORS[config[CONF_MODEL]])
     sensors_schemas = get_sensors_schemas(config)
     sensors = model_valid_sensors.intersection(sensors_schemas)
