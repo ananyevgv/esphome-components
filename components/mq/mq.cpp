@@ -4,7 +4,6 @@
 namespace esphome {
 namespace mq {
 
-static const float Voltage_Resolution = 3.3;
 static const int ADC_Bit_Resolution_ESP8266 = 10;
 static const int ADC_Bit_Resolution_ESP32 = 12;
 static const char *TAG = "mq";
@@ -26,6 +25,7 @@ void MQSensor::add_sensor(sensor::Sensor *sensor, MQGasType gas_type) {
 }
 
 void MQSensor::set_R0(float r0) { this->r0_ = r0; }
+void MQSensor::set_VR(float vr) { this->Voltage_Resolution = vr; }
 
 // Component overrides
 
