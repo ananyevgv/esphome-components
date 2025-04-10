@@ -5,10 +5,10 @@
 #    file: packages/sensor/mq4.yaml
 #    vars:
 #      MQPin: A0
-#      GPIO_Close_gas: D7
+#      GPIO_Close_gas: D6
 #      RationClearAir: 4.4
 #      R2PCB: 10
-#      MQBinarry: D8
+#      MQBinarry: D7
 #      VoltageResolution: 3.3
 #-------------------------------------------
 
