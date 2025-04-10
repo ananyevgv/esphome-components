@@ -10,7 +10,7 @@ https://github.com/miguel5612/MQSensorsLib
 <img src="https://raw.githubusercontent.com/miguel5612/MQSensorsLib_Docs/master/static/img/MQ_ESP8266.PNG" height="300" alt="MQ">
 
 
-Voltage_Resolution = 3.3 MQ.cpp
+
 
 ```yaml
 external_components:
@@ -21,8 +21,9 @@ external_components:
 sensor:
   - platform: mq
     model: MQ9
-    r0: 9.6 # из спецификации вашего датчика) RS/R0 (Чистый воздух)
-    rl: 10 # Номинал R2 (RL) в кОм
+    r0: 9.6 # из спецификации вашего датчика) RS/R0 (Чистый воздух) по умолчанию значения указаные ниже
+    rl: 10 # Номинал R2 (RL) в кОм по умолчанию 10 кОм
+    vr: 3.3 # Максимальное измеряемое напряжение датчика по умолчанию 3.3В (зависит от настроек ADC ESPHOME смотри https://esphome.io/components/sensor/adc.html)
     pin: A0
     update_interval: 2s
     sensor_lpg:
