@@ -9,7 +9,7 @@
 #      RationClearAir: 4.4
 #      R2PCB: 10
 #      MQBinarry: D8
-#      Voltage_Resolution: 3.3
+#      VoltageResolution: 3.3
 #-------------------------------------------
 
 
@@ -30,7 +30,7 @@ sensor:
     pin: $MQPin
     r0: $RationClearAir
     rl: $R2PCB
-    vr: $Voltage_Resolution
+    vr: $VoltageResolution
     update_interval: 30s
     sensor_lpg:
       name: Sensor LPG
