@@ -9,6 +9,9 @@ https://github.com/miguel5612/MQSensorsLib
 
 <img src="https://raw.githubusercontent.com/miguel5612/MQSensorsLib_Docs/master/static/img/MQ_ESP8266.PNG" height="300" alt="MQ">
 
+
+Voltage_Resolution = 3.3 MQ.cpp
+
 ```yaml
 external_components:
   source: github://ananyevgv/esphome-components
