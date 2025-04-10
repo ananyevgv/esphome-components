@@ -23,7 +23,8 @@ sensor:
     model: MQ9
     r0: 9.6 # из спецификации вашего датчика) RS/R0 (Чистый воздух) по умолчанию значения указаные ниже
     rl: 10 # Номинал R2 (RL) в кОм по умолчанию 10 кОм
-    vr: 3.3 # Максимальное измеряемое напряжение датчика по умолчанию 3.3В (зависит от настроек ADC ESPHOME смотри https://esphome.io/components/sensor/adc.html)
+    vr: 3.3 # Максимальное измеряемое напряжение датчика по умолчанию 3.3В
+    #(зависит от настроек ADC ESPHOME смотри https://esphome.io/components/sensor/adc.html)
     pin: A0
     update_interval: 2s
     sensor_lpg:
