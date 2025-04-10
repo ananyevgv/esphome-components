@@ -281,6 +281,7 @@ CONFIG_SCHEMA = cv.All(
         cv.Required(CONF_PIN): validate_adc_pin,
         cv.Optional(CONF_RL, default=10.0): cv.positive_float,
         cv.Optional(CONF_R0): cv.positive_float,
+        cv.Optional(CONF_VR): cv.positive_float,
         cv.Required(CONF_MODEL): cv.enum(
             MQ_MODELS, upper=True, space="_"
         ),
