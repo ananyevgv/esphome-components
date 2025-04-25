@@ -1,4 +1,4 @@
-## External Component MCP453X for ESPHOME 2025.2.1 ->
+## External Component MCP453X (MCP4531, MCP4532, MCP4541 MCP4542) for ESPHOME 2025.2.1 ->
 
 
 Copy the folder `ds3502` which is located in `components` to the identical folder at your instance.
