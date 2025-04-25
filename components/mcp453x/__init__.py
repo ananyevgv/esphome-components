@@ -7,7 +7,7 @@ DEPENDENCIES = ["i2c"]
 MULTI_CONF = True
 
 mcp453x_ns = cg.esphome_ns.namespace("mcp453x")
-DS3502Component = mcp453x_ns.class_("MCP453XComponent", cg.Component, i2c.I2CDevice)
+MCP453XComponent = mcp453x_ns.class_("MCP453XComponent", cg.Component, i2c.I2CDevice)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MCP453XComponent),
