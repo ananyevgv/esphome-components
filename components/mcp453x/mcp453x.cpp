@@ -11,7 +11,7 @@ void MCP453XComponent::setup() {
   
   // Try to write to the wiper register to verify the device is connected
   if (!this->write_byte(MCP453X_REG_WIPER, 0x00)) {
-    ESP_LOGE(TAG, "Communication with DS3502 failed!");
+    ESP_LOGE(TAG, "Communication with MCP453X failed!");
     this->mark_failed();
     return;
   }
