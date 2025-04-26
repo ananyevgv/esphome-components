@@ -22,7 +22,7 @@ i2c:
 # Create the MCP453X base component
 mcp453x:
   id: my_mcp453x
-  address: 0x28
+  address: 0x2F
 
 # Create the MCP453X output
 output:
