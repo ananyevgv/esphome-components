@@ -2,6 +2,9 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import i2c
 from esphome.const import CONF_ID
+CONF_NR = "number_resistors"
+CONF_BITS = "bits"
+
 
 DEPENDENCIES = ["i2c"]
 MULTI_CONF = True
