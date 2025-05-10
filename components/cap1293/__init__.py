@@ -21,8 +21,8 @@ CONFIG_SCHEMA = (
         {
             cv.GenerateID(): cv.declare_id(CAP1293Component),
             cv.Optional(CONF_RESET_PIN): pins.gpio_output_pin_schema,
-            cv.Optional(CONF_TOUCH_THRESHOLD, default=0x07): cv.int_range(
-                min=0x00, max=0x07
+            cv.Optional(CONF_TOUCH_THRESHOLD, default=0x20): cv.int_range(
+                min=0x01, max=0x80
             ),
             cv.Optional(CONF_ALLOW_MULTIPLE_TOUCHES, default=False): cv.boolean,
         }
