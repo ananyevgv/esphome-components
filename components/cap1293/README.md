@@ -35,10 +35,6 @@ id (Optional, ID): Set the ID of this sensor.
 reset_pin (Optional, Pin): Set the pin that is used to reset the CAP1293 board on boot.
 
 Parameters:    
-| Direction | Name | Function | 
-| --------- | ---- | -------- |
-| in        | sensitivity | Sensitivity (see below list)  |
-|  return |  | void  | 
 
 | Sensitivity level   | Defined name     | Value | 
 | ------------------- | ---------------- | ----- |
