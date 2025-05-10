@@ -16,7 +16,7 @@ from esphome.const import (
 )
 from esphome.core import TimePeriodMilliseconds
 
-CODEOWNERS = ["@habbie"]
+CODEOWNERS = ["ananyevgv"]
 DEPENDENCIES = ["uart"]
 
 pm1006k_ns = cg.esphome_ns.namespace("pm1006k")
