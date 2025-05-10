@@ -67,6 +67,8 @@ ICON_HYDROGEN_STATION = "mdi:hydrogen-station"
 ICON_LIQUOR = "mdi:liquor"
 ICON_PROPANE_TANK = "mdi:propane-tank"	
 
+CODEOWNERS = ["ananyevgv"]
+
 mq_ns = cg.esphome_ns.namespace("mq")
 MQModel = mq_ns.enum("MQModel")
 MQ_MODELS = {
