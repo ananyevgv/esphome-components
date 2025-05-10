@@ -10,7 +10,7 @@
 CAP1293 Capacitive Touch Sensor. 
 # Example configuration entry
 
-...yaml
+```
 cap1293:
   id: cap1293_component
   address: 0x28
@@ -23,6 +23,7 @@ binary_sensor:
     id: touch_key0
     channel: 0
     name: "Touch Key 0"
+```
 
 Configuration variables:
 The configuration is made up of two parts: The central component, and individual Binary sensors per channel.
