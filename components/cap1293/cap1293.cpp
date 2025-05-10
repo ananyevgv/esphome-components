@@ -35,7 +35,7 @@ void CAP1293Component::setup() {
   // Set sensitivity
   uint8_t sensitivity = 0;
   this->read_byte(CAP1293_SENSITVITY, &sensitivity);
-  sensitivity = sensitivity & 0x08;
+  sensitivity = sensitivity & 0x0f;
   this->write_byte(CAP1293_SENSITVITY, sensitivity | this->touch_threshold_);
 
   // Allow multiple touches
