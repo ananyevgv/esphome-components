@@ -34,14 +34,20 @@ id (Optional, ID): Set the ID of this sensor.
 
 reset_pin (Optional, Pin): Set the pin that is used to reset the CAP1293 board on boot.
 
-touch_threshold (Optional, int): The touch threshold for all channels. This defines the sensitivity for touch detection.
+Parameters:    
+| Direction | Name | Function | 
+| --------- | ---- | -------- |
+| in        | sensitivity | Sensitivity (see below list)  |
+|  return |  | void  | 
 
-0x01: Maximum sensitivity - Most sensitive to touch
+| Sensitivity level   | Defined name     | Value | 
+| ------------------- | ---------------- | ----- |
+| Highest sensitivity | SENSITIVITY_128X | 0x00 |
+| High sensitivity | SENSITIVITY_64X | 0x01 |
+| Higher sensitivity | SENSITIVITY_32X | 0x02 |
+| Medium sensitivity | SENSITIVITY_16X | 0x03 |
+| Lower sensitivity | SENSITIVITY_8X | 0x04 | 
+| Low sensitivity | SENSITIVITY_4X | 0x05 |
+| Low sensitivity | SENSITIVITY_2X | 0x06 |
+| Lowest sensitivity | SENSITIVITY_1X | 0x07 |
 
-0x03: Default sensitivity
-
-0x04: Medium sensitivity (I used this sensitivity when being used through a 3mm sheet of plastic)
-
-0x07: Minimum sensitivity - Least sensitive to touch
-
-allow_multiple_touches (Optional, boolean): Whether to allow multitouch. Defaults to off.
