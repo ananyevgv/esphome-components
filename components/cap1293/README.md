@@ -28,7 +28,7 @@ binary_sensor:
 Configuration variables:
 The configuration is made up of two parts: The central component, and individual Binary sensors per channel.
 
-address (Optional, int): The I²C address of the sensor. Defaults to 0x29.
+address (Optional, int): The I²C address of the sensor. Defaults to 0x28.
 
 id (Optional, ID): Set the ID of this sensor.
 
