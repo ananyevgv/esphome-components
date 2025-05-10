@@ -51,7 +51,7 @@ class CAP1293Component : public Component, public i2c::I2CDevice {
 
  protected:
   std::vector<CAP1293Channel *> channels_{};
-  uint8_t touch_threshold_{0x03};
+  uint8_t touch_threshold_{0x07};
   uint8_t allow_multiple_touches_{0x80};
 
   GPIOPin *reset_pin_{nullptr};
