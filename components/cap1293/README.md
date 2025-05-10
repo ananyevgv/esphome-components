@@ -15,7 +15,7 @@ cap1293:
   id: cap1293_component
   address: 0x28
   reset_pin: GPIOXX
-  touch_threshold: 0x40
+  touch_threshold: 0x03
   allow_multiple_touches: true
 
 binary_sensor:
