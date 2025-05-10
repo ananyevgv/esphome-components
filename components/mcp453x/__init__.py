@@ -8,6 +8,7 @@ CONF_BITS = "bits"
 
 DEPENDENCIES = ["i2c"]
 MULTI_CONF = True
+CODEOWNERS = ["ananyevgv"]
 
 mcp453x_ns = cg.esphome_ns.namespace("mcp453x")
 MCP453XComponent = mcp453x_ns.class_("MCP453XComponent", cg.Component, i2c.I2CDevice)
