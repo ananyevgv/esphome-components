@@ -34,9 +34,6 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_HUMIDITY,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
-            cv.Optional(CONF_VARIANT, default="hts221"): cv.enum(
-                hts221_VARIANTS, upper=True
-            ),
         }
     )
     .extend(cv.polling_component_schema("60s"))
