@@ -11,7 +11,6 @@ namespace hts221 {
 
 class hts221Component : public PollingComponent, public i2c::I2CDevice {
  public:
-  Adafruit_HTS221 hts;
   void setup() override;
   void update() override;
   void dump_config() override;
