@@ -5,7 +5,6 @@
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/i2c/i2c.h"
-#include "Adafruit_HTS221.h"
 
 namespace esphome {
 namespace hts221 {
