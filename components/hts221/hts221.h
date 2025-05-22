@@ -5,14 +5,26 @@
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/i2c/i2c.h"
+#include "Adafruit_HTS221.h"
 
 namespace esphome {
 namespace hts221 {
 
 class hts221Component : public PollingComponent, public i2c::I2CDevice {
  public:
-  void setup() override;
-  void update() override;
+  Adafruit_HTS221 hts;
+  void setup() override {
+    hts.begin_I2C();
+  }
+  void update() override {
+    sensors_event_t temp;
+    sensors_event_t humidity;
+    hts.getEvent(&humidity, &temp);// populate temp and humidity objects with fresh data
+
+    temperature_sensor->publish_state(temp.temperature);
+    humidity_sensor->publish_state(humidity.relative_humidity);
+
+  }
   void dump_config() override;
   float get_setup_priority() const override;
 
