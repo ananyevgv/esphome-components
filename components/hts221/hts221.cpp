@@ -26,9 +26,12 @@ static const uint8_t HTS221_T1_OUT_REG         = 0x3e;
 void hts221Component::setup() {
   ESP_LOGCONFIG(TAG, "Setting up HTS221...");
 
-
   // Mark as not failed before initializing. Some devices will turn off sensors to save on batteries
   // and when they come back on, the COMPONENT_STATE_FAILED bit must be unset on the component.
+  if ((this->component_state_ & COMPONENT_STATE_MASK) == COMPONENT_STATE_FAILED) {
+    this->component_state_ &= ~COMPONENT_STATE_MASK;
+    this->component_state_ |= COMPONENT_STATE_CONSTRUCTION;
+  }
 
   if (!this->write_byte(HTS221_WHO_AM_I_REG, 0xbc)) {
     this->error_code_ = COMMUNICATION_FAILED;
