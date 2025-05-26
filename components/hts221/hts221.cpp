@@ -72,7 +72,7 @@ void hts221Component::update() {
   uint16_t t0degC = (t0degC0) | ((t0degC & 0x03) << 8);
   uint16_t t1degC = (t1degC0) | ((t1degC1 & 0x0c) << 6);
   
-  unt16_t h0t0OutRAW, h1t0OutRAW, t0OutRAW, t1OutRAW;
+  uint16_t h0t0OutRAW, h1t0OutRAW, t0OutRAW, t1OutRAW;
   
   this-> read_byte(HTS221_H0_T0_OUT_REG, &h0t0OutRAW);
   this-> read_byte(HTS221_H1_T0_OUT_REG, &h1t0OutRAW);
