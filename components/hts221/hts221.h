@@ -22,10 +22,12 @@ class hts221Component : public PollingComponent, public i2c::I2CDevice {
  protected:
   sensor::Sensor *temperature_sensor_{nullptr};
   sensor::Sensor *humidity_sensor_{nullptr};
-  unsigned read_count_{};
-  void read_data_();
-  void restart_read_();
-  uint32_t start_time_{};
+
+ private:
+  float _hts221HumiditySlope;
+  float _hts221HumidityZero;
+  float _hts221TemperatureSlope;
+  float _hts221TemperatureZero;
 };
 
 }  // namespace hts221
