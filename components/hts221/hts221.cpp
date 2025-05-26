@@ -55,61 +55,57 @@ void hts221Component::dump_config() {
 
 }
 
-
-
 void hts221Component::update() {
   this->read_status();
-
-
-
-
-
-
-
 
   if (this->status_has_warning()) {
     return;
   }
-
-  uint8_t tempH, tempL, hotH, hotL, speedH, speedL, MinAirH, MinAirL, MaxAirH, MaxAirL, PowerRaw, Supply_vRaw;
-  float hot, temp, speed, min_air, max_air, power;
+  readHTS221Calibration();
   
-
-  if (this-> read_byte(CG_ANEM_REGISTER_COLD_H, &tempH)) {
-    if (this-> read_byte(CG_ANEM_REGISTER_COLD_L, &tempL)) {
-      temp = ((tempH << 8) | tempL) / 10.0f;
-    } else {
-      ESP_LOGW(TAG, "Error reading cold temp-L.");
-      //this->status_set_warning();
-      return;
-    }
+  int16_t tout = read_byte16(HTS221_TEMP_OUT_L_REG);
+  float reading = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
+  if (units == FAHRENHEIT) { // Fahrenheit = (Celsius * 9 / 5) + 32
+    return (reading * 9.0 / 5.0) + 32.0;
   } else {
-    ESP_LOGW(TAG, "Error reading cold temp-H.");
-    this->status_set_warning();
-    return;
+    return reading;
   }
   
 
-
-
-
-
-
-
-
-
-
-
-
-
+  int16_t hout = read_byte16(HTS221_HUMIDITY_OUT_L_REG);
+  return (hout * _hts221HumiditySlope + _hts221HumidityZero);
+  
   if (this->temperature_sensor_ != nullptr)
-    this->temperature_sensor_->publish_state(temp);
+    this->temperature_sensor_->publish_state(tout);
   if (this->humidity_sensor_ != nullptr)
-    this->humidity_sensor_->publish_state(humm);
+    this->humidity_sensor_->publish_state(hout);
  
-  ESP_LOGV(TAG, "Got temperature=%.1f°C humidity=%.1f%% ", temp, humm);
+  ESP_LOGV(TAG, "Got temperature=%.1f°C humidity=%.1f%% ", tout, hout);
 
 
+}
+void hts221Component::readHTS221Calibration()
+{
+  uint8_t h0rH = read_byte(HTS221_H0_rH_x2_REG);
+  uint8_t h1rH = read_byte(HTS221_H1_rH_x2_REG);
+
+  uint16_t t0degC = read_byte(HTS221_T0_degC_x8_REG) | ((read_byte(HTS221_T1_T0_MSB_REG) & 0x03) << 8);
+  uint16_t t1degC = read_byte(HTS221_T1_degC_x8_REG) | ((read_byte(HTS221_T1_T0_MSB_REG) & 0x0c) << 6);
+
+  int16_t h0t0Out = read_byte16(HTS221_H0_T0_OUT_REG);
+  int16_t h1t0Out = read_byte16(HTS221_H1_T0_OUT_REG);
+
+  int16_t t0Out = read_byte16(HTS221_T0_OUT_REG);
+  int16_t t1Out = read_byte16(HTS221_T1_OUT_REG);
+
+  // calculate slopes and 0 offset from calibration values,
+  // for future calculations: value = a * X + b
+
+  _hts221HumiditySlope = (h1rH - h0rH) / (2.0 * (h1t0Out - h0t0Out));
+  _hts221HumidityZero = (h0rH / 2.0) - _hts221HumiditySlope * h0t0Out;
+
+  _hts221TemperatureSlope = (t1degC - t0degC) / (8.0 * (t1Out - t0Out));
+  _hts221TemperatureZero = (t0degC / 8.0) - _hts221TemperatureSlope * t0Out;
 }
 
 }  // namespace hts221
