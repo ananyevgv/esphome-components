@@ -23,7 +23,14 @@ class hts221Component : public PollingComponent, public i2c::I2CDevice {
   sensor::Sensor *temperature_sensor_{nullptr};
   sensor::Sensor *humidity_sensor_{nullptr};
 
+ enum ErrorCode {
+    NONE = 0,
+    COMMUNICATION_FAILED,
+  } error_code_{NONE};
+
+
  private:
+  void read_status();
   float _hts221HumiditySlope;
   float _hts221HumidityZero;
   float _hts221TemperatureSlope;
