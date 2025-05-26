@@ -72,7 +72,8 @@ void hts221Component::setup() {
 
   _hts221TemperatureSlope = (t1degC - t0degC) / (8.0 * (t1Out - t0Out));
   _hts221TemperatureZero = (t0degC / 8.0) - _hts221TemperatureSlope * t0Out;
-  
+  write_byte(HTS221_CTRL1_REG, 0x84);
+
 }
 void hts221Component::dump_config() {
   ESP_LOGCONFIG(TAG, "HTS221:");
