@@ -59,11 +59,6 @@ void hts221Component::dump_config() {
 }
 
 void hts221Component::update() {
-  this->read_status();
-
-  if (this->status_has_warning()) {
-    return;
-  }
 
   uint8_t h0rH, h1rH, t0degC0, t0degC1, t1degC0, t1degC1;
   
