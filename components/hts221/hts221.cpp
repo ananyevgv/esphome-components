@@ -58,11 +58,11 @@ void hts221Component::setup() {
   this-> read_byte_16(HTS221_H0_T0_OUT_REG, &t0OutRAW);
   this-> read_byte_16(HTS221_H1_T0_OUT_REG, &t1OutRAW);
   
-  int16_t h0t0Out = h0t0OutRAW & 0xffff;
-  int16_t h1t0Out = h1t0OutRAW & 0xffff;
+  int16_t h0t0Out = h0t0OutRAW; // & 0xffff;
+  int16_t h1t0Out = h1t0OutRAW; // & 0xffff;
 
-  int16_t t0Out = t0OutRAW & 0xffff;
-  int16_t t1Out = t1OutRAW & 0xffff;
+  int16_t t0Out = t0OutRAW; // & 0xffff;
+  int16_t t1Out = t1OutRAW; //  & 0xffff;
 
   // calculate slopes and 0 offset from calibration values,
   // for future calculations: value = a * X + b
