@@ -61,19 +61,47 @@ void hts221Component::update() {
   if (this->status_has_warning()) {
     return;
   }
+
+  uint8_t h0rH, h1rH, t0degC0, t0degC1, t1degC0, t1degC1;
+  
+  this-> read_byte(HTS221_H0_rH_x2_REG, &h0rH);
+  this-> read_byte(HTS221_H1_rH_x2_REG, &h1rH);
+  this-> read_byte(HTS221_T0_degC_x8_REG, &t0degC0);
+  this-> read_byte(HTS221_T1_T0_MSB_REG, &t0degC1);
+  this-> read_byte(HTS221_T1_degC_x8_REG, &t1degC0);
+  this-> read_byte(HTS221_T1_T0_MSB_REG, &t1degC1);
+  
+  uint16_t t0degC = (t0degC0) | ((t0degC1) & 0x03) << 8);
+  uint16_t t1degC = (t1degC0) | ((t1degC1) & 0x0c) << 6);
+  
+  int16_t h0t0Out, h1t0Out, t0Out, t1Out;
+
+  this-> read_byte_16(HTS221_H0_T0_OUT_REG, &h0t0Out);
+  this-> read_byte_16(HTS221_H1_T0_OUT_REG, &h1t0Out); 
+
+  this-> read_byte_16(HTS221_T0_OUT_REG, &t0Out); 
+  this-> read_byte_16(HTS221_T1_OUT_REG, &t1Out); 
+
+  // calculate slopes and 0 offset from calibration values,
+  // for future calculations: value = a * X + b
+
+  _hts221HumiditySlope = (h1rH - h0rH) / (2.0 * (h1t0Out - h0t0Out));
+  _hts221HumidityZero = (h0rH / 2.0) - _hts221HumiditySlope * h0t0Out;
+
+  _hts221TemperatureSlope = (t1degC - t0degC) / (8.0 * (t1Out - t0Out));
+  _hts221TemperatureZero = (t0degC / 8.0) - _hts221TemperatureSlope * t0Out;
+
   
   uint16_t tout, hout;
   if (this-> read_byte_16(HTS221_TEMP_OUT_L_REG, &tout)) {
-    return;
-    //  (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
+    return (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
   } else {
       ESP_LOGW(TAG, "Error reading Temperature");
       return;
   }
   
   if (this-> read_byte_16(HTS221_HUMIDITY_OUT_L_REG, &hout)) {
-    return;
-    //(hout * _hts221HumiditySlope + _hts221HumidityZero);;
+    return (hout * _hts221HumiditySlope + _hts221HumidityZero);
   } else {
       ESP_LOGW(TAG, "Error reading Hummiditi");
       return;
@@ -88,30 +116,6 @@ void hts221Component::update() {
   ESP_LOGV(TAG, "Got temperature=%.1f°C humidity=%.1f%% ", tout, hout);
 
 }
-void hts221Component::readHTS221Calibration()
-{
-  uint8_t h0rH = i2cRead(HTS221_H0_rH_x2_REG);
-  uint8_t h1rH = i2cRead(HTS221_H1_rH_x2_REG);
-
-  uint16_t t0degC = i2cRead(HTS221_T0_degC_x8_REG) | ((i2cRead(HTS221_T1_T0_MSB_REG) & 0x03) << 8);
-  uint16_t t1degC = i2cRead(HTS221_T1_degC_x8_REG) | ((i2cRead(HTS221_T1_T0_MSB_REG) & 0x0c) << 6);
-
-  int16_t h0t0Out = i2cRead16(HTS221_H0_T0_OUT_REG);
-  int16_t h1t0Out = i2cRead16(HTS221_H1_T0_OUT_REG);
-
-  int16_t t0Out = i2cRead16(HTS221_T0_OUT_REG);
-  int16_t t1Out = i2cRead16(HTS221_T1_OUT_REG);
-
-  // calculate slopes and 0 offset from calibration values,
-  // for future calculations: value = a * X + b
-
-  _hts221HumiditySlope = (h1rH - h0rH) / (2.0 * (h1t0Out - h0t0Out));
-  _hts221HumidityZero = (h0rH / 2.0) - _hts221HumiditySlope * h0t0Out;
-
-  _hts221TemperatureSlope = (t1degC - t0degC) / (8.0 * (t1Out - t0Out));
-  _hts221TemperatureZero = (t0degC / 8.0) - _hts221TemperatureSlope * t0Out;
-}
-
 
 }  // namespace hts221
 }  // namespace esphome
