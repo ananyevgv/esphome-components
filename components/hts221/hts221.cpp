@@ -65,12 +65,6 @@ void hts221Component::update() {
   
   int16_t tout = read_byte_16(HTS221_TEMP_OUT_L_REG);
   float reading = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
-  if (units == FAHRENHEIT) { // Fahrenheit = (Celsius * 9 / 5) + 32
-    return (reading * 9.0 / 5.0) + 32.0;
-  } else {
-    return reading;
-  }
-  
 
   int16_t hout = read_byte_16(HTS221_HUMIDITY_OUT_L_REG);
   return (hout * _hts221HumiditySlope + _hts221HumidityZero);
