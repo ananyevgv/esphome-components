@@ -22,6 +22,7 @@ class hts221Component : public PollingComponent, public i2c::I2CDevice {
  protected:
   sensor::Sensor *temperature_sensor_{nullptr};
   sensor::Sensor *humidity_sensor_{nullptr};
+  int16_t read_s16_le_(uint8_t a_register);
 
  enum ErrorCode {
     NONE = 0,
