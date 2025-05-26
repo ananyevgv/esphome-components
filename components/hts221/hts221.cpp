@@ -62,7 +62,7 @@ void hts221Component::update() {
     return;
   }
   
-  int16_t tout, hout;
+  uint16_t tout, hout;
   if (this-> read_byte_16(HTS221_TEMP_OUT_L_REG, &tout)) {
     return;
     //  (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
