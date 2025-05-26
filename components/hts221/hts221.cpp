@@ -77,11 +77,10 @@ void hts221Component::update() {
   int16_t  h0t0Out, h1t0Out, t0Out, t1Out;
 
   h0t0Out = this->read_s16_le_(HTS221_H0_T0_OUT_REG);
-  this-> read_byte_16(HTS221_H0_T0_OUT_REG, &h0t0Out);
-  this-> read_byte_16(HTS221_H1_T0_OUT_REG, &h1t0Out); 
+  h1t0Out = this->read_s16_le_(HTS221_H1_T0_OUT_REG);
 
-  this-> read_byte_16(HTS221_T0_OUT_REG, &t0Out); 
-  this-> read_byte_16(HTS221_T1_OUT_REG, &t1Out); 
+  t0Out = this->read_s16_le_(HTS221_T0_OUT_REG);
+  t1Out = this->read_s16_le_(HTS221_T1_OUT_REG);
 
   // calculate slopes and 0 offset from calibration values,
   // for future calculations: value = a * X + b
@@ -110,9 +109,9 @@ void hts221Component::update() {
 
   
   if (this->temperature_sensor_ != nullptr)
-    this->temperature_sensor_->publish_state(tout);
+    this->temperature_sensor_->publish_state(temp);
   if (this->humidity_sensor_ != nullptr)
-    this->humidity_sensor_->publish_state(hout);
+    this->humidity_sensor_->publish_state(humm);
  
   ESP_LOGV(TAG, "Got temperature=%.1f°C humidity=%.1f%% ", temp, humm);
 
