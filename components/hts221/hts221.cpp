@@ -95,13 +95,14 @@ void hts221Component::update() {
   _hts221TemperatureSlope = (t1degC - t0degC) / (8.0 * (t1Out - t0Out));
   _hts221TemperatureZero = (t0degC / 8.0) - _hts221TemperatureSlope * t0Out;
 
-  
-  int16_t tout = this->read_s16_le_(HTS221_TEMP_OUT_L_REG);
+  unt16_t toutRAW, houtRAW;
+  this-> read_byte_16(HTS221_TEMP_OUT_L_REG, &toutRAW);
+  int16_t tout = toutRAW & 0xffff;
   float temp = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
 
-  int16_t hout = this->read_s16_le_(HTS221_HUMIDITY_OUT_L_REG);
+  this-> read_byte_16(HTS221_HUMIDITY_OUT_L_REG, &houtRAW);
+  int16_t hout = houtRAW & 0xffff;
   float humm = (hout * _hts221HumiditySlope + _hts221HumidityZero);
-
   
   if (this->temperature_sensor_ != nullptr)
     this->temperature_sensor_->publish_state(temp);
