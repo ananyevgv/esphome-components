@@ -63,7 +63,7 @@ void hts221Component::update() {
   }
   readHTS221Calibration();
   
-  int16_t tout = read_byte16(HTS221_TEMP_OUT_L_REG);
+  int16_t tout = read_byte_16(HTS221_TEMP_OUT_L_REG);
   float reading = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
   if (units == FAHRENHEIT) { // Fahrenheit = (Celsius * 9 / 5) + 32
     return (reading * 9.0 / 5.0) + 32.0;
@@ -72,7 +72,7 @@ void hts221Component::update() {
   }
   
 
-  int16_t hout = read_byte16(HTS221_HUMIDITY_OUT_L_REG);
+  int16_t hout = read_byte_16(HTS221_HUMIDITY_OUT_L_REG);
   return (hout * _hts221HumiditySlope + _hts221HumidityZero);
   
   if (this->temperature_sensor_ != nullptr)
@@ -92,11 +92,11 @@ void hts221Component::readHTS221Calibration()
   uint16_t t0degC = read_byte(HTS221_T0_degC_x8_REG) | ((read_byte(HTS221_T1_T0_MSB_REG) & 0x03) << 8);
   uint16_t t1degC = read_byte(HTS221_T1_degC_x8_REG) | ((read_byte(HTS221_T1_T0_MSB_REG) & 0x0c) << 6);
 
-  int16_t h0t0Out = read_byte16(HTS221_H0_T0_OUT_REG);
-  int16_t h1t0Out = read_byte16(HTS221_H1_T0_OUT_REG);
+  int16_t h0t0Out = read_byte_16(HTS221_H0_T0_OUT_REG);
+  int16_t h1t0Out = read_byte_16(HTS221_H1_T0_OUT_REG);
 
-  int16_t t0Out = read_byte16(HTS221_T0_OUT_REG);
-  int16_t t1Out = read_byte16(HTS221_T1_OUT_REG);
+  int16_t t0Out = read_byte_16(HTS221_T0_OUT_REG);
+  int16_t t1Out = read_byte_16(HTS221_T1_OUT_REG);
 
   // calculate slopes and 0 offset from calibration values,
   // for future calculations: value = a * X + b
