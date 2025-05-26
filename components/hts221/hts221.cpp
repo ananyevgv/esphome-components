@@ -64,14 +64,16 @@ void hts221Component::update() {
   
   int16_t tout, hout;
   if (this-> read_byte(HTS221_TEMP_OUT_L_REG, &tout)) {
-    return (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
+    return;
+    //  (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
   } else {
       ESP_LOGW(TAG, "Error reading Temperature");
       return;
   }
   
   if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG, &hout)) {
-    return (hout * _hts221HumiditySlope + _hts221HumidityZero);;
+    return;
+    //(hout * _hts221HumiditySlope + _hts221HumidityZero);;
   } else {
       ESP_LOGW(TAG, "Error reading Hummiditi");
       return;
