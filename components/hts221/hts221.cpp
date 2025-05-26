@@ -71,8 +71,8 @@ void hts221Component::update() {
   this-> read_byte(HTS221_T1_degC_x8_REG, &t1degC0);
   this-> read_byte(HTS221_T1_T0_MSB_REG, &t1degC1);
   
-  uint16_t t0degC = (t0degC0) | (t0degC & 0x03) << 8);
-  uint16_t t1degC = (t1degC0) | (t1degC1 & 0x0c) << 6);
+  uint16_t t0degC = (t0degC0) | ((t0degC & 0x03) << 8);
+  uint16_t t1degC = (t1degC0) | ((t1degC1 & 0x0c) << 6);
   
   uint16_t h0t0Out, h1t0Out, t0Out, t1Out;
 
@@ -94,14 +94,14 @@ void hts221Component::update() {
   
   uint16_t tout, hout;
   if (this-> read_byte_16(HTS221_TEMP_OUT_L_REG, &tout)) {
-    return (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
+    return tout = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
   } else {
       ESP_LOGW(TAG, "Error reading Temperature");
       return;
   }
   
   if (this-> read_byte_16(HTS221_HUMIDITY_OUT_L_REG, &hout)) {
-    return (hout * _hts221HumiditySlope + _hts221HumidityZero);
+    return hout = (hout * _hts221HumiditySlope + _hts221HumidityZero);
   } else {
       ESP_LOGW(TAG, "Error reading Hummiditi");
       return;
