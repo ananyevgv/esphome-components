@@ -63,7 +63,7 @@ void hts221Component::update() {
   }
   
   int16_t tout, hout;
-  if (this-> read_byte(HTS221_TEMP_OUT_L_REG, &tout)) {
+  if (this-> read_byte_16(HTS221_TEMP_OUT_L_REG, &tout)) {
     return;
     //  (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
   } else {
@@ -71,7 +71,7 @@ void hts221Component::update() {
       return;
   }
   
-  if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG, &hout)) {
+  if (this-> read_byte_16(HTS221_HUMIDITY_OUT_L_REG, &hout)) {
     return;
     //(hout * _hts221HumiditySlope + _hts221HumidityZero);;
   } else {
