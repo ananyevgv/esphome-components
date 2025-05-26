@@ -94,14 +94,16 @@ void hts221Component::update() {
   
   uint16_t tout, hout;
   if (this-> read_byte_16(HTS221_TEMP_OUT_L_REG, &tout)) {
-    float temp = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
+    return;
+    //float temp = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
   } else {
       ESP_LOGW(TAG, "Error reading Temperature");
       return;
   }
   
   if (this-> read_byte_16(HTS221_HUMIDITY_OUT_L_REG, &hout)) {
-    float humm = (hout * _hts221HumiditySlope + _hts221HumidityZero);
+    return;
+    //float humm = (hout * _hts221HumiditySlope + _hts221HumidityZero);
   } else {
       ESP_LOGW(TAG, "Error reading Hummiditi");
       return;
@@ -109,11 +111,11 @@ void hts221Component::update() {
 
   
   if (this->temperature_sensor_ != nullptr)
-    this->temperature_sensor_->publish_state(temp);
+    this->temperature_sensor_->publish_state(tout);
   if (this->humidity_sensor_ != nullptr)
-    this->humidity_sensor_->publish_state(humm);
+    this->humidity_sensor_->publish_state(hout);
  
-  ESP_LOGV(TAG, "Got temperature=%.1f°C humidity=%.1f%% ", temp, humm);
+  ESP_LOGV(TAG, "Got temperature=%.1f°C humidity=%.1f%% ", tout, hout);
 
 }
 
