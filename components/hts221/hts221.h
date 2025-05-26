@@ -31,6 +31,8 @@ class hts221Component : public PollingComponent, public i2c::I2CDevice {
 
  private:
   void read_status();
+  float temp;
+  float humm;
   float _hts221HumiditySlope;
   float _hts221HumidityZero;
   float _hts221TemperatureSlope;
