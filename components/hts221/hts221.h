@@ -14,6 +14,7 @@ class hts221Component : public PollingComponent, public i2c::I2CDevice {
   void setup() override;
   void update() override;
   void dump_config() override;
+  void readHTS221Calibration() override;
   float get_setup_priority() const override;
 
   void set_temperature_sensor(sensor::Sensor *temperature_sensor) { temperature_sensor_ = temperature_sensor; }
