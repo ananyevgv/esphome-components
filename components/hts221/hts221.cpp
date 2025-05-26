@@ -74,13 +74,12 @@ void hts221Component::update() {
   uint16_t t0degC = (t0degC0) | ((t0degC & 0x03) << 8);
   uint16_t t1degC = (t1degC0) | ((t1degC1 & 0x0c) << 6);
   
-  int16_t  h0t0Out, h1t0Out, t0Out, t1Out;
 
-  h0t0Out = this->read_s16_le_(HTS221_H0_T0_OUT_REG);
-  h1t0Out = this->read_s16_le_(HTS221_H1_T0_OUT_REG);
+  int16_t h0t0Out = this->read_s16_le_(HTS221_H0_T0_OUT_REG);
+  int16_t h1t0Out = this->read_s16_le_(HTS221_H1_T0_OUT_REG);
 
-  t0Out = this->read_s16_le_(HTS221_T0_OUT_REG);
-  t1Out = this->read_s16_le_(HTS221_T1_OUT_REG);
+  int16_t t0Out = this->read_s16_le_(HTS221_T0_OUT_REG);
+  int16_t t1Out = this->read_s16_le_(HTS221_T1_OUT_REG);
 
   // calculate slopes and 0 offset from calibration values,
   // for future calculations: value = a * X + b
@@ -92,20 +91,11 @@ void hts221Component::update() {
   _hts221TemperatureZero = (t0degC / 8.0) - _hts221TemperatureSlope * t0Out;
 
   
-  int16_t tout, hout;
-  if (this-> read_byte_16(HTS221_TEMP_OUT_L_REG, &tout)) {
-    float temp = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
-  } else {
-      ESP_LOGW(TAG, "Error reading Temperature");
-      return;
-  }
-  
-  if (this-> read_byte_16(HTS221_HUMIDITY_OUT_L_REG, &hout)) {
-    float humm = (hout * _hts221HumiditySlope + _hts221HumidityZero);
-  } else {
-      ESP_LOGW(TAG, "Error reading Hummiditi");
-      return;
-  }
+  int16_t tout = this->read_s16_le_(HTS221_TEMP_OUT_L_REG);
+  float temp = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
+
+  int16_t hout = this->read_s16_le_(HTS221_HUMIDITY_OUT_L_REG);
+  float humm = (hout * _hts221HumiditySlope + _hts221HumidityZero);
 
   
   if (this->temperature_sensor_ != nullptr)
