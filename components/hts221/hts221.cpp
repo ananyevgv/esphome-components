@@ -74,11 +74,11 @@ void hts221Component::update() {
   
   uint16_t h0t0OutRAW, h1t0OutRAW, t0OutRAW, t1OutRAW;
   
-  this-> read_byte(HTS221_H0_T0_OUT_REG, &h0t0OutRAW);
-  this-> read_byte(HTS221_H1_T0_OUT_REG, &h1t0OutRAW);
+  this-> read_byte_16(HTS221_H0_T0_OUT_REG, &h0t0OutRAW);
+  this-> read_byte_16(HTS221_H1_T0_OUT_REG, &h1t0OutRAW);
 
-  this-> read_byte(HTS221_H0_T0_OUT_REG, &t0OutRAW);
-  this-> read_byte(HTS221_H1_T0_OUT_REG, &t1OutRAW);
+  this-> read_byte_16(HTS221_H0_T0_OUT_REG, &t0OutRAW);
+  this-> read_byte_16(HTS221_H1_T0_OUT_REG, &t1OutRAW);
   
   int16_t h0t0Out = h0t0OutRAW & 0xffff;
   int16_t h1t0Out = h1t0OutRAW & 0xffff;
