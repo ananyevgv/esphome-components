@@ -38,6 +38,29 @@ void hts221Component::setup() {
     this->mark_failed();
     return;
   }
+
+}
+void hts221Component::dump_config() {
+  ESP_LOGCONFIG(TAG, "HTS221:");
+  LOG_I2C_DEVICE(this);
+  switch (this->error_code_) {
+    case COMMUNICATION_FAILED:
+      ESP_LOGE(TAG, "Communication with CG Anem failed!");
+      break;
+    case NONE:
+    default:
+      break;
+  }
+
+  LOG_UPDATE_INTERVAL(this);
+
+  LOG_SENSOR("  ", "temperature", this->temperature_sensor_);
+  LOG_SENSOR("  ", "humidity", this->humidity_sensor_);
+
+}
+
+void hts221Component::update() {
+
   uint8_t h0rH, h1rH, t0degC0, t0degC1, t1degC0, t1degC1;
   
   this-> read_byte(HTS221_H0_rH_x2_REG, &h0rH);
@@ -119,27 +142,7 @@ void hts221Component::setup() {
   _hts221TemperatureZero = (t0degC / 8.0) - _hts221TemperatureSlope * t0Out;
   write_byte(HTS221_CTRL1_REG, 0x84);
   write_byte(HTS221_CTRL2_REG, 0x01);
-}
-void hts221Component::dump_config() {
-  ESP_LOGCONFIG(TAG, "HTS221:");
-  LOG_I2C_DEVICE(this);
-  switch (this->error_code_) {
-    case COMMUNICATION_FAILED:
-      ESP_LOGE(TAG, "Communication with CG Anem failed!");
-      break;
-    case NONE:
-    default:
-      break;
-  }
-
-  LOG_UPDATE_INTERVAL(this);
-
-  LOG_SENSOR("  ", "temperature", this->temperature_sensor_);
-  LOG_SENSOR("  ", "humidity", this->humidity_sensor_);
-
-}
-
-void hts221Component::update() {
+  
   uint8_t tout_L, tout_H, hout_L, hout_H;
   int16_t tout, hout;
 
