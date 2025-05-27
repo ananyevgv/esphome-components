@@ -54,7 +54,7 @@ void hts221Component::setup() {
   int16_t h0t0Out, h1t0Out, t0Out, t1Out;
   
   if (this-> read_byte(HTS221_H0_T0_OUT_REG, &H0_T0_OUT_L)) {
-    if (this-> read_byte((HTS221_H0_T0_OUT_REG+1), &H0_T0_OUT_H) {
+    if (this-> read_byte((HTS221_H0_T0_OUT_REG+1), &H0_T0_OUT_H)) {
       h0t0Out = ((H0_T0_OUT_H << 8) | H0_T0_OUT_L);
     } else {
       ESP_LOGW(TAG, "Error reading H0_T0_OUT_H.");
@@ -68,7 +68,7 @@ void hts221Component::setup() {
   }  
   
   if (this-> read_byte(HTS221_H1_T0_OUT_REG, &H1_T0_OUT_L)) {
-    if (this-> read_byte((HTS221_H1_T0_OUT_REG+1), &H1_T0_OUT_H) {
+    if (this-> read_byte((HTS221_H1_T0_OUT_REG+1), &H1_T0_OUT_H)) {
       h0t0Out = ((H1_T0_OUT_H << 8) | H1_T0_OUT_L);
     } else {
       ESP_LOGW(TAG, "Error reading H1_T0_OUT_H.");
@@ -140,6 +140,7 @@ void hts221Component::dump_config() {
 }
 
 void hts221Component::update() {
+  uint8_t tout_L, tout_H, hout_L, hout_H;
   int16_t tout, hout;
 
   if (this-> read_byte(HTS221_TEMP_OUT_L_REG, &tout_L)) {
