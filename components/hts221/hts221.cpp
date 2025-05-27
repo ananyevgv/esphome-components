@@ -68,7 +68,7 @@ void hts221Component::setup() {
   }  
   
   if (this-> read_byte(HTS221_H1_T0_OUT_REG, &H1_T0_OUT_L)) {
-    if (this-> read_byte((HTS221_H1_T0_OUT_REG+1, &H1_T0_OUT_H)) {
+    if (this-> read_byte((HTS221_H1_T0_OUT_REG+1), &H1_T0_OUT_H) {
       h0t0Out = ((H1_T0_OUT_H << 8) | H1_T0_OUT_L);
     } else {
       ESP_LOGW(TAG, "Error reading H1_T0_OUT_H.");
