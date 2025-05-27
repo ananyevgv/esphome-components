@@ -50,20 +50,65 @@ void hts221Component::setup() {
   uint16_t t0degC = (t0degC0) | ((t0degC & 0x03) << 8);
   uint16_t t1degC = (t1degC0) | ((t1degC1 & 0x0c) << 6);
   
-  uint16_t h0t0OutRAW, h1t0OutRAW, t0OutRAW, t1OutRAW;
+  uint8_t H0_T0_OUT_H, H0_T0_OUT_L, H1_T0_OUT_H, H1_T0_OUT_L, t0Out_H, t0Out_L, t1Out_H, t1Out_L;
+  int16_t h0t0Out, h1t0Out, t0Out, t1Out;
   
-  this-> read_byte_16(HTS221_H0_T0_OUT_REG, &h0t0OutRAW);
-  this-> read_byte_16(HTS221_H1_T0_OUT_REG, &h1t0OutRAW);
-
-  this-> read_byte_16(HTS221_H0_T0_OUT_REG, &t0OutRAW);
-  this-> read_byte_16(HTS221_H1_T0_OUT_REG, &t1OutRAW);
+  if (this-> read_byte(HTS221_H0_T0_OUT_REG, &H0_T0_OUT_L)) {
+    if (this-> read_byte((HTS221_H0_T0_OUT_REG+1, &H0_T0_OUT_H)) {
+      h0t0Out = ((H0_T0_OUT_H << 8) | H0_T0_OUT_L);
+    } else {
+      ESP_LOGW(TAG, "Error reading H0_T0_OUT_H.");
+      //this->status_set_warning();
+      return;
+    }
+  } else {
+    ESP_LOGW(TAG, "Error reading H0_T0_OUT_L.");
+    this->status_set_warning();
+    return;
+  }  
   
-  int16_t h0t0Out = h0t0OutRAW; // & 0xffff;
-  int16_t h1t0Out = h1t0OutRAW; // & 0xffff;
+  if (this-> read_byte(HTS221_H1_T0_OUT_REG, &H1_T0_OUT_L)) {
+    if (this-> read_byte((HTS221_H1_T0_OUT_REG+1, &H1_T0_OUT_H)) {
+      h0t0Out = ((H1_T0_OUT_H << 8) | H1_T0_OUT_L);
+    } else {
+      ESP_LOGW(TAG, "Error reading H1_T0_OUT_H.");
+      //this->status_set_warning();
+      return;
+    }
+  } else {
+    ESP_LOGW(TAG, "Error reading H1_T0_OUT_L.");
+    this->status_set_warning();
+    return;
+  }   
 
-  int16_t t0Out = t0OutRAW; // & 0xffff;
-  int16_t t1Out = t1OutRAW; //  & 0xffff;
+  if (this-> read_byte(HTS221_T0_OUT_REG, &t0Out_L)) {
+    if (this-> read_byte(HTS221_T0_OUT_REG+1, &t0Out_H) {
+      t0Out = ((t0Out_H << 8) | t0Out_L);
+    } else {
+      ESP_LOGW(TAG, "Error reading t0Out_H.");
+      //this->status_set_warning();
+      return;
+    }
+  } else {
+    ESP_LOGW(TAG, "Error reading t0Out_L.");
+    this->status_set_warning();
+    return;
+  }   
 
+  if (this-> read_byte(HTS221_T1_OUT_REG, &t1Out_L)) {
+    if (this-> read_byte(HTS221_T1_OUT_REG+1, &t1Out_H) {
+      t1Out = ((t1Out_H << 8) | t1Out_L);
+    } else {
+      ESP_LOGW(TAG, "Error reading t1Out_H.");
+      //this->status_set_warning();
+      return;
+    }
+  } else {
+    ESP_LOGW(TAG, "Error reading t1Out_L.");
+    this->status_set_warning();
+    return;
+  }  
+  
   // calculate slopes and 0 offset from calibration values,
   // for future calculations: value = a * X + b
 
@@ -95,13 +140,38 @@ void hts221Component::dump_config() {
 }
 
 void hts221Component::update() {
-  uint16_t toutRAW, houtRAW;
-  this-> read_byte_16(HTS221_TEMP_OUT_L_REG, &toutRAW);
-  int16_t tout = toutRAW; // & 0xffff;
+  int16_t tout, hout;
+
+  if (this-> read_byte(HTS221_TEMP_OUT_L_REG, &tout_L)) {
+    if (this-> read_byte(HTS221_TEMP_OUT_L_REG+1, &tout_H) {
+      tout = ((tout_H << 8) | tout_L);
+    } else {
+      ESP_LOGW(TAG, "Error reading tout_H.");
+      //this->status_set_warning();
+      return;
+    }
+  } else {
+    ESP_LOGW(TAG, "Error reading tout_L.");
+    this->status_set_warning();
+    return;
+  }  
+  
   float temp = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
 
-  this-> read_byte_16(HTS221_HUMIDITY_OUT_L_REG, &houtRAW);
-  int16_t hout = houtRAW; // & 0xffff;
+  if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG, &hout_L)) {
+    if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG+1, &hout_H) {
+      hout = ((hout_H << 8) | hout_L);
+    } else {
+      ESP_LOGW(TAG, "Error reading hout_H.");
+      //this->status_set_warning();
+      return;
+    }
+  } else {
+    ESP_LOGW(TAG, "Error reading hout_L.");
+    this->status_set_warning();
+    return;
+  } 
+
   float humm = (hout * _hts221HumiditySlope + _hts221HumidityZero);
   
   if (this->temperature_sensor_ != nullptr)
