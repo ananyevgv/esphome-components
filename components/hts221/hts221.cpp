@@ -82,7 +82,7 @@ void hts221Component::setup() {
   }   
 
   if (this-> read_byte(HTS221_T0_OUT_REG, &t0Out_L)) {
-    if (this-> read_byte(HTS221_T0_OUT_REG+1, &t0Out_H) {
+    if (this-> read_byte(HTS221_T0_OUT_REG+1, &t0Out_H)) {
       t0Out = ((t0Out_H << 8) | t0Out_L);
     } else {
       ESP_LOGW(TAG, "Error reading t0Out_H.");
@@ -96,7 +96,7 @@ void hts221Component::setup() {
   }   
 
   if (this-> read_byte(HTS221_T1_OUT_REG, &t1Out_L)) {
-    if (this-> read_byte(HTS221_T1_OUT_REG+1, &t1Out_H) {
+    if (this-> read_byte(HTS221_T1_OUT_REG+1, &t1Out_H)) {
       t1Out = ((t1Out_H << 8) | t1Out_L);
     } else {
       ESP_LOGW(TAG, "Error reading t1Out_H.");
@@ -144,7 +144,7 @@ void hts221Component::update() {
   int16_t tout, hout;
 
   if (this-> read_byte(HTS221_TEMP_OUT_L_REG, &tout_L)) {
-    if (this-> read_byte(HTS221_TEMP_OUT_L_REG+1, &tout_H) {
+    if (this-> read_byte(HTS221_TEMP_OUT_L_REG+1, &tout_H)) {
       tout = ((tout_H << 8) | tout_L);
     } else {
       ESP_LOGW(TAG, "Error reading tout_H.");
@@ -160,7 +160,7 @@ void hts221Component::update() {
   float temp = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
 
   if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG, &hout_L)) {
-    if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG+1, &hout_H) {
+    if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG+1, &hout_H)) {
       hout = ((hout_H << 8) | hout_L);
     } else {
       ESP_LOGW(TAG, "Error reading hout_H.");
