@@ -14,6 +14,15 @@
 ##  MQ
 [ESPHome external component sensor MQ gaz sensor](https://github.com/ananyevgv/esphome-components/tree/main/components/mq)
 
+##  HTS221
+[ESPHome external component HTS221](https://github.com/ananyevgv/esphome-components/tree/main/components/hts221)
+
+## cap1293
+[ESPHome external component cap1293](https://github.com/ananyevgv/esphome-components/tree/main/components/cap1293)
+
+## mcp453x
+[ESPHome external component mcp453x](https://github.com/ananyevgv/esphome-components/tree/main/components/mcp453x)
+
 ## CG-Anem
 [ESPHome external component sensor for Climateguard CG-Anem](https://github.com/ananyevgv/esphome-components/tree/main/components/cg_anem)
 
