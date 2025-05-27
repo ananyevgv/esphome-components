@@ -161,7 +161,8 @@ void hts221Component::update() {
   }  
   
   float temp = (tout * _hts221TemperatureSlope + _hts221TemperatureZero);
-
+  
+  write_byte(HTS221_CTRL2_REG, 0x01);
   if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG, &hout_L)) {
     if (this-> read_byte(HTS221_HUMIDITY_OUT_L_REG+1, &hout_H)) {
       hout = ((hout_H << 8) | hout_L);
