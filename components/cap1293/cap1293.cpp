@@ -27,8 +27,8 @@ void CAP1293Component::setup() {
   this->read_byte(CAP1293_REVISION, &this->cap1293_revision_);
 
   if ((this->cap1293_product_id_ != 0x6F) || (this->cap1293_manufacture_id_ != 0x5D)) {
-   // this->error_code_ = COMMUNICATION_FAILED;
-   // this->mark_failed();
+    this->error_code_ = COMMUNICATION_FAILED;
+    this->mark_failed();
     return;
   }
 
