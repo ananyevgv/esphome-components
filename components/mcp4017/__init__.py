@@ -10,11 +10,11 @@ DEPENDENCIES = ["i2c"]
 MULTI_CONF = True
 CODEOWNERS = ["ananyevgv"]
 
-mcp453x_ns = cg.esphome_ns.namespace("mcp453x")
-MCP453XComponent = mcp453x_ns.class_("MCP453XComponent", cg.Component, i2c.I2CDevice)
+mcp4017_ns = cg.esphome_ns.namespace("mcp4017")
+MCP4017Component = mcp453x_ns.class_("MCP4017Component", cg.Component, i2c.I2CDevice)
 
 CONFIG_SCHEMA = cv.Schema({
-    cv.GenerateID(): cv.declare_id(MCP453XComponent),
+    cv.GenerateID(): cv.declare_id(MCP4017Component),
 }).extend(i2c.i2c_device_schema(0x2F)).extend(cv.COMPONENT_SCHEMA)
 
 async def to_code(config):
