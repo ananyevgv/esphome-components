@@ -11,7 +11,7 @@ MULTI_CONF = True
 CODEOWNERS = ["ananyevgv"]
 
 mcp4017_ns = cg.esphome_ns.namespace("mcp4017")
-MCP4017Component = mcp453x_ns.class_("MCP4017Component", cg.Component, i2c.I2CDevice)
+MCP4017Component = mcp4017_ns.class_("MCP4017Component", cg.Component, i2c.I2CDevice)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MCP4017Component),
