@@ -1,4 +1,4 @@
-## External Component MCP4017 or AD5246  for ESPHOME 2025.2.1 ->
+## External Component MCP4017 /AD5246 /MAX5395  for ESPHOME 2025.2.1 ->
 
 
 Copy the folder `mcp4017` which is located in `components` to the identical folder at your instance.
