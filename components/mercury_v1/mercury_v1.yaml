@@ -1,0 +1,108 @@
+#-------------------------------------------
+# Add yaml 
+#packages:
+#  apc: !include 
+#    file: packages/mercury_v1.yaml
+#    vars:
+#      mercury_tx: 43
+#      mercury_rx: 44
+#      mercury_address: 333333
+# and copy file esphome/packages/
+#------------------------------------------- 
+#-------------------------------------------
+# external_components
+#-------------------------------------------
+external_components:
+  - source: github://ananyevgv/esphome-components/
+    components: [ mercury_v1 ]
+    refresh: 0s
+
+#-------------------------------------------
+# uart
+#-------------------------------------------
+uart:
+  id: uart_mercury
+  baud_rate: 9600
+  data_bits: 8
+  parity: NONE
+  stop_bits: 1
+  tx_pin: $mercury_tx
+  rx_pin: $mercury_rx
+  debug:
+    direction: BOTH
+    dummy_receiver: false
+    after:
+      bytes: 60
+    sequence:
+      - lambda: UARTDebug::log_hex(direction, bytes, ':');
+#-------------------------------------------
+# sensor
+#-------------------------------------------
+sensor:
+  - platform: total_daily_energy
+    name: "Total Daily Energy"
+    icon: "mdi:current-ac"
+    power_id: "power"
+    method: "trapezoid"
+  - platform: mercury_v1
+    address: $mercury_address
+    update_interval: 60s
+    voltage:
+      name: "Voltage"
+      icon: "mdi:flash"
+    amperage:
+      name: "Amperage"
+      icon: "mdi:flash"
+    power:
+      name: "Power"
+      id: "power"
+      icon: "mdi:flash"
+    frequency:
+      name: "Frequency"
+      icon: "mdi:flash"
+    tariff1:
+      name: "Tariff 1"
+      icon: "mdi:flash"
+    tariff2:
+      name: "Tariff 2"
+      icon: "mdi:flash"
+    tariff3:
+      name: "Tariff 3"
+      icon: "mdi:flash"
+    tariff4:
+      name: "Tariff 4"
+      icon: "mdi:flash"
+    tariffs_total:
+      name: "Tariffs total"
+      icon: "mdi:flash"
+
+
+  #  - platform: template
+  #    name: "Altitude"
+  #    lambda: |-
+  #      const float STANDARD_SEA_LEVEL_PRESSURE = 1013.25; //in hPa, see note
+  #      return ((id(temperature).state + 273.15) / 0.0065) *
+  #        (powf((STANDARD_SEA_LEVEL_PRESSURE / id(pressure).state), 0.190234) - 1); // in meter
+  #    update_interval: 60s
+  #    icon: 'mdi:ruler'
+  #    unit_of_measurement: 'm'
+  - platform: template
+    name: "Absolute Humidity"
+    lambda: |-
+      const float mw = 18.01534;    // molar mass of water g/mol
+      const float r = 8.31447215;   // Universal gas constant J/mol/K
+      return (6.112 * powf(2.718281828, (17.67 * id(temperature).state) /
+        (id(temperature).state + 243.5)) * id(humidity).state * mw) /
+        ((273.15 + id(temperature).state) * r); // in grams/m^3
+    accuracy_decimals: 2
+    update_interval: 60s
+    icon: 'mdi:water-percent'
+    unit_of_measurement: 'g/m³'
+  - platform: template
+    name: "Dew Point"
+    lambda: |-
+      return (243.04*(log(id(humidity).state/100)+((17.625*id(temperature).state)/
+      (243.04+id(temperature).state)))/(17.625-log(id(humidity).state/100)-
+      ((17.625*id(temperature).state)/(243.04+id(temperature).state))));
+    unit_of_measurement: °C
+    icon: 'mdi:temperature'
