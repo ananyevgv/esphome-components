@@ -62,3 +62,5 @@ sensor:
       icon: "mdi:flash"
 
 ```
+
+https://github.com/kihamo/boggart/tree/master/integrations%2Fesphome%2Fexternal_components%2Fmercury_v1
