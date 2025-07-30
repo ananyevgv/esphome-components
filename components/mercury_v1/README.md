@@ -1,3 +1,7 @@
+> Example YAML:
+```
+# Include components directory
+
 #-------------------------------------------
 # uart
 #-------------------------------------------
@@ -57,3 +61,4 @@ sensor:
       name: "Tariffs total"
       icon: "mdi:flash"
 
+```
