@@ -13,6 +13,11 @@ https://github.com/miguel5612/MQSensorsLib
 
 
 ```yaml
+
+espXX:
+  framework:
+    type: arduino
+
 external_components:
   source: github://ananyevgv/esphome-components
   components: [mq]
