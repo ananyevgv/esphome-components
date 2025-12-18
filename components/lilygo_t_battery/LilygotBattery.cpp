@@ -39,7 +39,8 @@ void LilygotBattery::update_battery_info() {
     battery_voltage = 0;
   } 
   else {
-    digitalWrite(14, HIGH);
+    this->14->digital_write(true)
+    //digitalWrite(14, HIGH);
     delay(10);
     float v = analogRead(34);
     battery_voltage = (v / 4095.0) * 7.26;
