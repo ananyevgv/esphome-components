@@ -13,7 +13,7 @@ sensor:
     level:
       name: "Battery level"
       id: batt
-
+    enable_pin: 14
 binary_sensor:
   - platform: template
     name: "charge"
