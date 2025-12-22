@@ -5,6 +5,7 @@ from esphome import pins
 from esphome.const import (
     CONF_ID,
     CONF_PIN,
+    CONF_ENABLE_PIN,
     CONF_VOLTAGE,
     CONF_BUS_VOLTAGE,
     CONF_LEVEL,
@@ -26,6 +27,7 @@ Lilygotbattery = Lilygotbattery_ns.class_(
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(): cv.declare_id(Lilygotbattery),
+        cv.Optional(CONF_ENABLE_PIN): pins.gpio_output_pin_schema,
         cv.Optional(CONF_VOLTAGE): sensor.sensor_schema(
             unit_of_measurement=UNIT_VOLT,
             icon=ICON_BATTERY,
@@ -68,7 +70,9 @@ async def to_code(config):
       sens = await sensor.new_sensor(config[CONF_LEVEL])
       cg.add(var.set_battery_level_sensor(sens))
       
- 
+     if enable_pin_config := config.get(CONF_ENABLE_PIN):
+        pin = await cg.gpio_pin_expression(enable_pin_config)
+        cg.add(var.set_enable_pin(pin))
     
 
 
