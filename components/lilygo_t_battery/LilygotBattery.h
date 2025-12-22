@@ -25,12 +25,14 @@ class LilygotBattery : public PollingComponent {
   void dump_config() override;
 
   void set_enable_pin(GPIOPin *enable) { this->enable_pin_ = enable; }
+  void set_reference_voltage(float reference_voltage) { reference_voltage_ = reference_voltage; }
   void set_voltage_sensor(sensor::Sensor *voltage_sensor) { voltage = voltage_sensor; }
   void set_bus_voltage_sensor(sensor::Sensor *bus_voltage_sensor) { bus_voltage = bus_voltage_sensor; }
   void set_battery_level_sensor(sensor::Sensor *battery_level_sensor) { battery_level = battery_level_sensor; }
 
  protected:
   GPIOPin *enable_pin_{nullptr};
+  float reference_voltage_;
 
 };
 }  // namespace lilygo_t_battery
