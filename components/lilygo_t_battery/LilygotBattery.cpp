@@ -40,16 +40,16 @@ void LilygotBattery::update_battery_info() {
   } 
   else {
     if (this->enable_pin_ != nullptr) {
-      this->reset_pin_->setup();
-      this->reset_pin_->digital_write(true);
+      this->enable_pin_->setup();
+      this->enable_pin_->digital_write(true);
         
     // digitalWrite(14, HIGH);
     delay(10);
     float v = analogRead(34);
     battery_voltage = (v / 4095.0) * 7.26;
     if (this->enable_pin_ != nullptr) {
-      this->reset_pin_->setup();
-      this->reset_pin_->digital_write(false);
+      this->enable_pin_->setup();
+      this->enable_pin_->digital_write(false);
     // digitalWrite(14, LOW);
     level = (1-(4-battery_voltage)/(4-3.25))*100;
   }
