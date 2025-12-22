@@ -23,7 +23,7 @@ class LilygotBattery : public Component, public sensor::Sensor  {
     if (this->sensor_->has_state())
       this->process_(this->sensor_->state);
   }
-
+  void update();
   void update_battery_info();
   void correct_adc_reference();
   void dump_config() override;
