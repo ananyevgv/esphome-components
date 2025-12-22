@@ -74,5 +74,6 @@ async def to_code(config):
       pin = await cg.gpio_pin_expression(enable_pin_config)
       cg.add(var.set_enable_pin(pin))
     
-
-
+    if CONF_ENABLE_PIN in config:
+        enable = await cg.gpio_pin_expression(config[CONF_ENABLE_PIN])
+        cg.add(var.set_enable_pin(enable))
