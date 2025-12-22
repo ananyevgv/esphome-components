@@ -32,6 +32,7 @@ class LilygotBattery : public PollingComponent {
   void set_battery_level_sensor(sensor::Sensor *battery_level_sensor) { battery_level = battery_level_sensor; }
 
  protected:
+  sensor::Sensor *sensor_;
   GPIOPin *enable_pin_{nullptr};
   float reference_voltage_;
 
