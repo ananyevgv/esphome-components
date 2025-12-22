@@ -7,8 +7,8 @@ namespace lilygo_t_battery {
 static const char *const TAG = "lilygo";
 
 void LilygotBattery::setup() {
-  esp_adc_cal_characteristics_t adc_chars;
-  esp_adc_cal_value_t val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_1, (adc_atten_t)ADC_ATTEN_DB_2_5, (adc_bits_width_t)ADC_WIDTH_BIT_12, 1100, &adc_chars);
+  // esp_adc_cal_characteristics_t adc_chars;
+  // esp_adc_cal_value_t val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_1, (adc_atten_t)ADC_ATTEN_DB_2_5, (adc_bits_width_t)ADC_WIDTH_BIT_12, 1100, &adc_chars);
   // pinMode(14, OUTPUT);
 
 }
@@ -29,7 +29,8 @@ void LilygotBattery::update() {
 void LilygotBattery::update_battery_info() {
   LilygotBattery::correct_adc_reference();
 
-  float vb = analogRead(34);
+  float vb = this->reference_voltage_;
+  // analogRead(34);
   float bus = (vb / 4095.0) * 7.26;
   
   int level = 0;
@@ -45,7 +46,8 @@ void LilygotBattery::update_battery_info() {
     }    
     // digitalWrite(14, HIGH);
     delay(10);
-    float v = analogRead(34);
+    float v = this->reference_voltage_;
+    // analogRead(34);
     battery_voltage = (v / 4095.0) * 7.26;
     if (this->enable_pin_ != nullptr) {
       this->enable_pin_->setup();
