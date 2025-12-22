@@ -70,9 +70,9 @@ async def to_code(config):
       sens = await sensor.new_sensor(config[CONF_LEVEL])
       cg.add(var.set_battery_level_sensor(sens))
       
-     if enable_pin_config := config.get(CONF_ENABLE_PIN):
-        pin = await cg.gpio_pin_expression(enable_pin_config)
-        cg.add(var.set_enable_pin(pin))
+    if enable_pin_config := config.get(CONF_ENABLE_PIN):
+      pin = await cg.gpio_pin_expression(enable_pin_config)
+      cg.add(var.set_enable_pin(pin))
     
 
 
