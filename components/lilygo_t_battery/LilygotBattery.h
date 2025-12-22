@@ -39,6 +39,7 @@ class LilygotBattery : public Component, public sensor::Sensor  {
   sensor::Sensor *sensor_;
   GPIOPin *enable_pin_{nullptr};
   float reference_voltage_;
+  void process_(float value);
 
 };
 }  // namespace lilygo_t_battery
