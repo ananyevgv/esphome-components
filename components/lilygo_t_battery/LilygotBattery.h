@@ -11,7 +11,7 @@
 namespace esphome {
 namespace lilygo_t_battery {
 
-class LilygotBattery : public PollingComponent {
+class LilygotBattery : public Component, public sensor::Sensor  {
  public:
   sensor::Sensor *voltage{nullptr};
   sensor::Sensor *bus_voltage{nullptr};
