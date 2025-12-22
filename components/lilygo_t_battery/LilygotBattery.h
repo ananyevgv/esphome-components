@@ -24,7 +24,7 @@ class LilygotBattery : public PollingComponent {
   void correct_adc_reference();
   void dump_config() override;
 
-  void set_enable_pin(GPIOPin *enable_pin) { this->enable_pin_ = enable_pin; }
+  void set_enable_pin(GPIOPin *enable) { this->enable_pin_ = enable; }
   void set_voltage_sensor(sensor::Sensor *voltage_sensor) { voltage = voltage_sensor; }
   void set_bus_voltage_sensor(sensor::Sensor *bus_voltage_sensor) { bus_voltage = bus_voltage_sensor; }
   void set_battery_level_sensor(sensor::Sensor *battery_level_sensor) { battery_level = battery_level_sensor; }
