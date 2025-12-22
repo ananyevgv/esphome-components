@@ -13,8 +13,8 @@ from esphome.const import (
     STATE_CLASS_MEASUREMENT,
     UNIT_MICROGRAMS_PER_CUBIC_METER,
     ICON_BLUR,
+    SCHEDULER_DONT_RUN,
 )
-from esphome.core import TimePeriodMilliseconds
 
 CODEOWNERS = ["ananyevgv"]
 DEPENDENCIES = ["uart"]
@@ -63,16 +63,14 @@ CONFIG_SCHEMA = cv.All(
 
 
 def validate_interval_uart(config):
-    require_tx = False
 
     interval = config.get(CONF_UPDATE_INTERVAL)
-
-    if isinstance(interval, TimePeriodMilliseconds):
-        # 'never' is encoded as a very large int, not as a TimePeriodMilliseconds objects
-        require_tx = True
-
+    
     uart.final_validate_device_schema(
-        "pm1006k", baud_rate=9600, require_rx=True, require_tx=require_tx
+        "pm1006",
+        baud_rate=9600,
+        require_rx=True,
+        require_tx=interval.total_milliseconds != SCHEDULER_DONT_RUN,
     )(config)
 
 
