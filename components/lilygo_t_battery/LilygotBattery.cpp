@@ -11,7 +11,7 @@ void LilygotBattery::dump_config() {
   LOG_SENSOR("  ", "USB voltage", this->voltage);
   LOG_SENSOR("  ", "Battery charge", this->bus_voltage);
   LOG_SENSOR("  ", "Battery voltage", this->battery_level);
-  LOG_UPDATE_INTERVAL(this);
+
 }
 
 void LilygotBattery::update() {
