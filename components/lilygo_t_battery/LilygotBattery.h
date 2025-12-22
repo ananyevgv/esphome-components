@@ -18,7 +18,11 @@ class LilygotBattery : public PollingComponent {
   sensor::Sensor *battery_level{nullptr};
   
   int vref = 1100;
-  void setup() override;
+  void setup() override {
+    this->sensor_->add_on_state_callback([this](float value) { this->process_(value); });
+    if (this->sensor_->has_state())
+      this->process_(this->sensor_->state);
+  }
   void update() override;
   void update_battery_info();
   void correct_adc_reference();
