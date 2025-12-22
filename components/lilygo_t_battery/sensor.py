@@ -55,7 +55,7 @@ CONFIG_SCHEMA = cv.Schema(
             device_class=DEVICE_CLASS_BATTERY,
         ), 
     }
-).extend(cv.polling_component_schema("5s"))
+)
 
 
 async def to_code(config):
