@@ -2,24 +2,17 @@
 
 ```yaml
 sensor:
-  - platform: adc
-    pin: 34
-    id: adc_34   
-    attenuation: auto
-
   - platform: lilygo_t_battery
     update_interval: 5s
     voltage:
-      name: "${name} battery Voltage"
+      name: "Battery Voltage"
       id: vbatt
     bus_voltage:
-      name: "${name} bus Voltage"
+      name: "Bus Voltage"
       id: vbus
     level:
-      name: "${name} battery level"
+      name: "Battery level"
       id: batt
-    enable_pin: 14
-    sensor: adc_34
 
 binary_sensor:
   - platform: template

@@ -6,12 +6,18 @@ namespace lilygo_t_battery {
 
 static const char *const TAG = "lilygo";
 
+void LilygotBattery::setup() {
+  esp_adc_cal_characteristics_t adc_chars;
+  esp_adc_cal_value_t val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_1, (adc_atten_t)ADC_ATTEN_DB_2_5, (adc_bits_width_t)ADC_WIDTH_BIT_12, 1100, &adc_chars);
+  pinMode(14, OUTPUT);
+
+}
 void LilygotBattery::dump_config() {
   ESP_LOGCONFIG(TAG, "lilygo:");
   LOG_SENSOR("  ", "USB voltage", this->voltage);
   LOG_SENSOR("  ", "Battery charge", this->bus_voltage);
   LOG_SENSOR("  ", "Battery voltage", this->battery_level);
-
+  LOG_UPDATE_INTERVAL(this);
 }
 
 void LilygotBattery::update() {
@@ -23,8 +29,7 @@ void LilygotBattery::update() {
 void LilygotBattery::update_battery_info() {
   LilygotBattery::correct_adc_reference();
 
-  float vb = this->reference_voltage_;
-  // analogRead(34);
+  float vb = analogRead(34);
   float bus = (vb / 4095.0) * 7.26;
   
   int level = 0;
@@ -34,20 +39,11 @@ void LilygotBattery::update_battery_info() {
     battery_voltage = 0;
   } 
   else {
-    if (this->enable_pin_ != nullptr) {
-      this->enable_pin_->setup();
-      this->enable_pin_->digital_write(true);
-    }    
-
+    digitalWrite(14, HIGH);
     delay(10);
-    float v = this->reference_voltage_;
-    // analogRead(34);
+    float v = analogRead(34);
     battery_voltage = (v / 4095.0) * 7.26;
-    if (this->enable_pin_ != nullptr) {
-      this->enable_pin_->setup();
-      this->enable_pin_->digital_write(false);
-    }
-
+    digitalWrite(14, LOW);
     level = (1-(4-battery_voltage)/(4-3.25))*100;
   }
   
@@ -70,7 +66,14 @@ void LilygotBattery::update_battery_info() {
   }
 }
 
-
+void LilygotBattery::correct_adc_reference() {
+  esp_adc_cal_characteristics_t adc_chars;
+  esp_adc_cal_value_t val_type =
+      esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_0, ADC_WIDTH_BIT_12, 1100, &adc_chars);
+  if (val_type == ESP_ADC_CAL_VAL_EFUSE_VREF) {
+    this->vref = adc_chars.vref;
+  }
+}
 
 }  // namespace lilygo_t_battery
 }  // namespace esphome
