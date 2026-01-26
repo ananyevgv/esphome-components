@@ -16,6 +16,8 @@ from esphome.const import (
 )
 ICON_BATTERY_CHARGING = "mdi:battery-charging"
 
+CODEOWNERS = ["ananyevgv"]
+
 Lilygotbattery_ns = cg.esphome_ns.namespace("lilygo_t_battery")
 Lilygotbattery = Lilygotbattery_ns.class_(
     "LilygotBattery", cg.PollingComponent
