@@ -1,6 +1,6 @@
 !!!test!!!
 
-
+``` yaml
 aw9310x:
   address: 0x12  # опционально, по умолчанию 0x12
  # interrupt_pin: GPIO23  # если не указать, будет работать в опросном режиме
@@ -28,3 +28,4 @@ binary_sensor:
     channel: 2
     name: "Touch Channel 2"
     id: right_touch
+```
