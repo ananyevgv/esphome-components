@@ -17,7 +17,7 @@ https://github.com/miguel5612/MQSensorsLib
 
 
 external_components:
-  source: github://ananyevgv/esphome-components
+  source: github://ananyevgv/esphome-components@mq
   components: [mq]
   refresh: 0s
 
