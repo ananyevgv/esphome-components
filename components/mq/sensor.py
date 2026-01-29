@@ -1,37 +1,24 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-import esphome.final_validate as fv
-from esphome import pins
 from esphome.core import CORE
 from esphome.components import sensor
-from esphome.components.esp32 import get_esp32_variant
 from esphome.const import (
-    CONF_ATTENUATION,
     CONF_ID,
-    CONF_NUMBER,
-    CONF_PIN,
-    CONF_RAW,
-    CONF_WIFI,
-    DEVICE_CLASS_VOLTAGE,
-    DEVICE_CLASS_CARBON_MONOXIDE,
     CONF_MODEL,
     STATE_CLASS_MEASUREMENT,
-    UNIT_VOLT,
     UNIT_PARTS_PER_MILLION,
     ICON_GAS_CYLINDER,
     ICON_MOLECULE_CO,
     ICON_MOLECULE_CO2,
 )
-from . import (
-    ATTENUATION_MODES,
-    ESP32_VARIANT_ADC1_PIN_TO_CHANNEL,
-    ESP32_VARIANT_ADC2_PIN_TO_CHANNEL,
-    validate_adc_pin,
-)
 
+# Конфигурационные константы
 CONF_RL = "rl"
 CONF_R0 = "r0"
 CONF_VR = "vr"
+CONF_ADC_SENSOR = "adc_sensor"
+
+# Константы для газовых сенсоров
 CONF_SENSOR_ACETONA = "sensor_acetona"
 CONF_SENSOR_ALCOHOL = "sensor_alcohol"
 CONF_SENSOR_BENZENE = "sensor_benzene"
@@ -53,20 +40,6 @@ CONF_SENSOR_PROPANE = "sensor_propane"
 CONF_SENSOR_SMOKE = "sensor_smoke"
 CONF_SENSOR_TOLUENO = "sensor_tolueno"
 
-ICON_FORMAT_COLOR_FILL = "mdi:format-color-fill"
-ICON_FUEL = "mdi:fuel"
-ICON_BOTTLE_TONIC_SKULL = "mdi:bottle-tonic-skull"
-ICON_MOLECULE = "mdi:molecule"
-ICON_VECTOR_TRIANGLE = "mdi:vector-triangle"
-ICON_BACTERIA_OUTLINE = "mdi:bacteria-outline"
-ICON_ALPHA_N = "mdi:alpha-n"
-ICON_CHEMICAL_WEAPON = "mdi:chemical-weapon"
-ICON_SMOKE = "mdi:smoke"
-ICON_HUB_OUTLINE = "mdi:hub-outline"
-ICON_HYDROGEN_STATION = "mdi:hydrogen-station"
-ICON_LIQUOR = "mdi:liquor"
-ICON_PROPANE_TANK = "mdi:propane-tank"	
-
 CODEOWNERS = ["ananyevgv"]
 
 mq_ns = cg.esphome_ns.namespace("mq")
@@ -86,8 +59,10 @@ MQ_MODELS = {
     "MQ303A": MQModel.MQ_MODEL_303A,
     "MQ309A": MQModel.MQ_MODEL_309A,
 }
-MQGasType = mq_ns.enum("MQ_GAS_TYPES")
 
+MQGasType = mq_ns.enum("MQGasType")
+
+# Соответствие моделей и поддерживаемых газов
 MQ_MODEL_SENSORS = {
     "MQ2": [CONF_SENSOR_H2, CONF_SENSOR_LPG, CONF_SENSOR_CO, CONF_SENSOR_ALCOHOL, CONF_SENSOR_PROPANE],
     "MQ3": [CONF_SENSOR_LPG, CONF_SENSOR_CH4, CONF_SENSOR_CO, CONF_SENSOR_ALCOHOL, CONF_SENSOR_BENZENE, CONF_SENSOR_HEXANE],
@@ -129,205 +104,92 @@ MQ_GAS_TYPES = {
 
 MQSensor = mq_ns.class_("MQSensor", cg.PollingComponent)
 
-
 def get_model_valid_sensors(config):
+    """Get valid sensors for the selected model"""
     return set(MQ_MODEL_SENSORS[config[CONF_MODEL]])
 
-
 def get_sensors_schemas(config):
+    """Get all sensor schemas from config"""
     return set(list(dict(filter(lambda elem: "sensor_" in elem[0].lower(), config.items())).keys()))
 
-
 def validate_sensors(config):
+    """Validate that sensors match the selected model"""
     model = config[CONF_MODEL]
     valid_sensors = get_model_valid_sensors(config)
     sensors_schemas = get_sensors_schemas(config)
+    
     if sensors_schemas - valid_sensors != set():
         invalid_sensors = sensors_schemas.difference(valid_sensors)
         raise cv.Invalid(
-            "Invalid sensors definition for {model}\nNot supported sensors:\n\t{}\n{model} supports:\n\t{}"
-            "".format(", ".join(map(str, invalid_sensors)), ", ".join(map(str, valid_sensors)), model=model)
+            f"Invalid sensors definition for {model}\n"
+            f"Not supported sensors: {', '.join(invalid_sensors)}\n"
+            f"{model} supports: {', '.join(valid_sensors)}"
         )
     return config
 
-
+# Схемы для газовых сенсоров
 sensor_schema = sensor.sensor_schema(
     unit_of_measurement=UNIT_PARTS_PER_MILLION,
     icon=ICON_GAS_CYLINDER,
     accuracy_decimals=2,
     state_class=STATE_CLASS_MEASUREMENT
 )
-sensor_schema_acetona = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_FORMAT_COLOR_FILL,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_alcohol = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_LIQUOR,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_benzene = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_FUEL,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_ch4 = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_PROPANE_TANK,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_cl2 = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_BOTTLE_TONIC_SKULL,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_co = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_MOLECULE_CO,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_co2 = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_MOLECULE_CO2,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_ethanol = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_LIQUOR,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_h2 = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_HYDROGEN_STATION,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_hexane = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_MOLECULE,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_hydrogen = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_HYDROGEN_STATION,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_iso_butano = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_PROPANE_TANK,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_lpg = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_PROPANE_TANK,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_nh4 = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_VECTOR_TRIANGLE,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_h2s = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_BACTERIA_OUTLINE,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_nox = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_ALPHA_N,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_o3 = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_CHEMICAL_WEAPON,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_propane = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_PROPANE_TANK,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_smoke = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_SMOKE,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
-sensor_schema_tolueno = sensor.sensor_schema(
-    unit_of_measurement=UNIT_PARTS_PER_MILLION,
-    icon=ICON_HUB_OUTLINE,
-    accuracy_decimals=2,
-    state_class=STATE_CLASS_MEASUREMENT
-)
+
+# Основная схема конфигурации
 CONFIG_SCHEMA = cv.All(
     cv.Schema({
         cv.GenerateID(): cv.declare_id(MQSensor),
-        cv.Required(CONF_PIN): validate_adc_pin,
+        cv.Required(CONF_ADC_SENSOR): cv.use_id(sensor.Sensor),
+        cv.Required(CONF_MODEL): cv.enum(MQ_MODELS, upper=True, space="_"),
         cv.Optional(CONF_RL, default=10.0): cv.positive_float,
         cv.Optional(CONF_R0): cv.positive_float,
-        cv.Optional(CONF_VR): cv.positive_float,
-        cv.Required(CONF_MODEL): cv.enum(
-            MQ_MODELS, upper=True, space="_"
-        ),
-        cv.Optional(CONF_SENSOR_ACETONA): sensor_schema_acetona,
-        cv.Optional(CONF_SENSOR_ALCOHOL): sensor_schema_alcohol,
-        cv.Optional(CONF_SENSOR_BENZENE): sensor_schema_benzene,
-        cv.Optional(CONF_SENSOR_CH4): sensor_schema_ch4,
-        cv.Optional(CONF_SENSOR_CL2): sensor_schema_cl2,
-        cv.Optional(CONF_SENSOR_CO): sensor_schema_co,
-        cv.Optional(CONF_SENSOR_CO2): sensor_schema_co2,
-        cv.Optional(CONF_SENSOR_ETHANOL): sensor_schema_ethanol,
-        cv.Optional(CONF_SENSOR_H2): sensor_schema_h2,
-        cv.Optional(CONF_SENSOR_HEXANE): sensor_schema_hexane,
-        cv.Optional(CONF_SENSOR_HYDROGEN): sensor_schema_hydrogen,
-        cv.Optional(CONF_SENSOR_ISO_BUTANO): sensor_schema_iso_butano,
-        cv.Optional(CONF_SENSOR_LPG): sensor_schema_lpg,
-        cv.Optional(CONF_SENSOR_NH4): sensor_schema_nh4,
-        cv.Optional(CONF_SENSOR_H2S): sensor_schema_h2s,       
-        cv.Optional(CONF_SENSOR_NOX): sensor_schema_nox,
-        cv.Optional(CONF_SENSOR_O3): sensor_schema_o3,
-        cv.Optional(CONF_SENSOR_PROPANE): sensor_schema_propane,
-        cv.Optional(CONF_SENSOR_SMOKE): sensor_schema_smoke,
-        cv.Optional(CONF_SENSOR_TOLUENO): sensor_schema_tolueno,
+        cv.Optional(CONF_VR, default=3.3): cv.positive_float,
+        
+        # Определения газовых сенсоров
+        cv.Optional(CONF_SENSOR_ACETONA): sensor_schema,
+        cv.Optional(CONF_SENSOR_ALCOHOL): sensor_schema,
+        cv.Optional(CONF_SENSOR_BENZENE): sensor_schema,
+        cv.Optional(CONF_SENSOR_CH4): sensor_schema,
+        cv.Optional(CONF_SENSOR_CL2): sensor_schema,
+        cv.Optional(CONF_SENSOR_CO): sensor_schema,
+        cv.Optional(CONF_SENSOR_CO2): sensor_schema,
+        cv.Optional(CONF_SENSOR_ETHANOL): sensor_schema,
+        cv.Optional(CONF_SENSOR_H2): sensor_schema,
+        cv.Optional(CONF_SENSOR_HEXANE): sensor_schema,
+        cv.Optional(CONF_SENSOR_HYDROGEN): sensor_schema,
+        cv.Optional(CONF_SENSOR_ISO_BUTANO): sensor_schema,
+        cv.Optional(CONF_SENSOR_LPG): sensor_schema,
+        cv.Optional(CONF_SENSOR_NH4): sensor_schema,
+        cv.Optional(CONF_SENSOR_H2S): sensor_schema,
+        cv.Optional(CONF_SENSOR_NOX): sensor_schema,
+        cv.Optional(CONF_SENSOR_O3): sensor_schema,
+        cv.Optional(CONF_SENSOR_PROPANE): sensor_schema,
+        cv.Optional(CONF_SENSOR_SMOKE): sensor_schema,
+        cv.Optional(CONF_SENSOR_TOLUENO): sensor_schema,
     }).extend(cv.polling_component_schema("10s")),
     validate_sensors,
 )
 
-
 async def to_code(config):
-    pin = await cg.gpio_pin_expression(config[CONF_PIN])
-    var = cg.new_Pvariable(config[CONF_ID], pin, config[CONF_MODEL], CORE.is_esp8266, config[CONF_RL])
+    # Получаем ссылку на ADC сенсор (любой sensor.Sensor)
+    adc_sensor = await cg.get_variable(config[CONF_ADC_SENSOR])
+    
+    # Создаем MQ сенсор
+    var = cg.new_Pvariable(config[CONF_ID], adc_sensor, config[CONF_MODEL], 
+                          CORE.is_esp8266, config[CONF_RL])
     await cg.register_component(var, config)
-
-    cg.add_library("MQUnifiedsensor", "3.0.0")
-
+    
+    # Настройки MQ сенсора
     if CONF_R0 in config:
         cg.add(var.set_R0(config[CONF_R0]))
-    if CONF_VR in config:
-        cg.add(var.set_VR(config[CONF_VR]))
-        
+    
+    cg.add(var.set_VR(config[CONF_VR]))
+    
+    # Добавляем газовые сенсоры
     model_valid_sensors = set(MQ_MODEL_SENSORS[config[CONF_MODEL]])
     sensors_schemas = get_sensors_schemas(config)
     sensors = model_valid_sensors.intersection(sensors_schemas)
-
+    
     for item in sensors:
         conf = config[item]
         gas_type = MQ_GAS_TYPES[item]

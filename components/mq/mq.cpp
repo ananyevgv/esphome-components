@@ -1,108 +1,283 @@
 #include "esphome/core/log.h"
+#include "esphome/core/hal.h"
 #include "mq.h"
 
 namespace esphome {
 namespace mq {
 
-static const int ADC_Bit_Resolution_ESP8266 = 10;
-static const int ADC_Bit_Resolution_ESP32 = 12;
 static const char *TAG = "mq";
 
-// Public
+// Реализация методов MQGasSensor
+std::string MQGasSensor::gas_name() {
+  switch (gas_type) {
+    case MQ_GAS_TYPE_ACETONA:
+      return "ACETONA";
+    case MQ_GAS_TYPE_ALCOHOL:
+      return "ALCOHOL";
+    case MQ_GAS_TYPE_BENZENE:
+      return "BENZENE";
+    case MQ_GAS_TYPE_CH4:
+      return "CH4";
+    case MQ_GAS_TYPE_CL2:
+      return "CL2";
+    case MQ_GAS_TYPE_CO:
+      return "CO";
+    case MQ_GAS_TYPE_CO2:
+      return "CO2";
+    case MQ_GAS_TYPE_ETHANOL:
+      return "ETHANOL";
+    case MQ_GAS_TYPE_H2:
+      return "H2";
+    case MQ_GAS_TYPE_HEXANE:
+      return "HEXANE";
+    case MQ_GAS_TYPE_HYDROGEN:
+      return "HYDROGEN";
+    case MQ_GAS_TYPE_ISO_BUTANO:
+      return "ISO_BUTANO";
+    case MQ_GAS_TYPE_LPG:
+      return "LPG";
+    case MQ_GAS_TYPE_NH4:
+      return "NH4";
+    case MQ_GAS_TYPE_H2S:
+      return "H2S";
+    case MQ_GAS_TYPE_NOX:
+      return "NOX";
+    case MQ_GAS_TYPE_O3:
+      return "O3";
+    case MQ_GAS_TYPE_PROPANE:
+      return "PROPANE";
+    case MQ_GAS_TYPE_SMOKE:
+      return "SMOKE";
+    case MQ_GAS_TYPE_TOLUENO:
+      return "TOLUENO";
+    default:
+      return "UNKNOWN GAS";
+  }
+}
 
-MQSensor::MQSensor(InternalGPIOPin *pin, MQModel model, bool is_ESP8266, float rl) {
-  this->pin_ = pin;
-  this->is_ESP8266_ = is_ESP8266;
-  this->rl_ = rl;
+// Реализация методов MQModelParameters
+std::string MQModelParameters::model_name() {
+  switch (model) {
+    case MQ_MODEL_2:
+      return "MQ2";
+    case MQ_MODEL_3:
+      return "MQ3";
+    case MQ_MODEL_4:
+      return "MQ4";
+    case MQ_MODEL_5:
+      return "MQ5";
+    case MQ_MODEL_6:
+      return "MQ6";
+    case MQ_MODEL_7:
+      return "MQ7";
+    case MQ_MODEL_8:
+      return "MQ8";
+    case MQ_MODEL_9:
+      return "MQ9";
+    case MQ_MODEL_131:
+      return "MQ131";
+    case MQ_MODEL_135:
+      return "MQ135";
+    case MQ_MODEL_136:
+      return "MQ136";
+    case MQ_MODEL_303A:
+      return "MQ303A";
+    case MQ_MODEL_309A:
+      return "MQ309A";
+    default:
+      return "MQ Unknown";
+  }
+}
+
+float MQModelParameters::get_ratio_in_clean_air() {
+  switch (model) {
+    case MQ_MODEL_2:
+      return 9.83;
+    case MQ_MODEL_3:
+      return 60.0;
+    case MQ_MODEL_4:
+      return 4.4;
+    case MQ_MODEL_5:
+      return 6.5;
+    case MQ_MODEL_6:
+      return 10.0;
+    case MQ_MODEL_7:
+      return 27.5;
+    case MQ_MODEL_8:
+      return 70.0;
+    case MQ_MODEL_9:
+      return 9.6;
+    case MQ_MODEL_131:
+      return 15;
+    case MQ_MODEL_135:
+      return 3.6;
+    case MQ_MODEL_136:
+      return 3.6;
+    case MQ_MODEL_303A:
+      return 1.0;
+    case MQ_MODEL_309A:
+      return 11.0;
+    default:
+      return 0.0;
+  }
+}
+
+// Public methods
+
+MQSensor::MQSensor(sensor::Sensor *adc_sensor, MQModel model, bool is_esp8266, float rl)
+    : adc_sensor_(adc_sensor), is_esp8266_(is_esp8266), rl_(rl) {
   this->model_parameters_ = {.model = model, .gas_sensors = gas_parameters_definition[model]};
 }
 
 void MQSensor::add_sensor(sensor::Sensor *sensor, MQGasType gas_type) {
-  std::vector<MQGasSensor>::iterator it =
-      std::find_if(this->model_parameters_.gas_sensors.begin(), this->model_parameters_.gas_sensors.end(),
-                   [gas_type](const MQGasSensor &e) { return e.gas_type == gas_type; });
-  it->sensor = sensor;
+  auto it = std::find_if(this->model_parameters_.gas_sensors.begin(),
+                         this->model_parameters_.gas_sensors.end(),
+                         [gas_type](const MQGasSensor &e) { return e.gas_type == gas_type; });
+  if (it != this->model_parameters_.gas_sensors.end()) {
+    it->sensor = sensor;
+  }
 }
 
-void MQSensor::set_R0(float r0) { this->r0_ = r0; }
-void MQSensor::set_VR(float vr) { this->Voltage_Resolution = vr; }
-
-// Component overrides
-
-float MQSensor::get_setup_priority() const { return setup_priority::DATA; }
+// Setup and calibration
 
 void MQSensor::setup() {
-  ESP_LOGCONFIG(TAG, "Setting up %s...", this->model_parameters_.model_name().c_str());
-
-  this->mq_ = new MQUnifiedsensor(is_ESP8266_ ? "ESP8266" : "ESP-32", Voltage_Resolution,
-                                  this->is_ESP8266_ ? ADC_Bit_Resolution_ESP8266 : ADC_Bit_Resolution_ESP32,
-                                  this->pin_->get_pin(), String(this->model_parameters_.model_name().c_str()));
-
-  this->mq_->setRegressionMethod(1);
-  this->mq_->init();
-  this->mq_->setRL(rl_);
-
+  ESP_LOGCONFIG(TAG, "Setting up %s MQ sensor...", this->model_parameters_.model_name().c_str());
+  ESP_LOGCONFIG(TAG, "  RL: %.1f kOhm", this->rl_);
+  ESP_LOGCONFIG(TAG, "  Voltage resolution: %.1f V", this->voltage_resolution_);
+  
+  // Если R0 задан вручную, используем его
   if (this->r0_ > 0.0) {
-    this->mq_->setR0(this->r0_);
-  } else {
-    ESP_LOGCONFIG(TAG, "Calibrating please wait.");
-    float clean_air_ratio = this->model_parameters_.get_ratio_in_clean_air();
-    float calcR0 = 0;
-    for (int i = 1; i <= 100; i++) {
-      this->mq_->update();
-      calcR0 += mq_->calibrate(clean_air_ratio);
-    }
-    this->mq_->setR0(calcR0 / 100);
-    ESP_LOGCONFIG(TAG, "Calibrated R0 = %.2f kΩ", this->mq_->getR0());
-  }
-
-  if (isinf(this->mq_->getR0())) {
-    ESP_LOGW(TAG, "Warning: Conection issue founded, R0 is infite (Open circuit detected) please check your "
-                  "wiring and supply");
-    mark_failed();
-  }
-  if (this->mq_->getR0() == 0) {
-    ESP_LOGW(TAG, "Warning: Conection issue founded, R0 is zero (Analog pin with short circuit to ground) please "
-                  "check your wiring and supply");
-    mark_failed();
+    ESP_LOGCONFIG(TAG, "  Using predefined R0: %.2f kOhm", this->r0_);
+    this->calibrated_ = true;
   }
 }
 
 void MQSensor::dump_config() {
-  ESP_LOGCONFIG(TAG, "%s", this->model_parameters_.model_name().c_str());
-  ESP_LOGCONFIG(TAG, "  R0: %.2f kΩ", this->mq_->getR0());
-  ESP_LOGCONFIG(TAG, "  RL: %.2f kΩ", this->mq_->getRL());
-  LOG_PIN("  Pin: ", this->pin_);
+  ESP_LOGCONFIG(TAG, "MQ Sensor:");
+  ESP_LOGCONFIG(TAG, "  Model: %s", this->model_parameters_.model_name().c_str());
+  ESP_LOGCONFIG(TAG, "  RL: %.1f kOhm", this->rl_);
+  ESP_LOGCONFIG(TAG, "  Voltage resolution: %.1f V", this->voltage_resolution_);
+  
+  if (this->r0_ > 0.0) {
+    ESP_LOGCONFIG(TAG, "  R0: %.2f kOhm (predefined)", this->r0_);
+  } else if (this->calibrated_) {
+    ESP_LOGCONFIG(TAG, "  R0: %.2f kOhm (calibrated)", this->r0_);
+  } else {
+    ESP_LOGCONFIG(TAG, "  R0: Not calibrated yet");
+  }
+  
   LOG_UPDATE_INTERVAL(this);
-
-  for (auto &it : this->model_parameters_.gas_sensors) {
-    //LOG_SENSOR("   ", it.gas_name().c_str(), it.sensor);
+  
+  for (auto &gas_sensor : this->model_parameters_.gas_sensors) {
+    if (gas_sensor.sensor != nullptr) {
+      ESP_LOGCONFIG(TAG, "  %s sensor: enabled", gas_sensor.gas_name().c_str());
+    }
   }
 }
 
-void MQSensor::loop() {}
+// Расчетные функции
+
+float MQSensor::calculate_rs(float voltage) {
+  if (voltage <= 0.0f) {
+    return NAN;
+  }
+  
+  // RS = RL * (Vcc - VRL) / VRL
+  // Где VRL - напряжение на RL (измеренное)
+  // Vcc - напряжение питания (voltage_resolution_)
+  float vrl = voltage;
+  float vcc = this->voltage_resolution_;
+  
+  if (vrl >= vcc) {
+    return 0.0f;  // Короткое замыкание или неправильные измерения
+  }
+  
+  return (this->rl_ * (vcc - vrl)) / vrl;
+}
+
+float MQSensor::calculate_r0() {
+  if (this->calibration_data_.samples == 0) {
+    return NAN;
+  }
+  
+  float avg_rs = this->calibration_data_.sum_rs / this->calibration_data_.samples;
+  float ratio_in_clean_air = this->model_parameters_.get_ratio_in_clean_air();
+  
+  // R0 = RS / ratio_in_clean_air
+  return avg_rs / ratio_in_clean_air;
+}
+
+float MQSensor::calculate_ppm(float rs, MQGasSensor &gas_sensor) {
+  if (this->r0_ <= 0.0f || rs <= 0.0f) {
+    return NAN;
+  }
+  
+  float rs_r0_ratio = rs / this->r0_;
+  
+  // Используем формулу из библиотеки MQUnifiedsensor
+  // ppm = a * (rs_r0_ratio)^b
+  return gas_sensor.a * powf(rs_r0_ratio, gas_sensor.b);
+}
+
+// Основной цикл обновления
 
 void MQSensor::update() {
-  this->mq_->update();
-
-  ESP_LOGD(TAG, "Update %s", this->model_parameters_.model_name().c_str());
-
-  for (auto &it : this->model_parameters_.gas_sensors) {
-    if (it.sensor == nullptr) {
+  if (!this->adc_sensor_->has_state()) {
+    ESP_LOGW(TAG, "ADC sensor not ready");
+    return;
+  }
+  
+  // Получаем напряжение от ADC сенсора
+  float voltage = this->adc_sensor_->get_state();
+  
+  if (isnan(voltage) || voltage <= 0.0f) {
+    ESP_LOGW(TAG, "Invalid voltage reading: %.3f V", voltage);
+    return;
+  }
+  
+  ESP_LOGD(TAG, "ADC voltage: %.3f V", voltage);
+  
+  // Рассчитываем RS
+  float rs = calculate_rs(voltage);
+  
+  if (isnan(rs)) {
+    ESP_LOGW(TAG, "Failed to calculate RS");
+    return;
+  }
+  
+  // Калибровка (первые 10 измерений)
+  if (!this->calibrated_ && this->r0_ <= 0.0f) {
+    if (this->calibration_data_.samples < 10) {
+      this->calibration_data_.sum_rs += rs;
+      this->calibration_data_.samples++;
+      ESP_LOGD(TAG, "Calibration sample %d/10, RS: %.2f kOhm", 
+               this->calibration_data_.samples, rs);
+      
+      if (this->calibration_data_.samples == 10) {
+        this->r0_ = calculate_r0();
+        this->calibrated_ = true;
+        ESP_LOGCONFIG(TAG, "Calibration complete: R0 = %.2f kOhm", this->r0_);
+      }
+      return;
+    }
+  }
+  
+  // Публикуем данные для каждого газового сенсора
+  for (auto &gas_sensor : this->model_parameters_.gas_sensors) {
+    if (gas_sensor.sensor == nullptr) {
       continue;
     }
-    this->mq_->setA(it.a);
-    this->mq_->setB(it.b);
-    float gas_value = this->mq_->readSensor();
-
-    ESP_LOGD(TAG, "%s: %.2f", it.gas_name().c_str(), gas_value);
-
-    it.sensor->publish_state(gas_value);
+    
+    float ppm = calculate_ppm(rs, gas_sensor);
+    
+    if (!isnan(ppm) && ppm > 0.0f) {
+      ESP_LOGD(TAG, "%s: %.2f ppm", gas_sensor.gas_name().c_str(), ppm);
+      gas_sensor.sensor->publish_state(ppm);
+    }
   }
 }
 
-// Private
-
+// Определения параметров газов
 std::map<MQModel, std::vector<MQGasSensor>> MQSensor::gas_parameters_definition = {
     {MQ_MODEL_2,
      {
@@ -129,7 +304,6 @@ std::map<MQModel, std::vector<MQGasSensor>> MQSensor::gas_parameters_definition 
          {.gas_type = MQ_GAS_TYPE_ALCOHOL, .a = 60000000000.0, .b = -14.01},
          {.gas_type = MQ_GAS_TYPE_SMOKE, .a = 30000000.0, .b = -8.308},
      }},
-
     {MQ_MODEL_5,
      {
          {.gas_type = MQ_GAS_TYPE_H2, .a = 1163.8, .b = -3.874},
@@ -168,14 +342,12 @@ std::map<MQModel, std::vector<MQGasSensor>> MQSensor::gas_parameters_definition 
          {.gas_type = MQ_GAS_TYPE_CH4, .a = 4269.6, .b = -2.648},
          {.gas_type = MQ_GAS_TYPE_CO, .a = 599.65, .b = -2.244},
      }},
-     
     {MQ_MODEL_131,
      {
          {.gas_type = MQ_GAS_TYPE_NOX, .a = -462.43 , .b = -2.204},
          {.gas_type = MQ_GAS_TYPE_CL2, .a = 47.209, .b = -1.186},
          {.gas_type = MQ_GAS_TYPE_O3, .a = 23.943, .b = -1.11},
-     }},     
-     
+     }},
     {MQ_MODEL_135,
      {
          {.gas_type = MQ_GAS_TYPE_CO, .a = 605.18, .b = -3.937},
@@ -185,7 +357,6 @@ std::map<MQModel, std::vector<MQGasSensor>> MQSensor::gas_parameters_definition 
          {.gas_type = MQ_GAS_TYPE_NH4, .a = 102.2, .b = -2.473},
          {.gas_type = MQ_GAS_TYPE_ACETONA, .a = 34.668, .b = -3.369},
      }},
-
     {MQ_MODEL_136,
      {
          {.gas_type = MQ_GAS_TYPE_H2S, .a = 36.737, .b = -3.536},
@@ -197,8 +368,7 @@ std::map<MQModel, std::vector<MQGasSensor>> MQSensor::gas_parameters_definition 
          {.gas_type = MQ_GAS_TYPE_ISO_BUTANO, .a = 6.2144, .b = -2.894},
          {.gas_type = MQ_GAS_TYPE_HYDROGEN, .a = 4.1487, .b = -2.716},
          {.gas_type = MQ_GAS_TYPE_ETHANOL, .a = 3.4916, .b = -2.432},
-     }}, 
-     
+     }},
     {MQ_MODEL_309A,
      {
          {.gas_type = MQ_GAS_TYPE_H2, .a = 1532.9, .b = -1.951},
