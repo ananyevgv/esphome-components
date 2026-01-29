@@ -1,78 +1,181 @@
-Sensor:
-  - platform: mq
-    model: MQ2
-    pin: A0
-    update_interval: 30s
-    sensor_lpg:
-      name: Sensor LPG
-    sensor_propane:
-      name: Sensor PROPANE
-    sensor_co:
-      name: Sensor CO
-    sensor_h2:
-      name: Sensor H2
-    sensor_alcohol:
-      name: Sensor ALCOHOL
-
-  - platform: mq
-    model: MQ4
-    pin: A0
-    update_interval: 30s
-    sensor_lpg:
-      name: Sensor LPG
-    sensor_smoke:
-      name: Sensor SMOKE
-    sensor_co:
-      name: Sensor CO
-    sensor_ch4:
-      name: Sensor CH4
-    sensor_alcohol:
-      name: Sensor ALCOHOL
-
-  - platform: mq
-    model: MQ6
-    pin: A0
-    update_interval: 30s
-    sensor_lpg:
-      name: Sensor LPG
-    sensor_h2:
-      name: Sensor H2
-    sensor_co:
-      name: Sensor CO
-    sensor_ch4:
-      name: Sensor CH4
-    sensor_alcohol:
-      name: Sensor ALCOHOL   
-
-  - platform: mq
-    model: MQ7
-    pin:  A0
-    update_interval: 30s
-    sensor_lpg:
-      name: Sensor LPG
-    sensor_co:
-      name: Sensor CO
-      id: gas_co
-    sensor_ch4:
-      name: Sensor CH4
-    sensor_h2:
-      name: Sensor H2
-    sensor_alcohol:
-      name: Sensor ALCOHOL
-      
-  - platform: mq
-    model: MQ9
-    pin: A0
-    update_interval: 30s
-    sensor_lpg:
-      name: Sensor LPG
-    sensor_ch4:
-      name: Sensor CH4
-    sensor_co:
-      name: Sensor CO
-
-
-
-
-
-
+MQ-2 (Горючие газы и дым)
+yaml
+- platform: mq
+  model: MQ2
+  adc_sensor: mq_voltage
+  sensor_lpg:
+    name: "LPG"
+  sensor_propane:
+    name: "Propane"
+  sensor_co:
+    name: "CO"
+  sensor_h2:
+    name: "Hydrogen"
+  sensor_alcohol:
+    name: "Alcohol"
+MQ-3 (Алкоголь)
+yaml
+- platform: mq
+  model: MQ3
+  adc_sensor: mq_voltage
+  sensor_lpg:
+    name: "LPG"
+  sensor_ch4:
+    name: "Methane"
+  sensor_co:
+    name: "CO"
+  sensor_alcohol:
+    name: "Alcohol"
+  sensor_benzene:
+    name: "Benzene"
+  sensor_hexane:
+    name: "Hexane"
+MQ-4 (Природный газ)
+yaml
+- platform: mq
+  model: MQ4
+  adc_sensor: mq_voltage
+  sensor_lpg:
+    name: "LPG"
+  sensor_ch4:
+    name: "Methane"
+  sensor_co:
+    name: "CO"
+  sensor_alcohol:
+    name: "Alcohol"
+  sensor_smoke:
+    name: "Smoke"
+MQ-5 (Горючие газы)
+yaml
+- platform: mq
+  model: MQ5
+  adc_sensor: mq_voltage
+  sensor_h2:
+    name: "Hydrogen"
+  sensor_lpg:
+    name: "LPG"
+  sensor_ch4:
+    name: "Methane"
+  sensor_co:
+    name: "CO"
+  sensor_alcohol:
+    name: "Alcohol"
+MQ-6 (Сжиженный газ)
+yaml
+- platform: mq
+  model: MQ6
+  adc_sensor: mq_voltage
+  sensor_h2:
+    name: "Hydrogen"
+  sensor_lpg:
+    name: "LPG"
+  sensor_ch4:
+    name: "Methane"
+  sensor_co:
+    name: "CO"
+  sensor_alcohol:
+    name: "Alcohol"
+MQ-7 (Угарный газ)
+yaml
+- platform: mq
+  model: MQ7
+  adc_sensor: mq_voltage
+  sensor_h2:
+    name: "Hydrogen"
+  sensor_lpg:
+    name: "LPG"
+  sensor_ch4:
+    name: "Methane"
+  sensor_co:
+    name: "CO"
+  sensor_alcohol:
+    name: "Alcohol"
+MQ-8 (Водород)
+yaml
+- platform: mq
+  model: MQ8
+  adc_sensor: mq_voltage
+  sensor_h2:
+    name: "Hydrogen"
+  sensor_lpg:
+    name: "LPG"
+  sensor_ch4:
+    name: "Methane"
+  sensor_co:
+    name: "CO"
+  sensor_alcohol:
+    name: "Alcohol"
+MQ-9 (Угарный газ и горючие газы)
+yaml
+- platform: mq
+  model: MQ9
+  adc_sensor: mq_voltage
+  sensor_lpg:
+    name: "LPG"
+  sensor_ch4:
+    name: "Methane"
+  sensor_co:
+    name: "CO"
+MQ-131 (Озон)
+yaml
+- platform: mq
+  model: MQ131
+  adc_sensor: mq_voltage
+  sensor_nox:
+    name: "NOx"
+  sensor_cl2:
+    name: "Chlorine"
+  sensor_o3:
+    name: "Ozone"
+MQ-135 (Качество воздуха)
+yaml
+- platform: mq
+  model: MQ135
+  adc_sensor: mq_voltage
+  sensor_co:
+    name: "Carbon Monoxide"
+  sensor_alcohol:
+    name: "Alcohol"
+  sensor_co2:
+    name: "Carbon Dioxide"
+  sensor_tolueno:
+    name: "Toluene"
+  sensor_nh4:
+    name: "Ammonia"
+  sensor_acetona:
+    name: "Acetone"
+MQ-136 (Сероводород)
+yaml
+- platform: mq
+  model: MQ136
+  adc_sensor: mq_voltage
+  sensor_h2s:
+    name: "Hydrogen Sulfide"
+  sensor_nh4:
+    name: "Ammonia"
+  sensor_co:
+    name: "Carbon Monoxide"
+MQ-303A (Спирт)
+yaml
+- platform: mq
+  model: MQ303A
+  adc_sensor: mq_voltage
+  sensor_iso_butano:
+    name: "Iso Butane"
+  sensor_hydrogen:
+    name: "Hydrogen"
+  sensor_ethanol:
+    name: "Ethanol"
+MQ-309A (Водород и угарный газ)
+yaml
+- platform: mq
+  model: MQ309A
+  adc_sensor: mq_voltage
+  sensor_h2:
+    name: "Hydrogen"
+  sensor_ch4:
+    name: "Methane"
+  sensor_co:
+    name: "CO"
+  sensor_alcohol:
+    name: "Alcohol"
