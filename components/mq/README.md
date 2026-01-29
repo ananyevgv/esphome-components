@@ -53,101 +53,88 @@ sensor:
       name: "Alcohol"
 ```
 
-# Набор сенсоров в зависимости от датчика:
-model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309A
+Значения RS/R0 для чистого воздуха
+Модель	RS/R0 (чистый воздух)
+MQ2	9.83
+MQ3	60.0
+MQ4	4.4
+MQ5	6.5
+MQ6	10.0
+MQ7	27.5
+MQ8	70.0
+MQ9	9.6
+MQ131	15.0
+MQ135	3.6
+MQ136	3.6
+MQ303A	1.0
+MQ309A	11.0
 
-    "MQ2": [H2, LPG, CO, ALCOHOL, PROPANE],R0 = 9.83
-    
-    "MQ3": LPG, CH4, CO, ALCOHOL, BENZENE, HEXANE],R0 = 60 
-    
-    "MQ4": [LPG, CH4,CO, ALCOHOL, SMOKE],R0 = 4.4
-    
-    "MQ5": [H2, LPG,CH4, CO, ALCOHOL],R0 = 6.5
-    
-    "MQ6": [H2, LPG,CH4, CO, ALCOHOL],R0 = 10 
-    
-    "MQ7": [H2, LPG,CH4, CO, ALCOHOL],R0 = 27.5
-    
-    "MQ8": [H2, LPG,CH4, CO, ALCOHOL],R0 = 70
-    
-    "MQ9": [LPG, CH4, CO],R0 = 9.6
-    
-    "MQ131": [NOX, CL2, O3],R0 = 15 
-    
-    "MQ135": [CO, ALCOHOL, CO2, TOLUENO, NH4, ACETONA],R0 = 3.6 
-    
-    "MQ136": [H2S, NH4, CO], R0 = 3.6 
-    
-    "MQ303A": [ISO_BUTANO, CHYDROGEN, ETHANOL],R0 = 1
-    
-    "MQ309A": [H2, CH4, CO, ALCOHOL],R0 = 11
+# Поддерживаемые датчики и газы
 
-Поддерживаемые датчики и газы
-MQ-2 (Горючие газы и дым)
-yaml
+# MQ-2 (Горючие газы и дым)
 model: MQ2
-# Доступные сенсоры:
-# sensor_h2, sensor_lpg, sensor_co, sensor_alcohol, sensor_propane
-MQ-3 (Алкоголь)
-yaml
+сенсоры:
+ sensor_h2, sensor_lpg, sensor_co, sensor_alcohol, sensor_propane
+ 
+# MQ-3 (Алкоголь)
 model: MQ3
-# Доступные сенсоры:
-# sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol, sensor_benzene, sensor_hexane
-MQ-4 (Природный газ)
-yaml
+Доступные сенсоры:
+ sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol, sensor_benzene, sensor_hexane
+ 
+# MQ-4 (Природный газ)
 model: MQ4
-# Доступные сенсоры:
-# sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol, sensor_smoke
-MQ-5 (Горючие газы)
-yaml
+Доступные сенсоры:
+ sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol, sensor_smoke
+ 
+# MQ-5 (Горючие газы)
 model: MQ5
-# Доступные сенсоры:
-# sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
-MQ-6 (Сжиженный газ)
-yaml
+Доступные сенсоры:
+ sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
+ 
+# MQ-6 (Сжиженный газ)
 model: MQ6
-# Доступные сенсоры:
-# sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
-MQ-7 (Угарный газ)
-yaml
+ Доступные сенсоры:
+ sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
+ 
+# MQ-7 (Угарный газ)
 model: MQ7
-# Доступные сенсоры:
-# sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
-MQ-8 (Водород)
-yaml
+Доступные сенсоры:
+ sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
+ 
+# MQ-8 (Водород)
 model: MQ8
-# Доступные сенсоры:
-# sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
-MQ-9 (Угарный газ и горючие газы)
-yaml
+Доступные сенсоры:
+ sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
+ 
+# MQ-9 (Угарный газ и горючие газы)
 model: MQ9
-# Доступные сенсоры:
-# sensor_lpg, sensor_ch4, sensor_co
-MQ-131 (Озон)
-yaml
+Доступные сенсоры:
+ sensor_lpg, sensor_ch4, sensor_co
+ 
+# MQ-131 (Озон)
 model: MQ131
-# Доступные сенсоры:
-# sensor_nox, sensor_cl2, sensor_o3
-MQ-135 (Качество воздуха)
-yaml
+Доступные сенсоры:
+ sensor_nox, sensor_cl2, sensor_o3
+ 
+# MQ-135 (Качество воздуха)
 model: MQ135
-# Доступные сенсоры:
-# sensor_co, sensor_alcohol, sensor_co2, sensor_tolueno, sensor_nh4, sensor_acetona
-MQ-136 (Сероводород)
-yaml
+Доступные сенсоры:
+ sensor_co, sensor_alcohol, sensor_co2, sensor_tolueno, sensor_nh4, sensor_acetona
+ 
+# MQ-136 (Сероводород)
 model: MQ136
-# Доступные сенсоры:
-# sensor_h2s, sensor_nh4, sensor_co
-MQ-303A (Спирт)
-yaml
+Доступные сенсоры:
+ sensor_h2s, sensor_nh4, sensor_co
+ 
+# MQ-303A (Спирт)
 model: MQ303A
-# Доступные сенсоры:
-# sensor_iso_butano, sensor_hydrogen, sensor_ethanol
-MQ-309A (Водород и угарный газ)
-yaml
+Доступные сенсоры:
+ sensor_iso_butano, sensor_hydrogen, sensor_ethanol
+ 
+# MQ-309A (Водород и угарный газ)
 model: MQ309A
-# Доступные сенсоры:
-# sensor_h2, sensor_ch4, sensor_co, sensor_alcohol
+Доступные сенсоры:
+ sensor_h2, sensor_ch4, sensor_co, sensor_alcohol
     
 Номинал RL (R2), значение RL в кОм  (!!!!!!!! на двух одинаковых датчиках номиналы резисторов могут быть разные 1кОм-120кОм !!!!!!!!)
 
