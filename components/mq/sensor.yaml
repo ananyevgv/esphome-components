@@ -1,3 +1,22 @@
+Настройки ADC
+Для ESP32
+yaml
+- platform: adc
+  id: mq_voltage
+  pin: GPIO32
+  attenuation: auto  # или 0db, 2.5db, 6db, 11db
+Для ESP8266
+yaml
+- platform: adc
+  id: mq_voltage
+  pin: A0  # GPIO17
+Для RP2040
+yaml
+- platform: adc
+  id: mq_voltage
+  pin: GPIO26  # или 27, 28, 29
+
+
 MQ-2 (Горючие газы и дым)
 yaml
 - platform: mq
