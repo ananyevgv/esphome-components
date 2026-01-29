@@ -14,9 +14,7 @@ https://github.com/miguel5612/MQSensorsLib
 
 ```yaml
 
-espXX:
-  framework:
-    type: arduino
+
 
 external_components:
   source: github://ananyevgv/esphome-components
@@ -24,27 +22,35 @@ external_components:
   refresh: 0s
 
 sensor:
-  - platform: mq
-    model: MQ9
-    r0: 9.6 # не обязательно, значения из спецификации вашего датчика) RS/R0 (Чистый воздух) по умолчанию значения указаные ниже
-    rl: 10 # обязательно (!!!!!!!! на двух одинаковых датчиках номиналы резисторов могут быть разные 1кОм-120кОм !!!!!!!!),
-    # номинал R2 (RL) в кОм по умолчанию 10 кОм
-    vr: 3.3 # Максимальное измеряемое напряжение ESP по умолчанию 3.3В (WEMOS D1 mini)
-    # зависит от настроек ADC ESPHOME и номиналов резисторов делителя смотри https://esphome.io/components/sensor/adc.html
-    # при указанной схеме делителя на выходе датчика Vmax 3.3V,
-    # vr должно быть равно Vmax
-    # vr: 1.1 Vmax 1.1V номинал резисторов 1.1кОм и 3.9 кОм
-    # vr: 3.1 Vmax 3.1V номинал резисторов 3.1кОм и 1.9 кОм
-    attenuation: auto # Для ESP32 vr: 3.1 Vmax 3.1V номинал резисторов 3.1кОм и 1.9 кОм
-    # по умолчанию 0db 1.1V vr: 1.1 Vmax 1.1V номинал резисторов 1.1кОм и 3.9 кОм
+  - platform: adc
+    id: mq_adc
     pin: A0
-    update_interval: 2s
-    sensor_lpg:
-      name: Sensor LPG
-    sensor_ch4:
-      name: Sensor CH4
+    name: "MQ ADC Voltage"
+    unit_of_measurement: "V"
+    accuracy_decimals: 3
+    #attenuation: auto  # ESPHome handles this
+   # update_interval: 1s
+    filters:
+      - multiply: 3.3
+      
+  - platform: mq
+    model: MQ4
+    r0:  4.4
+    adc_sensor: mq_adc  # Reference to ADC sensor
+    rl: 10  # Load resistor in kOhm
+    vr: 3.3  # Voltage resolution
+    update_interval: 30s
     sensor_co:
-      name: Sensor CO
+      name: "Carbon Monoxide"
+      device_class: carbon_monoxide
+    sensor_lpg:
+      name: "lpg"
+    sensor_ch4:
+      name: "ch4"
+    sensor_smoke:
+      name: "smoke"
+    sensor_alcohol:
+      name: "Alcohol"
 ```
 
 # Набор сенсоров в зависимости от датчика:
@@ -76,7 +82,72 @@ model: MQ2, MQ3, MQ4, MQ5, MQ6, MQ7, MQ8,MQ9, MQ131, MQ135, MQ136, MQ303A, MQ309
     
     "MQ309A": [H2, CH4, CO, ALCOHOL],R0 = 11
 
-
+Поддерживаемые датчики и газы
+MQ-2 (Горючие газы и дым)
+yaml
+model: MQ2
+# Доступные сенсоры:
+# sensor_h2, sensor_lpg, sensor_co, sensor_alcohol, sensor_propane
+MQ-3 (Алкоголь)
+yaml
+model: MQ3
+# Доступные сенсоры:
+# sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol, sensor_benzene, sensor_hexane
+MQ-4 (Природный газ)
+yaml
+model: MQ4
+# Доступные сенсоры:
+# sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol, sensor_smoke
+MQ-5 (Горючие газы)
+yaml
+model: MQ5
+# Доступные сенсоры:
+# sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
+MQ-6 (Сжиженный газ)
+yaml
+model: MQ6
+# Доступные сенсоры:
+# sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
+MQ-7 (Угарный газ)
+yaml
+model: MQ7
+# Доступные сенсоры:
+# sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
+MQ-8 (Водород)
+yaml
+model: MQ8
+# Доступные сенсоры:
+# sensor_h2, sensor_lpg, sensor_ch4, sensor_co, sensor_alcohol
+MQ-9 (Угарный газ и горючие газы)
+yaml
+model: MQ9
+# Доступные сенсоры:
+# sensor_lpg, sensor_ch4, sensor_co
+MQ-131 (Озон)
+yaml
+model: MQ131
+# Доступные сенсоры:
+# sensor_nox, sensor_cl2, sensor_o3
+MQ-135 (Качество воздуха)
+yaml
+model: MQ135
+# Доступные сенсоры:
+# sensor_co, sensor_alcohol, sensor_co2, sensor_tolueno, sensor_nh4, sensor_acetona
+MQ-136 (Сероводород)
+yaml
+model: MQ136
+# Доступные сенсоры:
+# sensor_h2s, sensor_nh4, sensor_co
+MQ-303A (Спирт)
+yaml
+model: MQ303A
+# Доступные сенсоры:
+# sensor_iso_butano, sensor_hydrogen, sensor_ethanol
+MQ-309A (Водород и угарный газ)
+yaml
+model: MQ309A
+# Доступные сенсоры:
+# sensor_h2, sensor_ch4, sensor_co, sensor_alcohol
     
 Номинал RL (R2), значение RL в кОм  (!!!!!!!! на двух одинаковых датчиках номиналы резисторов могут быть разные 1кОм-120кОм !!!!!!!!)
 
