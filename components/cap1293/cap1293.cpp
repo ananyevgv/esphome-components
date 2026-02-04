@@ -75,7 +75,7 @@ void CAP1293Component::loop() {
     uint8_t data = 0;
     this->read_register(CAP1293_MAIN, &data, 1);
     data = data & ~CAP1293_MAIN_INT;
-
+    ESP_LOGD(TAG, "Touch pattern: 0x%02X", touched);
     this->write_register(CAP1293_MAIN, &data, 2);
   }
 
