@@ -230,7 +230,7 @@ void MQSensor::update() {
   // Получаем напряжение от ADC сенсора
   float voltage = this->adc_sensor_->get_state();
   
-  if (isnan(voltage) || voltage <= 0.0f) {
+  if (std::isnan(voltage) || voltage <= 0.0f) {
     ESP_LOGW(TAG, "Invalid voltage reading: %.3f V", voltage);
     return;
   }
@@ -240,7 +240,7 @@ void MQSensor::update() {
   // Рассчитываем RS
   float rs = calculate_rs(voltage);
   
-  if (isnan(rs)) {
+  if (std::isnan(rs)) {
     ESP_LOGW(TAG, "Failed to calculate RS");
     return;
   }
@@ -270,7 +270,7 @@ void MQSensor::update() {
     
     float ppm = calculate_ppm(rs, gas_sensor);
     
-    if (!isnan(ppm) && ppm > 0.0f) {
+    if (!std::isnan(ppm) && ppm > 0.0f) {
       ESP_LOGD(TAG, "%s: %.2f ppm", gas_sensor.gas_name().c_str(), ppm);
       gas_sensor.sensor->publish_state(ppm);
     }
