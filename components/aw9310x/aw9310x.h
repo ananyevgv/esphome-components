@@ -37,6 +37,7 @@ class AW9310XComponent : public Component, public i2c::I2CDevice {
   bool read_chip_id();
   bool sw_reset();
   bool param_load();
+  bool param_load_defaults();
   bool auto_cali();
   
   void set_threshold_values();

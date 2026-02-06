@@ -34,12 +34,20 @@ void AW9310XComponent::setup() {
     return;
   }
   
+  // Загрузка параметров по умолчанию (из референсного драйвера)
+  if (!this->param_load_defaults()) {
+    ESP_LOGE(TAG, "Failed to load default parameters");
+    this->mark_failed();
+    return;
+  }
+
   // Загрузка параметров
   if (!this->param_load()) {
     ESP_LOGE(TAG, "Failed to load parameters");
     this->mark_failed();
     return;
   }
+
   
   // Автоматическая калибровка
   if (!this->auto_cali()) {
@@ -204,6 +212,19 @@ bool AW9310XComponent::param_load() {
     return false;
   }
   
+  return true;
+}
+
+bool AW9310XComponent::param_load_defaults() {
+  const size_t count = sizeof(aw9310x_reg_default) / sizeof(aw9310x_reg_default[0]);
+  for (size_t i = 0; i < count; i++) {
+    if (!this->write_register(aw9310x_reg_default[i].addr, aw9310x_reg_default[i].data)) {
+      ESP_LOGE(TAG, "Default param write failed: addr=0x%04X data=0x%08lX",
+               aw9310x_reg_default[i].addr, aw9310x_reg_default[i].data);
+      return false;
+    }
+  }
+  ESP_LOGI(TAG, "Default parameters loaded (%u regs)", (unsigned) count);
   return true;
 }
 
