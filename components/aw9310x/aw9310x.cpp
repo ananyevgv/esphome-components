@@ -34,12 +34,20 @@ void AW9310XComponent::setup() {
     return;
   }
   
+  // Загрузка параметров по умолчанию (из референсного драйвера)
+  if (!this->param_load_defaults()) {
+    ESP_LOGE(TAG, "Failed to load default parameters");
+    this->mark_failed();
+    return;
+  }
+
   // Загрузка параметров
   if (!this->param_load()) {
     ESP_LOGE(TAG, "Failed to load parameters");
     this->mark_failed();
     return;
   }
+
   
   // Автоматическая калибровка
   if (!this->auto_cali()) {
@@ -207,6 +215,19 @@ bool AW9310XComponent::param_load() {
   return true;
 }
 
+bool AW9310XComponent::param_load_defaults() {
+  const size_t count = sizeof(aw9310x_reg_default) / sizeof(aw9310x_reg_default[0]);
+  for (size_t i = 0; i < count; i++) {
+    if (!this->write_register(aw9310x_reg_default[i].addr, aw9310x_reg_default[i].data)) {
+      ESP_LOGE(TAG, "Default param write failed: addr=0x%04X data=0x%08lX",
+               aw9310x_reg_default[i].addr, aw9310x_reg_default[i].data);
+      return false;
+    }
+  }
+  ESP_LOGI(TAG, "Default parameters loaded (%u regs)", (unsigned) count);
+  return true;
+}
+
 bool AW9310XComponent::auto_cali() {
   uint32_t data_en = 0;
   
@@ -290,8 +311,9 @@ void AW9310XComponent::update_touch_states(int32_t *diff) {
   for (auto ch : this->enabled_channels_) {
     if (ch < 6 && this->touch_sensors_[ch] != nullptr) {
       // Определение состояния касания
-      // В AW9310X положительные значения diff обычно означают приближение/касание
-      bool new_state = (diff[ch] > this->threshold_);
+      // В оригинальном драйвере diff логируют со сдвигом >> 10
+      const int32_t diff_scaled = diff[ch] >> 10;
+      bool new_state = (diff_scaled > this->threshold_);
       
       // Обновляем состояние только если оно изменилось
       if (new_state != this->channel_states_[ch]) {
@@ -299,7 +321,7 @@ void AW9310XComponent::update_touch_states(int32_t *diff) {
         this->touch_sensors_[ch]->publish_state(new_state);
         
         if (new_state) {
-          ESP_LOGD(TAG, "Channel %d touched (diff=%d)", ch, diff[ch]);
+          ESP_LOGD(TAG, "Channel %d touched (diff=%d scaled=%d)", ch, diff[ch], diff_scaled);
         } else {
           ESP_LOGD(TAG, "Channel %d released", ch);
         }
