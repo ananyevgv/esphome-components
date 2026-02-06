@@ -311,8 +311,9 @@ void AW9310XComponent::update_touch_states(int32_t *diff) {
   for (auto ch : this->enabled_channels_) {
     if (ch < 6 && this->touch_sensors_[ch] != nullptr) {
       // Определение состояния касания
-      // В AW9310X положительные значения diff обычно означают приближение/касание
-      bool new_state = (diff[ch] > this->threshold_);
+      // В оригинальном драйвере diff логируют со сдвигом >> 10
+      const int32_t diff_scaled = diff[ch] >> 10;
+      bool new_state = (diff_scaled > this->threshold_);
       
       // Обновляем состояние только если оно изменилось
       if (new_state != this->channel_states_[ch]) {
@@ -320,7 +321,7 @@ void AW9310XComponent::update_touch_states(int32_t *diff) {
         this->touch_sensors_[ch]->publish_state(new_state);
         
         if (new_state) {
-          ESP_LOGD(TAG, "Channel %d touched (diff=%d)", ch, diff[ch]);
+          ESP_LOGD(TAG, "Channel %d touched (diff=%d scaled=%d)", ch, diff[ch], diff_scaled);
         } else {
           ESP_LOGD(TAG, "Channel %d released", ch);
         }
