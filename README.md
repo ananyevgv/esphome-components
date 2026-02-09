@@ -9,28 +9,28 @@
 [esphome-release]: https://GitHub.com/esphome/esphome/releases/
 
 ## PM1006k
-[ESPHome external component PM1006k](https://github.com/ananyevgv/esphome-components/tree/main/components/pm1006k)
+[ESPHome external component PM1006k](/components/pm1006k)
 
 ##  MQ
-[ESPHome external component sensor MQ gaz sensor](https://github.com/ananyevgv/esphome-components/tree/main/components/mq)
+[ESPHome external component sensor MQ gaz sensor](/main/components/mq)
 
 ##  HTS221
-[ESPHome external component HTS221](https://github.com/ananyevgv/esphome-components/tree/main/components/hts221)
+[ESPHome external component HTS221](/components/hts221)
 
 ## cap1293
-[ESPHome external component cap1293](https://github.com/ananyevgv/esphome-components/tree/main/components/cap1293)
+[ESPHome external component cap1293](/components/cap1293)
 
 ## aw9310x
 [ESPHome external component aw9310x](components/aw9310x)
 
 ## mcp453x
-[ESPHome external component mcp453x](https://github.com/ananyevgv/esphome-components/tree/main/components/mcp453x)
+[ESPHome external component mcp453x](/components/mcp453x)
 
 ## CG-Anem
-[ESPHome external component sensor for Climateguard CG-Anem](https://github.com/ananyevgv/esphome-components/tree/main/components/cg_anem)
+[ESPHome external component sensor for Climateguard CG-Anem](/components/cg_anem)
 
 ## Ttgo t-display esp32 battery
- [ESPHome external component Ttgo t-display esp32 battery](https://github.com/ananyevgv/esphome-components/tree/main/components/lilygo_t_battery)
+ [ESPHome external component Ttgo t-display esp32 battery](/components/lilygo_t_battery)
 
 
 # Проекты:
