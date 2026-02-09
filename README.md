@@ -12,7 +12,7 @@
 [ESPHome external component PM1006k](/components/pm1006k)
 
 ##  MQ
-[ESPHome external component sensor MQ gaz sensor](/main/components/mq)
+[ESPHome external component sensor MQ gaz sensor](/components/mq)
 
 ##  HTS221
 [ESPHome external component HTS221](/components/hts221)
