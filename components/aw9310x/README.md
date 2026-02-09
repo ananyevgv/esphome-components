@@ -1,4 +1,6 @@
-!!!test!!!
+# aw9310x Capacitive Touch Sensor.
+
+Example configuration entry
 
 ``` yaml
 aw9310x:
