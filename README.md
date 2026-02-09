@@ -20,6 +20,9 @@
 ## cap1293
 [ESPHome external component cap1293](https://github.com/ananyevgv/esphome-components/tree/main/components/cap1293)
 
+## aw9310x
+[ESPHome external component aw9310x](components/aw9310x)
+
 ## mcp453x
 [ESPHome external component mcp453x](https://github.com/ananyevgv/esphome-components/tree/main/components/mcp453x)
 
