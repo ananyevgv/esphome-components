@@ -75,7 +75,7 @@ sensor:
 
   - platform: total_daily_energy
     name: 'Total Daily Air'
-    power_id: air
+    power_id: air_consumption
     unit_of_measurement: 'm³'
     state_class: total_increasing
     device_class: volume
