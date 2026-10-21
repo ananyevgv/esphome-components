@@ -6,7 +6,7 @@ namespace mercury200 {
 static const char *const TAG = "mercury200";
 
 Mercury200::Mercury200(uart::UARTComponent *uart, uint32_t address) : uart::UARTDevice(uart), address_(address) {
-  for (uint8_t i = 0; i < MAX_TARIFF_COUNT; i++)
+  for (uint8_t i = 0; i < MERCURY_MAX_TARIFF_COUNT; i++)
     this->sensor_energy_[i] = nullptr;
 }
 
@@ -50,8 +50,8 @@ void Mercury200::setup() {
     }));
   this->commands_.push_back(new GetCountersCommand([this](float t1, float t2, float t3, float t4) {
     ESP_LOGD(TAG, "Counters: %.2f, %.2f, %.2f, %.2f", t1, t2, t3, t4);
-    float *arr[MAX_TARIFF_COUNT] = {&t1, &t2, &t3, &t4};
-    for (uint8_t i = 0; i < MAX_TARIFF_COUNT; i++)
+    float *arr[MERCURY_MAX_TARIFF_COUNT] = {&t1, &t2, &t3, &t4};
+    for (uint8_t i = 0; i < MERCURY_MAX_TARIFF_COUNT; i++)
       if (this->sensor_energy_[i])
         this->sensor_energy_[i]->publish_state(*(arr[i]));
   }));
@@ -67,7 +67,7 @@ void Mercury200::dump_config() {
   } else {
     ESP_LOGCONFIG(TAG, "  Direction Pin: no");
   }
-  for (uint8_t i = 0; i < MAX_TARIFF_COUNT; i++)
+  for (uint8_t i = 0; i < MERCURY_MAX_TARIFF_COUNT; i++)
     if (this->sensor_energy_[i])
       LOG_SENSOR("  ", "Energy Sensor", this->sensor_energy_[i]);
   if (this->sensor_voltage_)
