@@ -35,10 +35,10 @@ DEPENDENCIES = ["uart"]
 AUTO_LOAD = ["binary_sensor", "sensor"]
 MULTI_CONF = True
 
-MAX_TARIFF_COUNT = 4
+MERCURY_MAX_TARIFF_COUNT = 4
 
 CONF_ALL_COMMANDS = "all_commands"
-CONF_ENERGY = list(map(lambda x: "energy" + str(1 + x), range(0, MAX_TARIFF_COUNT)))
+CONF_ENERGY = list(map(lambda x: "energy" + str(1 + x), range(0, MERCURY_MAX_TARIFF_COUNT)))
 CONF_ERROR = "error"
 
 mercury200_ns = cg.esphome_ns.namespace("mercury200")
