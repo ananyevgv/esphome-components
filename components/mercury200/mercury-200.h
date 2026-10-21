@@ -9,9 +9,9 @@
 namespace esphome {
 namespace mercury200 {
 
-#define MAX_TARIFF_COUNT 4
-#define TX_BUFFER_SIZE 7 + 1
-#define RX_BUFFER_SIZE 7 + 16
+#define MERCURY_MAX_TARIFF_COUNT 4
+#define MERCURY_TX_BUFFER_SIZE (7 + 1)
+#define MERCURY_RX_BUFFER_SIZE (7 + 16)
 
 class Command {
 public:
@@ -129,13 +129,13 @@ protected:
 private:
   uint32_t address_, startup_delay_{0}, phase_{0};
   unsigned long sleep_time_{0}, wait_time_{0};
-  uint8_t tx_buffer_[TX_BUFFER_SIZE], rx_buffer_[RX_BUFFER_SIZE];
+  uint8_t tx_buffer_[MERCURY_TX_BUFFER_SIZE], rx_buffer_[MERCURY_RX_BUFFER_SIZE];
   uint16_t rx_bytes_needed_{0}, rx_bytes_received_{0};
   bool all_commands_, error_{false};
   GPIOPin *dir_pin_{nullptr};
   binary_sensor::BinarySensor *sensor_error_{nullptr};
   sensor::Sensor *sensor_voltage_{nullptr}, *sensor_current_{nullptr}, *sensor_power_{nullptr}, *sensor_battery_{nullptr};
-  sensor::Sensor *sensor_energy_[MAX_TARIFF_COUNT];
+  sensor::Sensor *sensor_energy_[MERCURY_MAX_TARIFF_COUNT];
 };
 
 } // namespace mercury200
