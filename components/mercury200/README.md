@@ -1,3 +1,6 @@
+Схема подключение к esp
+![Схема](./cxema.png)
+
 ``` yaml
 uart:
   tx_pin: 1
