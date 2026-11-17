@@ -25,6 +25,7 @@
 | **CG-Anem** | Анемометр для Climateguard | [→ Перейти](/components/cg_anem) |
 | **LilyGo T-Battery** | Мониторинг батареи для TTGO T-Display ESP32 | [→ Перейти](/components/lilygo_t_battery) |
 | **RadSens** | Дозиметр (ионизирующее излучение) | [→ Перейти](/components/RadSens) |
+| **mercury200** |  Меркурий 200.02  | [→ Перейти](/components/mercury200) |
 
 ---
 
