@@ -1,3 +1,4 @@
+``` yaml
 uart:
   tx_pin: 1
   rx_pin: 3
@@ -23,3 +24,4 @@ mercury200:
   energy4: Energy4
   battery_voltage: Battery
   error: Error
+```
