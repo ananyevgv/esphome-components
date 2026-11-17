@@ -47,6 +47,7 @@ sensor:
     unit_of_measurement: "%"
     icon: mdi:battery-medium
     filters:
+      - filter_out: nan
       - calibrate_linear:
          method: exact
          datapoints:
