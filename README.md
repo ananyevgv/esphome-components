@@ -35,7 +35,7 @@
 Модернизация датчика качества воздуха IKEA Vindriktning с полной заменой электроники.
 
 - 📄 **Репозиторий:** [ananyevgv/esphome-vindriktning-ikea](https://github.com/ananyevgv/esphome-vindriktning-ikea/)
-- 📝 **Конфигурация v3:** [`ikea-circle-new.yaml`](https://github.com/ananyevgv/esphome-vindriktning-ikea/blob/main/ikea-circle-new.yaml)
+
 
 **Возможности:**
 - 🌡️ BME680 (температура, влажность, давление, VOC)
