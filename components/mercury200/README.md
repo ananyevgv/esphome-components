@@ -24,4 +24,13 @@ mercury200:
   energy4: Energy4
   battery_voltage: Battery
   error: Error
+
+button:
+  - platform: template
+    name: Update counter
+    entity_category: diagnostic
+    on_press:
+      - lambda: "id(mercury_id).update();"
+
+
 ```
